@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Atelier Wolke — Hair & Beauty Leipzig</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--blush:#F5EDE8;--deep:#1E1410;--rose:#C4826A;--rose-light:#E8A898;--warm:#FAF7F4;--muted:#8A7A72;--border:#E0D4CC;}
+body{font-family:'DM Sans',sans-serif;background:var(--warm);color:var(--deep);}
+img{display:block;width:100%;}
+nav{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 4rem;background:rgba(250,247,244,0.94);backdrop-filter:blur(16px);position:fixed;top:0;width:100%;z-index:100;border-bottom:1px solid var(--border);}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;font-style:italic;}
+.logo em{color:var(--rose);}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{text-decoration:none;font-size:0.82rem;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;}
+.btn-nav{background:var(--deep);color:var(--warm);padding:0.62rem 1.5rem;font-size:0.82rem;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.hero{height:100vh;position:relative;overflow:hidden;}
+.hero img{height:100%;object-fit:cover;object-position:center 20%;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(30,20,16,0.9) 0%,rgba(30,20,16,0.5) 55%,rgba(30,20,16,0.08) 100%);}
+.hero-content{position:absolute;top:50%;left:4rem;transform:translateY(-50%);max-width:540px;}
+.eyebrow{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(232,168,152,0.85);margin-bottom:1.75rem;}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,5.5vw,4.8rem);font-weight:300;line-height:1.0;color:var(--warm);margin-bottom:2rem;letter-spacing:-0.01em;}
+h1 em{font-style:italic;color:var(--rose-light);}
+.hero-p{font-size:0.95rem;color:rgba(250,247,244,0.52);line-height:1.8;max-width:380px;margin-bottom:2.75rem;font-weight:300;}
+.btns{display:flex;gap:1rem;}
+.btn-rose{background:var(--rose);color:var(--warm);padding:0.9rem 2.2rem;font-size:0.88rem;font-weight:400;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.btn-ghost{background:transparent;color:var(--warm);border:1px solid rgba(250,247,244,0.22);padding:0.9rem 2.2rem;font-size:0.88rem;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.hero-stats{position:absolute;bottom:3rem;left:4rem;display:flex;gap:3rem;}
+.hs .n{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--rose-light);font-weight:300;}
+.hs .l{font-size:0.7rem;color:rgba(250,247,244,0.38);text-transform:uppercase;letter-spacing:0.08em;}
+.strip{background:var(--blush);padding:1.5rem 4rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);}
+.strip p{font-size:0.85rem;color:var(--muted);}
+.strip strong{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--deep);}
+.sec{padding:6rem 4rem;}
+.sec-label{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose);margin-bottom:0.75rem;opacity:0.85;}
+h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3vw,2.6rem);font-weight:300;margin-bottom:0.9rem;}
+h2 em{font-style:italic;}
+.sec-p{font-size:0.9rem;color:var(--muted);line-height:1.8;max-width:480px;margin-bottom:3.5rem;font-weight:300;}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+.svc{background:var(--warm);padding:2.25rem 2rem;transition:background 0.2s;}
+.svc:hover{background:var(--blush);}
+.svc-tag{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--rose);opacity:0.7;margin-bottom:1rem;}
+.svc h3{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;margin-bottom:0.55rem;}
+.svc p{font-size:0.82rem;color:var(--muted);line-height:1.7;font-weight:300;margin-bottom:1rem;}
+.svc-price{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.9rem;color:var(--deep);}
+.gallery{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;height:380px;gap:4px;}
+.gi{overflow:hidden;}
+.gi img{height:100%;object-fit:cover;transition:transform 0.55s;}
+.gi:hover img{transform:scale(1.05);}
+.split{display:grid;grid-template-columns:1fr 1fr;}
+.split-img{overflow:hidden;min-height:520px;}
+.split-img img{height:100%;object-fit:cover;object-position:center top;}
+.split-text{background:var(--deep);padding:6rem 4rem;display:flex;flex-direction:column;justify-content:center;}
+.split-text .sec-label{color:rgba(196,130,106,0.7);}
+.split-text p{font-size:0.9rem;color:rgba(250,247,244,0.45);line-height:1.8;font-weight:300;margin-bottom:1.25rem;}
+.reviews{padding:5rem 4rem;background:var(--blush);}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3rem;}
+.rcard{background:var(--warm);border:1px solid var(--border);padding:1.75rem;}
+.stars{color:var(--rose);letter-spacing:2px;font-size:0.9rem;margin-bottom:0.75rem;}
+.rcard blockquote{font-size:0.87rem;color:var(--muted);line-height:1.7;font-style:italic;margin-bottom:1.25rem;font-weight:300;}
+.reviewer{font-size:0.8rem;font-weight:500;color:var(--deep);}
+.booking{padding:6rem 4rem;background:var(--warm);display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+.bl h2{margin-bottom:1rem;}
+.bl h2 em{color:var(--rose);}
+.bl p{font-size:0.9rem;color:var(--muted);line-height:1.8;font-weight:300;margin-bottom:2rem;}
+.bl-info{font-size:0.85rem;color:var(--muted);line-height:2.2;}
+.bform{background:var(--blush);border:1px solid var(--border);padding:2.25rem;}
+.bform h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:300;margin-bottom:1.75rem;color:var(--deep);}
+.fg{display:flex;flex-direction:column;gap:6px;margin-bottom:1rem;}
+.fg label{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);}
+.fg input,.fg select{background:var(--warm);border:1px solid var(--border);padding:0.8rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--deep);outline:none;width:100%;transition:border-color 0.2s;}
+.fg input:focus{border-color:var(--rose);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.send-btn{width:100%;background:var(--deep);color:var(--warm);border:none;padding:0.95rem;font-family:'DM Sans',sans-serif;font-size:0.88rem;cursor:pointer;margin-top:0.5rem;}
+footer{background:var(--deep);padding:2rem 4rem;display:flex;justify-content:space-between;align-items:center;}
+.flogo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--warm);}
+.flogo em{color:var(--rose-light);}
+footer p{font-size:0.75rem;color:rgba(250,247,244,0.25);}
+@media(max-width:768px){nav{padding:1rem 1.5rem;}.nav-links{display:none;}.hero-content{left:1.5rem;right:1.5rem;}.hero-stats{left:1.5rem;}.strip,.sec,.reviews,.booking{padding-left:1.5rem;padding-right:1.5rem;}.split,.booking{grid-template-columns:1fr;}.split-text{padding:3rem 1.5rem;}.svc-grid,.rev-grid,.form-row{grid-template-columns:1fr;}.gallery{height:auto;grid-template-columns:1fr 1fr;}.gi{height:180px;}footer{flex-direction:column;gap:1rem;padding:2rem 1.5rem;text-align:center;}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">Atelier <em>Wolke</em></div>
+  <ul class="nav-links"><li><a href="#">Services</a></li><li><a href="#">Gallery</a></li><li><a href="#">Team</a></li><li><a href="#">Contact</a></li></ul>
+  <button class="btn-nav">Book online</button>
+</nav>
+<section class="hero">
+  <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1600&q=85&auto=format&fit=crop" alt="Atelier Wolke hair salon interior"/>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="eyebrow">Hair salon · Leipzig</p>
+    <h1>Where hair<br>becomes <em>art.</em></h1>
+    <p class="hero-p">Precision cuts, lived-in colour, and the kind of appointment you actually look forward to. Leipzig's boutique hair studio.</p>
+    <div class="btns"><button class="btn-rose">Book online →</button><button class="btn-ghost">Our services</button></div>
+  </div>
+  <div class="hero-stats">
+    <div class="hs"><div class="n">4.9★</div><div class="l">Google rating</div></div>
+    <div class="hs"><div class="n">8 yrs</div><div class="l">In Leipzig</div></div>
+    <div class="hs"><div class="n">320+</div><div class="l">Reviews</div></div>
+  </div>
+</section>
+<div class="strip">
+  <p><strong>Walk-ins welcome</strong> when we have space</p>
+  <p><strong>Tue – Fri</strong> 9:00 – 19:00</p>
+  <p><strong>Saturday</strong> 9:00 – 17:00</p>
+  <p>Kolonnadenstraße 4, Leipzig</p>
+</div>
+<section class="sec">
+  <p class="sec-label">What we offer</p>
+  <h2>Our <em>services</em></h2>
+  <p class="sec-p">Every service tailored to your hair type, lifestyle, and goals. Nothing off the shelf.</p>
+  <div class="svc-grid">
+    <div class="svc"><div class="svc-tag">Cut</div><h3>Precision Haircut</h3><p>Consultation, wash, cut, and blow-dry. Tailored to your face shape and texture.</p><div class="svc-price">From €55</div></div>
+    <div class="svc"><div class="svc-tag">Colour</div><h3>Balayage & Highlights</h3><p>Hand-painted colour for a natural, sun-kissed look that grows out beautifully.</p><div class="svc-price">From €120</div></div>
+    <div class="svc"><div class="svc-tag">Treatment</div><h3>Keratin Treatment</h3><p>Deep smoothing for frizz control and long-lasting shine. Lasts 3–5 months.</p><div class="svc-price">From €180</div></div>
+    <div class="svc"><div class="svc-tag">Colour</div><h3>Full Colour</h3><p>Root-to-tip colour transformation with premium, low-damage formulas.</p><div class="svc-price">From €90</div></div>
+    <div class="svc"><div class="svc-tag">Style</div><h3>Blowout & Styling</h3><p>Professional blow-dry and styling — perfect for events or a weekly treat.</p><div class="svc-price">From €40</div></div>
+    <div class="svc"><div class="svc-tag">Care</div><h3>Scalp Treatment</h3><p>Deep conditioning for damaged, dry, or colour-treated hair.</p><div class="svc-price">From €35</div></div>
+  </div>
+</section>
+<div class="gallery">
+  <div class="gi"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=80&auto=format&fit=crop" alt="Hair colouring balayage"/></div>
+  <div class="gi"><img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=600&q=80&auto=format&fit=crop" alt="Precision haircut stylist"/></div>
+  <div class="gi"><img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=600&q=80&auto=format&fit=crop" alt="Hair salon wash area"/></div>
+  <div class="gi"><img src="https://images.unsplash.com/photo-1493256338651-d82f7acb2b38?w=600&q=80&auto=format&fit=crop" alt="Finished hair style result"/></div>
+</div>
+<section class="split">
+  <div class="split-img"><img src="https://images.unsplash.com/photo-1595163153849-71ef878ef87b?w=900&q=80&auto=format&fit=crop" alt="Professional hairstylist portrait"/></div>
+  <div class="split-text">
+    <p class="sec-label">Our team</p>
+    <h2 style="color:var(--warm);">Meet the <em style="color:var(--rose-light);">team.</em></h2>
+    <p>Atelier Wolke was founded by Mia Wolke in 2018 after years training in Hamburg and Berlin. The vision: a calm, unhurried salon where the focus is entirely on you — your hair, your lifestyle, your result.</p>
+    <p>Our team of four stylists each specialises in a different area: colour, cuts, extensions, and treatment. Every appointment begins with a proper consultation.</p>
+  </div>
+</section>
+<section class="reviews">
+  <p class="sec-label">Client love</p>
+  <h2>What our clients <em>say</em></h2>
+  <div class="rev-grid">
+    <div class="rcard"><div class="stars">★★★★★</div><blockquote>"I've been coming here for three years and would never go anywhere else. The balayage is always perfect — exactly what I describe, every single time."</blockquote><div class="reviewer">Lena K.</div></div>
+    <div class="rcard"><div class="stars">★★★★★</div><blockquote>"As someone with anxiety about hair appointments, the whole team made me feel so welcome. The result was stunning. First time I've actually loved my haircut."</blockquote><div class="reviewer">Mia S.</div></div>
+    <div class="rcard"><div class="stars">★★★★★</div><blockquote>"Best keratin treatment I've had — not cheap, but worth every cent. My hair is genuinely transformed. Already booked my next appointment."</blockquote><div class="reviewer">Petra W.</div></div>
+  </div>
+</section>
+<section class="booking">
+  <div class="bl">
+    <h2>Book your <em>appointment</em></h2>
+    <p>Walk-ins are welcome when we have space, but booking ahead guarantees your preferred stylist and time. We send a reminder 24 hours before.</p>
+    <div class="bl-info">Kolonnadenstraße 4, 04109 Leipzig<br>+49 341 000 7788<br>Tue – Fri 9:00 – 19:00<br>Saturday 9:00 – 17:00</div>
+  </div>
+  <div class="bform">
+    <h3>Book a slot</h3>
+    <div class="form-row">
+      <div class="fg"><label>First name</label><input type="text" placeholder="Lena"/></div>
+      <div class="fg"><label>Last name</label><input type="text" placeholder="Koch"/></div>
+    </div>
+    <div class="fg"><label>Email</label><input type="email" placeholder="lena@example.com"/></div>
+    <div class="fg"><label>Phone</label><input type="tel" placeholder="+49 ..."/></div>
+    <div class="fg"><label>Service</label><select><option>Precision haircut</option><option>Balayage & highlights</option><option>Full colour</option><option>Keratin treatment</option><option>Blowout & styling</option><option>Consultation only</option></select></div>
+    <div class="form-row">
+      <div class="fg"><label>Preferred date</label><input type="date"/></div>
+      <div class="fg"><label>Preferred time</label><select><option>Morning (9–12)</option><option>Midday (12–15)</option><option>Afternoon (15–19)</option></select></div>
+    </div>
+    <button class="send-btn">Request appointment →</button>
+  </div>
+</section>
+<footer>
+  <div class="flogo">Atelier <em>Wolke</em></div>
+  <p>© 2026 Atelier Wolke Leipzig. All rights reserved.</p>
+  <p>Built by Novu Design</p>
+</footer>
+</body>
+</html>

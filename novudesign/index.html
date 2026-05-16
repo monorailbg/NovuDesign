@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Novu Design — Web Design Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='10' fill='%23111'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-size='19' font-style='italic' fill='%2393c5fd'>N</text></svg>"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#080810;
+  --surface:rgba(255,255,255,0.03);
+  --border:rgba(255,255,255,0.07);
+  --border-mid:rgba(255,255,255,0.12);
+  --white:#f0ebe3;
+  --muted:rgba(240,235,227,0.42);
+  --muted2:rgba(240,235,227,0.22);
+  --accent:#93c5fd;
+  --accent2:#a78bfa;
+  --accent-dim:rgba(147,197,253,0.12);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden;}
+
+/* AURORA */
+.aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.blob{position:absolute;border-radius:50%;filter:blur(100px);animation:float 26s ease-in-out infinite;}
+.b1{width:900px;height:900px;background:radial-gradient(circle,#1d4ed8 0%,transparent 65%);top:-300px;right:-200px;opacity:0.35;}
+.b2{width:700px;height:700px;background:radial-gradient(circle,#7c3aed 0%,transparent 65%);bottom:-200px;left:-150px;opacity:0.3;animation-delay:-8s;}
+.b3{width:600px;height:600px;background:radial-gradient(circle,#db2777 0%,transparent 65%);top:45%;left:30%;opacity:0.18;animation-delay:-16s;}
+.b4{width:500px;height:500px;background:radial-gradient(circle,#0891b2 0%,transparent 65%);top:70%;right:5%;opacity:0.22;animation-delay:-5s;}
+.b5{width:450px;height:450px;background:radial-gradient(circle,#059669 0%,transparent 65%);top:20%;left:5%;opacity:0.16;animation-delay:-12s;}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(50px,-40px) scale(1.06);}66%{transform:translate(-35px,50px) scale(0.96);}}
+
+/* NOISE OVERLAY */
+body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");background-size:200px 200px;}
+
+/* NAV */
+nav{display:flex;justify-content:space-between;align-items:center;padding:0.85rem 1.5rem 0.85rem 2rem;position:fixed;top:1.25rem;left:50%;transform:translateX(-50%);width:calc(100% - 3rem);max-width:1300px;z-index:100;background:rgba(8,8,16,0.6);backdrop-filter:blur(32px) saturate(1.5);-webkit-backdrop-filter:blur(32px) saturate(1.5);border:1px solid rgba(255,255,255,0.09);border-radius:100px;box-shadow:0 1px 0 rgba(255,255,255,0.05) inset,0 12px 48px rgba(0,0,0,0.4);transition:background 0.4s;}
+.logo{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:400;font-style:italic;letter-spacing:-0.02em;color:var(--white);}
+.logo span{color:var(--accent);}
+.nav-links{display:flex;gap:0.3rem;list-style:none;align-items:center;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:100px;padding:0.3rem;}
+.nav-links a{font-family:'Fraunces',serif;color:rgba(240,235,227,0.6);text-decoration:none;font-size:0.92rem;font-weight:400;font-style:italic;transition:all 0.28s cubic-bezier(.4,0,.2,1);padding:0.45rem 1rem;border-radius:100px;}
+.nav-links a:hover{color:var(--white);background:rgba(255,255,255,0.08);}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.75rem 1.6rem;border-radius:100px;font-size:0.86rem;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;transition:all 0.28s cubic-bezier(.4,0,.2,1);border:none;letter-spacing:0.01em;}
+.btn-light{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.13);color:var(--white);}
+.btn-light:hover{background:rgba(255,255,255,0.13);transform:translateY(-2px);}
+.btn-blue{background:linear-gradient(155deg,#dbeafe 0%,#93c5fd 50%,#60a5fa 100%);color:#071428;box-shadow:0 0 32px rgba(147,197,253,0.18);}
+.btn-blue:hover{background:linear-gradient(155deg,#eff6ff 0%,#bfdbfe 50%,#93c5fd 100%);transform:translateY(-2px);box-shadow:0 0 48px rgba(147,197,253,0.28);}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity 0.75s cubic-bezier(.4,0,.2,1),transform 0.75s cubic-bezier(.4,0,.2,1);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-d1{transition-delay:0.1s;}
+.reveal-d2{transition-delay:0.18s;}
+.reveal-d3{transition-delay:0.26s;}
+.reveal-d4{transition-delay:0.34s;}
+.reveal-d5{transition-delay:0.42s;}
+.reveal-d6{transition-delay:0.5s;}
+
+/* LAYOUT */
+section{position:relative;z-index:2;padding:7rem 4rem 6rem;}
+.sec-label{font-family:'Fraunces',serif;font-size:0.88rem;font-style:italic;color:var(--accent);opacity:0.75;margin-bottom:1rem;letter-spacing:0.02em;}
+.sec-title{font-family:'Fraunces',serif;font-size:clamp(2rem,3.8vw,3rem);font-weight:300;line-height:1.08;letter-spacing:-0.02em;margin-bottom:0.9rem;}
+.sec-title em{font-style:italic;color:var(--accent);}
+.sec-sub{color:var(--muted);max-width:460px;line-height:1.78;margin-bottom:3.5rem;font-size:0.92rem;font-weight:300;}
+
+/* HERO */
+#home{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:10rem 3.5rem 5rem;text-align:center;position:relative;z-index:2;}
+.hero-eyebrow{font-size:0.78rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(147,197,253,0.6);margin-bottom:2rem;font-weight:400;}
+.hero-title{font-family:'Fraunces',serif;font-size:clamp(4rem,9vw,8rem);font-weight:300;line-height:0.93;letter-spacing:-0.04em;margin-bottom:2.25rem;}
+.hero-title .line2{display:block;color:transparent;-webkit-text-stroke:1px rgba(240,235,227,0.2);}
+.hero-title .line3{display:block;color:var(--accent);font-style:italic;}
+.hero-sub{font-size:1rem;color:var(--muted);max-width:500px;line-height:1.82;margin-bottom:2.75rem;font-weight:300;}
+.hero-btns{display:flex;gap:0.9rem;margin-bottom:5.5rem;flex-wrap:wrap;justify-content:center;}
+.hero-stats{display:flex;gap:4rem;justify-content:center;}
+.stat .num{font-family:'Fraunces',serif;font-size:2.4rem;font-weight:300;letter-spacing:-0.03em;}
+.stat .lbl{font-size:0.72rem;color:var(--muted);letter-spacing:0.07em;text-transform:uppercase;margin-top:0.25rem;}
+.hero-divider{position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,rgba(255,255,255,0.06) 30%,rgba(255,255,255,0.06) 70%,transparent);}
+
+/* TRUST BAR */
+.trust-bar{position:relative;z-index:2;padding:1.25rem 4rem;display:flex;align-items:center;gap:3rem;border-bottom:1px solid var(--border);overflow:hidden;}
+.trust-item{font-size:0.78rem;color:var(--muted2);letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;}
+.trust-sep{width:3px;height:3px;border-radius:50%;background:rgba(147,197,253,0.25);flex-shrink:0;}
+
+/* SERVICES */
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:24px;overflow:hidden;}
+.svc{background:rgba(8,8,16,0.75);backdrop-filter:blur(20px);padding:2.5rem 2rem;transition:background 0.35s cubic-bezier(.4,0,.2,1);}
+.svc:hover{background:rgba(147,197,253,0.04);}
+.svc-n{font-family:'Fraunces',serif;font-size:0.85rem;font-style:italic;color:rgba(147,197,253,0.45);margin-bottom:1.5rem;}
+.svc h3{font-family:'Fraunces',serif;font-size:1.18rem;font-weight:400;margin-bottom:0.65rem;line-height:1.3;}
+.svc p{font-size:0.82rem;color:var(--muted);line-height:1.72;font-weight:300;}
+.svc-tag{margin-top:1.4rem;display:inline-block;font-size:0.7rem;color:rgba(147,197,253,0.5);font-family:'DM Sans',sans-serif;letter-spacing:0.08em;text-transform:uppercase;border:1px solid rgba(147,197,253,0.15);padding:4px 10px;border-radius:100px;}
+.svc-price{margin-top:1.2rem;font-size:0.82rem;color:var(--accent);font-family:'Fraunces',serif;font-style:italic;opacity:0.8;}
+
+/* WORK */
+.work-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+.wcard{border-radius:20px;overflow:hidden;border:1px solid var(--border);transition:transform 0.4s cubic-bezier(.4,0,.2,1),border-color 0.4s,box-shadow 0.4s;background:rgba(8,8,16,0.8);}
+.wcard:hover{transform:translateY(-5px);border-color:rgba(147,197,253,0.2);box-shadow:0 20px 60px rgba(0,0,0,0.4);}
+.wcard:first-child{grid-column:span 2;}
+.wcard a{display:block;width:100%;text-decoration:none;}
+.winfo{padding:1.1rem 1.4rem;border-top:1px solid var(--border);}
+.winfo h4{font-family:'Fraunces',serif;font-size:1rem;font-weight:400;margin-bottom:0.2rem;color:var(--white);}
+.winfo p{font-size:0.78rem;color:var(--muted);}
+.wbadge{display:inline-block;margin-top:0.4rem;font-size:0.75rem;color:var(--accent);opacity:0.7;font-family:'Fraunces',serif;font-style:italic;}
+
+/* FOUNDER */
+#founder{position:relative;z-index:2;padding:7rem 4rem 6rem;border-top:1px solid var(--border);}
+.founder-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:6rem;align-items:center;}
+.founder-photo-wrap{position:relative;}
+.founder-photo{width:100%;aspect-ratio:3/4;border-radius:20px;overflow:hidden;border:1px solid var(--border-mid);background:rgba(147,197,253,0.04);}
+.founder-photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(20%);}
+.founder-photo-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;min-height:400px;}
+.founder-initials{font-family:'Fraunces',serif;font-size:5rem;font-weight:300;font-style:italic;color:rgba(147,197,253,0.15);}
+.founder-photo-label{position:absolute;bottom:-1rem;right:-1rem;background:rgba(8,8,16,0.9);border:1px solid var(--border-mid);border-radius:14px;padding:0.85rem 1.1rem;backdrop-filter:blur(20px);}
+.founder-photo-label p{font-size:0.75rem;color:var(--muted);line-height:1.5;}
+.founder-photo-label strong{color:var(--white);font-weight:500;}
+.founder-text .sec-label{margin-bottom:0.75rem;}
+.founder-name{font-family:'Fraunces',serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:300;line-height:1.1;letter-spacing:-0.02em;margin-bottom:1.5rem;}
+.founder-name em{font-style:italic;color:var(--accent);}
+.founder-bio{font-size:0.92rem;color:var(--muted);line-height:1.82;font-weight:300;margin-bottom:1.25rem;}
+.founder-sig{margin-top:2rem;display:flex;align-items:center;gap:1rem;}
+.founder-sig-line{height:1px;width:40px;background:rgba(147,197,253,0.25);}
+.founder-sig-name{font-family:'Fraunces',serif;font-style:italic;font-size:1rem;color:rgba(240,235,227,0.5);}
+.founder-tags{display:flex;gap:0.6rem;flex-wrap:wrap;margin-top:2rem;}
+.ftag{font-size:0.72rem;letter-spacing:0.07em;text-transform:uppercase;color:rgba(147,197,253,0.55);border:1px solid rgba(147,197,253,0.14);padding:5px 12px;border-radius:100px;}
+
+/* PROCESS */
+.proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:24px;overflow:hidden;}
+.proc{background:rgba(8,8,16,0.75);padding:2.25rem 1.75rem;transition:background 0.35s;}
+.proc:hover{background:rgba(147,197,253,0.03);}
+.proc-n{font-family:'Fraunces',serif;font-size:2.8rem;font-weight:300;font-style:italic;color:rgba(147,197,253,0.1);line-height:1;margin-bottom:1.5rem;}
+.proc h4{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:400;margin-bottom:0.55rem;}
+.proc p{font-size:0.82rem;color:var(--muted);line-height:1.7;font-weight:300;}
+
+/* PRICING */
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+.pcard{border:1px solid var(--border);border-radius:20px;padding:2.25rem 1.85rem;display:flex;flex-direction:column;background:rgba(8,8,16,0.7);transition:border-color 0.35s,transform 0.35s;}
+.pcard:hover{transform:translateY(-4px);}
+.pcard.hot{border-color:rgba(147,197,253,0.22);background:rgba(147,197,253,0.04);}
+.plan-lbl{font-family:'Fraunces',serif;font-style:italic;font-size:0.92rem;color:var(--muted);margin-bottom:1.25rem;}
+.plan-p{font-family:'Fraunces',serif;font-size:2.8rem;font-weight:300;letter-spacing:-0.03em;line-height:1;margin-bottom:0.4rem;}
+.plan-p sub{font-size:0.88rem;font-family:'DM Sans',sans-serif;color:var(--muted);font-weight:300;}
+.plan-d{font-size:0.83rem;color:var(--muted);margin-bottom:1.75rem;line-height:1.68;font-weight:300;}
+.plan-f{list-style:none;flex:1;display:flex;flex-direction:column;gap:0.55rem;}
+.plan-f li{font-size:0.83rem;color:rgba(240,235,227,0.58);display:flex;align-items:center;gap:0.6rem;}
+.plan-f li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--accent);flex-shrink:0;opacity:0.65;}
+.pbtn{margin-top:1.85rem;width:100%;justify-content:center;}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:5rem;align-items:start;}
+.contact-left h2{font-family:'Fraunces',serif;font-size:2.6rem;font-weight:300;letter-spacing:-0.02em;line-height:1.08;margin-bottom:1rem;}
+.contact-left h2 em{font-style:italic;color:var(--accent);}
+.contact-left p{color:var(--muted);line-height:1.78;margin-bottom:2.5rem;font-size:0.92rem;font-weight:300;}
+.citem{display:flex;align-items:center;gap:0.85rem;margin-bottom:1rem;font-size:0.88rem;color:var(--muted);}
+.cicon{width:34px;height:34px;border-radius:10px;background:rgba(147,197,253,0.07);border:1px solid rgba(147,197,253,0.12);display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;}
+.cform{display:flex;flex-direction:column;gap:0.85rem;background:rgba(255,255,255,0.02);border:1px solid var(--border-mid);border-radius:20px;padding:2rem;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;}
+.fi input,.fi textarea,.fi select{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:12px;padding:0.85rem 1rem;color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.875rem;outline:none;transition:border-color 0.28s;}
+.fi input::placeholder,.fi textarea::placeholder{color:rgba(240,235,227,0.2);}
+.fi input:focus,.fi textarea:focus{border-color:rgba(147,197,253,0.3);}
+.fi textarea{resize:vertical;min-height:130px;}
+.fi select{color:rgba(240,235,227,0.35);}
+.fi select option{background:#111;color:var(--white);}
+
+/* FOOTER */
+footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:2.25rem 4rem;display:flex;justify-content:space-between;align-items:center;font-size:0.78rem;color:rgba(240,235,227,0.22);}
+.flogo{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:400;font-style:italic;color:var(--white);}
+.flogo span{color:var(--accent);}
+
+@media(max-width:900px){
+  .founder-grid,.contact-grid{grid-template-columns:1fr;}
+  .founder-photo-wrap{max-width:320px;margin:0 auto;}
+}
+@media(max-width:780px){
+  .nav-links{display:none;}
+  .work-grid,.svc-grid,.proc-grid,.price-grid{grid-template-columns:1fr;}
+  .wcard:first-child{grid-column:span 1;}
+  section{padding:5rem 1.5rem 3.5rem;}
+  #founder{padding:5rem 1.5rem 3.5rem;}
+  .trust-bar{padding:1.25rem 1.5rem;gap:1.5rem;flex-wrap:wrap;}
+  footer{flex-direction:column;gap:1rem;padding:2rem 1.5rem;text-align:center;}
+  .hero-stats{flex-direction:column;gap:2rem;align-items:center;}
+}
+</style>
+</head>
+<body>
+
+<div class="aurora">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="blob b4"></div>
+  <div class="blob b5"></div>
+</div>
+
+<nav>
+  <div class="logo">Novu<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#founder">About</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
+  <a href="#contact" class="btn btn-blue">Get a quote</a>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <p class="hero-eyebrow reveal">Web design studio · Remote-first · Worldwide</p>
+  <h1 class="hero-title reveal reveal-d1">
+    Websites<br>
+    <span class="line2">that earn</span><br>
+    <span class="line3">trust.</span>
+  </h1>
+  <p class="hero-sub reveal reveal-d2">Novu Design builds high-converting websites for local businesses that deserve to look as good as they actually are. Fast, personal, and built to last.</p>
+  <div class="hero-btns reveal reveal-d3">
+    <a href="#work" class="btn btn-blue">See our work →</a>
+    <a href="#contact" class="btn btn-light">Start a project</a>
+  </div>
+  <div class="hero-stats reveal reveal-d4">
+    <div class="stat"><div class="num">48h</div><div class="lbl">Avg. turnaround</div></div>
+    <div class="stat"><div class="num">40+</div><div class="lbl">Projects delivered</div></div>
+    <div class="stat"><div class="num">100%</div><div class="lbl">Satisfaction rate</div></div>
+  </div>
+  <div class="hero-divider"></div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar reveal">
+  <span class="trust-item">Dentists</span>
+  <div class="trust-sep"></div>
+  <span class="trust-item">Restaurants</span>
+  <div class="trust-sep"></div>
+  <span class="trust-item">Hair salons</span>
+  <div class="trust-sep"></div>
+  <span class="trust-item">Therapists</span>
+  <div class="trust-sep"></div>
+  <span class="trust-item">Cafés</span>
+  <div class="trust-sep"></div>
+  <span class="trust-item">Practitioners</span>
+  <div class="trust-sep"></div>
+  <span class="trust-item">Tradespeople</span>
+  <div class="trust-sep"></div>
+  <span class="trust-item">Local businesses</span>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="sec-label reveal">What we do</div>
+  <h2 class="sec-title reveal reveal-d1">Built with intelligence.<br><em>Delivered with craft.</em></h2>
+  <p class="sec-sub reveal reveal-d2">Every project uses the latest generation of design tooling — not to cut corners, but to give you agency-quality output at a fraction of the timeline and cost.</p>
+  <div class="svc-grid">
+    <div class="svc reveal reveal-d1">
+      <div class="svc-n">01</div>
+      <h3>Landing Pages</h3>
+      <p>High-converting single pages built with semantic intent mapping — structure and copy engineered around what your visitors actually search for and decide on.</p>
+      <div class="svc-tag">Conversion-focused</div>
+      <div class="svc-price">From $499</div>
+    </div>
+    <div class="svc reveal reveal-d2">
+      <div class="svc-n">02</div>
+      <h3>Full Websites</h3>
+      <p>Multi-page sites with latent-space layout generation — visual systems that feel coherent and intentional because they're built from a unified design token architecture.</p>
+      <div class="svc-tag">Custom design system</div>
+      <div class="svc-price">From $1,200</div>
+    </div>
+    <div class="svc reveal reveal-d3">
+      <div class="svc-n">03</div>
+      <h3>AI-Accelerated Design</h3>
+      <p>Multimodal asset synthesis lets us generate, iterate, and refine visual concepts in hours rather than weeks — then every pixel is reviewed and finished by hand.</p>
+      <div class="svc-tag">Human-in-the-loop</div>
+      <div class="svc-price">Included</div>
+    </div>
+    <div class="svc reveal reveal-d4">
+      <div class="svc-n">04</div>
+      <h3>E-commerce</h3>
+      <p>Shopify and WooCommerce stores with retrieval-augmented product copy — descriptions that surface naturally in search and convert browsers into buyers.</p>
+      <div class="svc-tag">SEO-native</div>
+      <div class="svc-price">From $1,800</div>
+    </div>
+    <div class="svc reveal reveal-d5">
+      <div class="svc-n">05</div>
+      <h3>Redesigns</h3>
+      <p>We run a visual coherence audit on your existing site — identifying semantic drift between your brand and your current design — then rebuild from a clean foundation.</p>
+      <div class="svc-tag">Brand alignment</div>
+      <div class="svc-price">From $800</div>
+    </div>
+    <div class="svc reveal reveal-d6">
+      <div class="svc-n">06</div>
+      <h3>Monthly Support</h3>
+      <p>Ongoing retainers with continuous embedding-layer refinements — your site stays current, fast, and aligned with how your audience actually finds and reads it.</p>
+      <div class="svc-tag">Ongoing partnership</div>
+      <div class="svc-price">From $299/mo</div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="sec-label reveal">Portfolio</div>
+  <h2 class="sec-title reveal reveal-d1">Selected <em>work</em></h2>
+  <p class="sec-sub reveal reveal-d2">Every mockup below is a fully functional website we designed for businesses in our core niches. Click to see the live version.</p>
+  <div class="work-grid">
+
+    <div class="wcard reveal reveal-d1">
+      <a href="mockups/kaoru-cafe.html" target="_blank" rel="noopener">
+        <div style="height:340px;overflow:hidden;position:relative;">
+          <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1200&q=80&auto=format&fit=crop" alt="Kaoru Café" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.6s cubic-bezier(.4,0,.2,1);"/>
+          <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(20,15,10,0.88) 0%,rgba(20,15,10,0.15) 60%,transparent 100%);"></div>
+          <div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;justify-content:center;padding:3rem 3.5rem;">
+            <span style="font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(181,137,74,0.85);margin-bottom:0.85rem;font-family:'DM Sans',sans-serif;">Specialty coffee · Leipzig</span>
+            <span style="font-family:'Fraunces',serif;font-size:2.6rem;font-weight:300;font-style:italic;color:#F9F5EF;line-height:1.05;letter-spacing:-0.01em;">Kaoru Café</span>
+            <span style="font-size:0.82rem;color:rgba(249,245,239,0.45);margin-top:0.75rem;font-family:'DM Sans',sans-serif;font-weight:300;">Full website with menu & booking</span>
+          </div>
+        </div>
+        <div class="winfo"><h4>Kaoru Café</h4><p>Specialty coffee shop · Full website</p><div class="wbadge">View live mockup ↗</div></div>
+      </a>
+    </div>
+
+    <div class="wcard reveal reveal-d2">
+      <a href="mockups/helios-dental.html" target="_blank" rel="noopener">
+        <div style="height:260px;overflow:hidden;position:relative;">
+          <img src="https://images.unsplash.com/photo-1629909615184-74f495363b67?w=800&q=80&auto=format&fit=crop" alt="Helios Dental" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.6s cubic-bezier(.4,0,.2,1);"/>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(15,34,64,0.9) 0%,rgba(15,34,64,0.25) 60%,transparent 100%);"></div>
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:1.75rem 2rem;">
+            <span style="display:block;font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(196,151,74,0.85);margin-bottom:0.5rem;font-family:'DM Sans',sans-serif;">Dental practice</span>
+            <span style="font-family:'Fraunces',serif;font-size:1.8rem;font-weight:300;color:#FDFCFA;letter-spacing:-0.01em;">Helios Dental</span>
+          </div>
+        </div>
+        <div class="winfo"><h4>Helios Dental</h4><p>Dental practice · Full website with booking form</p><div class="wbadge">View live mockup ↗</div></div>
+      </a>
+    </div>
+
+    <div class="wcard reveal reveal-d3">
+      <a href="mockups/maison-rive.html" target="_blank" rel="noopener">
+        <div style="height:260px;overflow:hidden;position:relative;">
+          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80&auto=format&fit=crop" alt="Maison Rive" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.6s cubic-bezier(.4,0,.2,1);"/>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,8,4,0.92) 0%,rgba(10,8,4,0.3) 60%,transparent 100%);"></div>
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:1.75rem 2rem;">
+            <span style="display:block;font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(184,146,74,0.85);margin-bottom:0.5rem;font-family:'DM Sans',sans-serif;">Fine dining</span>
+            <span style="font-family:'Fraunces',serif;font-size:1.8rem;font-weight:300;font-style:italic;color:#F5F0E8;letter-spacing:-0.01em;">Maison Rive</span>
+          </div>
+        </div>
+        <div class="winfo"><h4>Maison Rive</h4><p>Fine dining restaurant · Full website with reservations</p><div class="wbadge">View live mockup ↗</div></div>
+      </a>
+    </div>
+
+    <div class="wcard reveal reveal-d4">
+      <a href="mockups/stille-praxis.html" target="_blank" rel="noopener">
+        <div style="height:260px;overflow:hidden;position:relative;">
+          <img src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=800&q=80&auto=format&fit=crop" alt="Stille Praxis" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.6s cubic-bezier(.4,0,.2,1);"/>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(28,43,30,0.9) 0%,rgba(28,43,30,0.3) 60%,transparent 100%);"></div>
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:1.75rem 2rem;">
+            <span style="display:block;font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(74,124,82,0.9);margin-bottom:0.5rem;font-family:'DM Sans',sans-serif;">Psychotherapy</span>
+            <span style="font-family:'Fraunces',serif;font-size:1.8rem;font-weight:300;font-style:italic;color:#E8EDE6;letter-spacing:-0.01em;">Stille Praxis</span>
+          </div>
+        </div>
+        <div class="winfo"><h4>Stille Praxis</h4><p>Psychotherapy practice · Full website</p><div class="wbadge">View live mockup ↗</div></div>
+      </a>
+    </div>
+
+    <div class="wcard reveal reveal-d5">
+      <a href="mockups/atelier-wolke.html" target="_blank" rel="noopener">
+        <div style="height:260px;overflow:hidden;position:relative;">
+          <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&q=80&auto=format&fit=crop" alt="Atelier Wolke" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.6s cubic-bezier(.4,0,.2,1);"/>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(30,20,16,0.9) 0%,rgba(30,20,16,0.3) 60%,transparent 100%);"></div>
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:1.75rem 2rem;">
+            <span style="display:block;font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(196,130,106,0.9);margin-bottom:0.5rem;font-family:'DM Sans',sans-serif;">Hair salon</span>
+            <span style="font-family:'Fraunces',serif;font-size:1.8rem;font-weight:300;font-style:italic;color:#FAF7F4;letter-spacing:-0.01em;">Atelier Wolke</span>
+          </div>
+        </div>
+        <div class="winfo"><h4>Atelier Wolke</h4><p>Hair salon & beauty · Full website with booking</p><div class="wbadge">View live mockup ↗</div></div>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section id="founder">
+  <div class="founder-grid">
+    <div class="founder-photo-wrap reveal">
+      <div class="founder-photo">
+        <!-- Replace src with your actual photo URL -->
+        <img src="founder.png" alt="Founder portrait" onerror="this.parentElement.innerHTML='<div class=\'founder-photo-placeholder\'><div class=\'founder-initials\'>YN</div></div>'"/>
+      </div>
+      <div class="founder-photo-label">
+        <p><strong>Immanuel Hoehne</strong><br>Founder, Novu Design<br>Based in Japan · Working worldwide</p>
+      </div>
+    </div>
+    <div class="founder-text reveal reveal-d2">
+      <div class="sec-label">Who you're working with</div>
+      <h2 class="founder-name">One person.<br><em>Total ownership.</em></h2>
+      <p class="founder-bio">My name is Immanuel Hoehne. I'm a web designer based in Japan, working with local businesses in Germany, Australia, and beyond. I started Novu Design because I kept seeing the same problem: excellent small businesses — dentists, salons, restaurants, therapists — running on websites that made them look like they'd closed in 2012.</p>
+      <p class="founder-bio">Every project comes through me directly. I handle the strategy, the design, and the build. No account managers, no outsourced developers, no handoffs. When you email me, I reply. When something needs fixing, I fix it. That's the whole model.</p>
+      <p class="founder-bio">I use the latest generation of AI tooling to move faster — but every site is finished by hand, and nothing ships unless I'm proud of it.</p>
+      <div class="founder-tags reveal reveal-d3">
+        <span class="ftag">Web design</span>
+        <span class="ftag">Conversion-focused</span>
+        <span class="ftag">Remote-first</span>
+        <span class="ftag">Germany · AU · US · UK</span>
+        <span class="ftag">48h turnaround</span>
+      </div>
+      <div class="founder-sig reveal reveal-d4">
+        <div class="founder-sig-line"></div>
+        <span class="founder-sig-name">— Immanuel Hoehne, Founder</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="sec-label reveal">How it works</div>
+  <h2 class="sec-title reveal reveal-d1">Simple. Fast. <em>Transparent.</em></h2>
+  <p class="sec-sub reveal reveal-d2">No long meetings, no surprise fees. A clean process from first contact to live site.</p>
+  <div class="proc-grid">
+    <div class="proc reveal reveal-d1"><div class="proc-n">01</div><h4>Discovery call</h4><p>We learn your goals, audience, and vision in a focused 20-minute call. No templates, no assumptions.</p></div>
+    <div class="proc reveal reveal-d2"><div class="proc-n">02</div><h4>Design & build</h4><p>I craft your site using a combination of AI-accelerated tooling and manual refinement — fast, precise, and personal.</p></div>
+    <div class="proc reveal reveal-d3"><div class="proc-n">03</div><h4>Review & refine</h4><p>You review, I refine. No revision caps — we iterate until every detail is right and you're genuinely proud of it.</p></div>
+    <div class="proc reveal reveal-d4"><div class="proc-n">04</div><h4>Launch</h4><p>I handle deployment, domain setup, and performance checks. Your site goes live cleanly and stays that way.</p></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="sec-label reveal">Pricing</div>
+  <h2 class="sec-title reveal reveal-d1">Honest pricing. <em>No surprises.</em></h2>
+  <p class="sec-sub reveal reveal-d2">No bloated agency rates. No hidden fees. Just clear value at every level.</p>
+  <div class="price-grid">
+    <div class="pcard reveal reveal-d1">
+      <div class="plan-lbl">Starter</div>
+      <div class="plan-p">$499<sub>/project</sub></div>
+      <p class="plan-d">For businesses that need a clean, fast first impression without the wait or cost of a full agency.</p>
+      <ul class="plan-f">
+        <li>1-page landing site</li>
+        <li>Mobile responsive</li>
+        <li>Contact form</li>
+        <li>2 revision rounds</li>
+        <li>Delivered in 5 days</li>
+      </ul>
+      <a href="#contact" class="btn btn-light pbtn">Get started</a>
+    </div>
+    <div class="pcard hot reveal reveal-d2">
+      <div class="plan-lbl">Growth — Most popular</div>
+      <div class="plan-p">$1,200<sub>/project</sub></div>
+      <p class="plan-d">A full site built around your business — designed to grow with you and convert every visitor.</p>
+      <ul class="plan-f">
+        <li>Up to 6 pages</li>
+        <li>Custom design system</li>
+        <li>CMS integration</li>
+        <li>SEO foundations</li>
+        <li>Unlimited revisions</li>
+        <li>Delivered in 10 days</li>
+      </ul>
+      <a href="#contact" class="btn btn-blue pbtn">Get started</a>
+    </div>
+    <div class="pcard reveal reveal-d3">
+      <div class="plan-lbl">Pro</div>
+      <div class="plan-p">$2,400<sub>/project</sub></div>
+      <p class="plan-d">For businesses that want a premium, fully custom presence that clearly outclasses their competition.</p>
+      <ul class="plan-f">
+        <li>Unlimited pages</li>
+        <li>E-commerce ready</li>
+        <li>Advanced animations</li>
+        <li>Analytics setup</li>
+        <li>1 month support</li>
+        <li>Priority delivery</li>
+      </ul>
+      <a href="#contact" class="btn btn-light pbtn">Get started</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="sec-label reveal">Get in touch</div>
+  <div class="contact-grid">
+    <div class="contact-left reveal">
+      <h2>Let's build something <em>great</em> together</h2>
+      <p>Tell me about your business and what you're after. I'll get back to you within 24 hours with a clear plan and a quote. No pressure, no pitch deck.</p>
+      <div class="citem"><div class="cicon">✉</div><span>team@novudesign.co</span></div>
+      <div class="citem"><div class="cicon">📍</div><span>Based in Japan · Working worldwide</span></div>
+      <div class="citem"><div class="cicon">⚡</div><span>Reply within 24 hours, guaranteed</span></div>
+      <div class="citem"><div class="cicon">🌏</div><span>DE · AU · US · UK · Anywhere</span></div>
+    </div>
+    <div class="cform reveal reveal-d2">
+      <div class="frow">
+        <div class="fi"><input type="text" placeholder="Your name"/></div>
+        <div class="fi"><input type="email" placeholder="Email address"/></div>
+      </div>
+      <div class="fi"><input type="text" placeholder="Business name & website (if you have one)"/></div>
+      <div class="fi">
+        <select><option value="" disabled selected>What do you need?</option><option>Landing page</option><option>Full website</option><option>E-commerce store</option><option>Redesign</option><option>Monthly support</option><option>Not sure yet</option></select>
+      </div>
+      <div class="fi"><textarea placeholder="Tell me a bit about your business and what you're looking for..."></textarea></div>
+      <button class="btn btn-blue" style="width:100%;justify-content:center;padding:1rem 2rem;">Send message →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="flogo">Novu<span>.</span></div>
+  <div>© 2026 Novu Design. All rights reserved.</div>
+  <div>team@novudesign.co</div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Image zoom on work cards
+document.querySelectorAll('.wcard img').forEach(img => {
+  img.parentElement.parentElement.addEventListener('mouseenter', () => {
+    img.style.transform = 'scale(1.04)';
+  });
+  img.parentElement.parentElement.addEventListener('mouseleave', () => {
+    img.style.transform = 'scale(1)';
+  });
+});
+</script>
+
+</body>
+</html>
