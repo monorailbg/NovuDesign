@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useLang } from "@/context/LanguageContext";
 
 // ─── Optimised woven bond ────────────────────────────────────────────────────
 // Perf strategy:
@@ -9,10 +10,10 @@ import Link from "next/link";
 //   • Per frame: fast 2×2 rotation multiply only
 //   • Bucket-sort into 14 depth layers → 14 batched draw calls instead of ~2 400
 //   • No shadowBlur (most expensive canvas op) — glow via CSS filter on canvas
-//   • N=300 segments, 2 strands  →  600 segments total
+//   • N=240 segments, 2 strands  →  480 segments total
 //   • Capped at 40 fps via timestamp delta
 
-const N       = 300;   // segments per strand
+const N       = 240;   // segments per strand (reduced from 300 for perf)
 const STRANDS = 2;
 const P = 3, Q = 2;   // torus-knot (3,2) — trefoil
 const R = 2.0, r = 0.65;
@@ -65,26 +66,23 @@ function WovenBond() {
 
     const draw = (ts: number) => {
       raf = requestAnimationFrame(draw);
-      if (ts - lastTs < FRAME_MS) return; // skip frame
+      if (ts - lastTs < FRAME_MS) return;
       lastTs = ts;
 
       const W = canvas.offsetWidth, H = canvas.offsetHeight;
       const scale = Math.min(W, H) * 0.17;
       const cx = W / 2, cy = H / 2;
 
-      // Rotation matrix (Y-axis only — tilt already baked in)
       const cosY = Math.cos(rotY), sinY = Math.sin(rotY);
 
-      // Bucket array: each bucket holds [x0,y0,x1,y1, ...] pairs
       const buckets: number[][] = Array.from({ length: N_BUCK }, () => []);
-      const buckZ:   number[]   = new Array(N_BUCK).fill(0); // avg z per bucket
+      const buckZ:   number[]   = new Array(N_BUCK).fill(0);
 
       for (let s = 0; s < STRANDS; s++) {
         const pts = BASE[s];
         for (let i = 0; i < N; i++) {
           const p0 = pts[i], p1 = pts[i + 1];
 
-          // Rotate around Y (fast inline multiply)
           const rx0 = p0.bx * cosY + p0.bz * sinY;
           const ry0 = p0.by;
           const rz0 = -p0.bx * sinY + p0.bz * cosY;
@@ -94,7 +92,6 @@ function WovenBond() {
           const rz1 = -p1.bx * sinY + p1.bz * cosY;
 
           const avgZ = (rz0 + rz1) * 0.5;
-          // Normalise z to [0, N_BUCK-1]
           const depth = (avgZ + r + 0.05) / (2 * (r + 0.05));
           const bi    = Math.min(N_BUCK - 1, Math.max(0, Math.floor(depth * N_BUCK)));
 
@@ -108,15 +105,14 @@ function WovenBond() {
 
       ctx.clearRect(0, 0, W, H);
 
-      // Draw buckets back → front (14 batched stroke calls)
       for (let b = 0; b < N_BUCK; b++) {
         const segs = buckets[b];
         if (segs.length === 0) continue;
 
-        const d   = b / (N_BUCK - 1);          // 0 = back, 1 = front
-        const L   = Math.round(22 + d * 50);   // lightness 22%→72%
-        const S   = Math.round(62 + d * 20);   // saturation 62%→82%
-        const hue = Math.round(232 - d * 218) + (b % 2) * 6; // VB(232)→madder(14)
+        const d   = b / (N_BUCK - 1);
+        const L   = Math.round(22 + d * 50);
+        const S   = Math.round(62 + d * 20);
+        const hue = Math.round(232 - d * 218) + (b % 2) * 6;
         const alpha = 0.42 + d * 0.58;
         const lw  = 1.2 + d * 2.6;
 
@@ -145,7 +141,6 @@ function WovenBond() {
     <canvas
       ref={canvasRef}
       className="absolute inset-0 w-full h-full"
-      // CSS filter gives the glow cheaply — no per-segment shadowBlur needed
       style={{ filter: "blur(0px) drop-shadow(0 0 18px rgba(78,95,212,0.4))", opacity: 0.9 }}
     />
   );
@@ -154,7 +149,7 @@ function WovenBond() {
 // ─── Word reveals ────────────────────────────────────────────────────────────
 function Word({ text, delay }: { text: string; delay: number }) {
   const [show, setShow] = useState(false);
-  useEffect(() => { const t = setTimeout(() => setShow(true), delay); return () => clearTimeout(t); }, [delay]);
+  useEffect(() => { const timer = setTimeout(() => setShow(true), delay); return () => clearTimeout(timer); }, [delay]);
   return (
     <span className="inline-block" style={{
       opacity: show ? 1 : 0,
@@ -164,10 +159,9 @@ function Word({ text, delay }: { text: string; delay: number }) {
   );
 }
 
-// Gradient must be on the same element as the text — not a parent — for background-clip:text to work
 function GradientWord({ text, delay }: { text: string; delay: number }) {
   const [show, setShow] = useState(false);
-  useEffect(() => { const t = setTimeout(() => setShow(true), delay); return () => clearTimeout(t); }, [delay]);
+  useEffect(() => { const timer = setTimeout(() => setShow(true), delay); return () => clearTimeout(timer); }, [delay]);
   return (
     <span className="inline-block" style={{
       opacity: show ? 1 : 0,
@@ -183,6 +177,9 @@ function GradientWord({ text, delay }: { text: string; delay: number }) {
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 export default function Hero() {
+  const { t } = useLang();
+  const h = t.hero;
+
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 pt-28 pb-20">
 
@@ -191,7 +188,7 @@ export default function Hero() {
         background: "radial-gradient(ellipse 70% 55% at 50% 50%, rgba(40,48,160,0.14) 0%, transparent 70%)",
       }} />
 
-      {/* Woven bond — contained square so canvas stays small */}
+      {/* Woven bond */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="relative w-full max-w-2xl aspect-square">
           <WovenBond />
@@ -215,26 +212,29 @@ export default function Hero() {
             <span className="relative rounded-full h-2 w-2" style={{ background: "#6B78D8" }} />
           </span>
           <span className="text-xs font-semibold tracking-[0.2em] uppercase" style={{ color: "#A0AAEB" }}>
-            Now Taking Projects · 2025
+            {h.badge}
           </span>
         </div>
 
         {/* Headline */}
         <h1 className="font-heading font-black tracking-tighter leading-[0.88] max-w-5xl">
           <span className="block text-[clamp(50px,9vw,132px)] text-white">
-            <Word text="We" delay={200} />{" "}
-            <Word text="craft" delay={330} />{" "}
-            <Word text="digital" delay={460} />
+            {h.words1.map((word, i) => (
+              <span key={i}>
+                <Word text={word} delay={200 + i * 130} />
+                {i < h.words1.length - 1 ? " " : ""}
+              </span>
+            ))}
           </span>
           <span className="block text-[clamp(50px,9vw,132px)]" style={{ lineHeight: 1.1, paddingBottom: "0.05em" }}>
-            <GradientWord text="legends." delay={600} />
+            <GradientWord text={h.word2} delay={200 + h.words1.length * 130} />
           </span>
         </h1>
 
         {/* Sub */}
         <p className="mt-8 max-w-md text-base md:text-lg leading-relaxed"
           style={{ color: "rgba(160,170,235,0.55)", fontFamily: "var(--font-space-grotesk)", animation: "fadeUp 0.8s ease 0.95s both" }}>
-          Strategy, identity, and motion — forged into digital experiences that stop people mid-scroll.
+          {h.sub}
         </p>
 
         {/* CTAs */}
@@ -244,7 +244,7 @@ export default function Hero() {
             style={{ background: "linear-gradient(135deg, #9B3420, #3A45C4)", boxShadow: "0 0 32px rgba(155,52,32,0.4)" }}
             onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "0 0 48px rgba(58,69,196,0.55)")}
             onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "0 0 32px rgba(155,52,32,0.4)")}>
-            View Our Work
+            {h.cta1}
             <svg className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
             </svg>
@@ -254,7 +254,7 @@ export default function Hero() {
             style={{ borderColor: "rgba(107,120,216,0.2)", color: "rgba(160,170,235,0.7)" }}
             onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(107,120,216,0.4)"; e.currentTarget.style.color = "#A0AAEB"; e.currentTarget.style.background = "rgba(58,69,196,0.12)"; }}
             onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(107,120,216,0.2)"; e.currentTarget.style.color = "rgba(160,170,235,0.7)"; e.currentTarget.style.background = "transparent"; }}>
-            Start a Project
+            {h.cta2}
           </Link>
         </div>
       </div>

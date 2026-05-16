@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Archivo, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 const archivo = Archivo({
   variable: "--font-archivo",
@@ -31,7 +32,9 @@ export default function RootLayout({
       className={`${archivo.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[#080A12] text-white">
-        <SmoothScroll>{children}</SmoothScroll>
+        <LanguageProvider>
+          <SmoothScroll>{children}</SmoothScroll>
+        </LanguageProvider>
       </body>
     </html>
   );

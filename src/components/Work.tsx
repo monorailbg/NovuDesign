@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import ProjectModal, { type Project } from "./ProjectModal";
+import { useLang } from "@/context/LanguageContext";
 
 // ─── CSS Mockups ─────────────────────────────────────────────────────────────
 
@@ -157,72 +158,24 @@ function FormaMockup({ compact }: { compact?: boolean }) {
   );
 }
 
-// ─── Project data ─────────────────────────────────────────────────────────────
+// ─── Static project data (visual/layout only — text comes from i18n) ──────────
 
 type FullProject = Project & { span: string; height: string; compactMockup: React.ReactNode };
 
-const projects: FullProject[] = [
-  {
-    title: "Luminary",
-    category: "Brand Identity + Web",
-    year: "2024",
-    color: "#9B3420",
-    accent: "#C4563A",
-    span: "col-span-1 md:col-span-2",
-    height: "h-[440px]",
-    description: "A complete rebrand for a luxury lifestyle company. We rebuilt their visual identity from scratch — custom logotype, colour system, print collateral, and a new web presence that feels like stepping into a private members club.",
-    tags: ["Logo Design", "Typography", "Brand Guidelines", "Web Design", "Print"],
-    mockup: <LuminaryMockup />,
-    compactMockup: <LuminaryMockup compact />,
-  },
-  {
-    title: "Apex Protocol",
-    category: "Motion Design",
-    year: "2024",
-    color: "#3A45C4",
-    accent: "#6B78D8",
-    span: "col-span-1",
-    height: "h-[440px]",
-    description: "Cinematic product launch video and interactive demo site for a stealth-mode deep tech company. We handled full creative direction — storyboard to delivery.",
-    tags: ["Motion Graphics", "3D Animation", "Creative Direction", "Web Dev"],
-    mockup: <ApexMockup />,
-    compactMockup: <ApexMockup compact />,
-  },
-  {
-    title: "Verdant Labs",
-    category: "Web Design + Dev",
-    year: "2025",
-    color: "#7B2316",
-    accent: "#9B3420",
-    span: "col-span-1",
-    height: "h-[380px]",
-    description: "SaaS dashboard redesign that cut time-to-task by 40%. We rebuilt the information architecture, design system, and frontend from first principles.",
-    tags: ["Product Design", "Next.js", "Design System", "UX Research", "Tailwind"],
-    mockup: <VerdantMockup />,
-    compactMockup: <VerdantMockup compact />,
-  },
-  {
-    title: "Forma Studio",
-    category: "UX + Art Direction",
-    year: "2025",
-    color: "#6B78D8",
-    accent: "#A0AAEB",
-    span: "col-span-1 md:col-span-2",
-    height: "h-[380px]",
-    description: "Full creative direction for a renowned architecture firm's digital presence. A restrained, editorial approach that lets the work breathe.",
-    tags: ["Art Direction", "Editorial Design", "Photography Direction", "Web"],
-    mockup: <FormaMockup />,
-    compactMockup: <FormaMockup compact />,
-  },
+const PROJECT_VISUAL = [
+  { title: "Luminary",      color: "#9B3420", accent: "#C4563A", year: "2024", span: "col-span-1 md:col-span-2", height: "h-[440px]", tags: ["Logo Design","Typography","Brand Guidelines","Web Design","Print"],     mockup: <LuminaryMockup />, compactMockup: <LuminaryMockup compact /> },
+  { title: "Apex Protocol", color: "#3A45C4", accent: "#6B78D8", year: "2024", span: "col-span-1",               height: "h-[440px]", tags: ["Motion Graphics","3D Animation","Creative Direction","Web Dev"],            mockup: <ApexMockup />,     compactMockup: <ApexMockup compact /> },
+  { title: "Verdant Labs",  color: "#7B2316", accent: "#9B3420", year: "2025", span: "col-span-1",               height: "h-[380px]", tags: ["Product Design","Next.js","Design System","UX Research","Tailwind"],         mockup: <VerdantMockup />,  compactMockup: <VerdantMockup compact /> },
+  { title: "Forma Studio",  color: "#6B78D8", accent: "#A0AAEB", year: "2025", span: "col-span-1 md:col-span-2", height: "h-[380px]", tags: ["Art Direction","Editorial Design","Photography Direction","Web"],             mockup: <FormaMockup />,    compactMockup: <FormaMockup compact /> },
 ];
 
 // ─── Card ─────────────────────────────────────────────────────────────────────
 
-function ProjectCard({ p, i, onOpen }: { p: FullProject; i: number; onOpen: () => void }) {
+function ProjectCard({ p, viewCase, i, onOpen }: { p: FullProject; viewCase: string; i: number; onOpen: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
+  const gradRef = useRef<HTMLDivElement>(null);
   const [vis, setVis] = useState(false);
   const [hov, setHov] = useState(false);
-  const [mouse, setMouse] = useState({ x: 0.5, y: 0.5 });
 
   useEffect(() => {
     const el = ref.current;
@@ -246,21 +199,23 @@ function ProjectCard({ p, i, onOpen }: { p: FullProject; i: number; onOpen: () =
       onMouseLeave={() => setHov(false)}
       onMouseMove={(e) => {
         const r = e.currentTarget.getBoundingClientRect();
-        setMouse({ x: (e.clientX - r.left) / r.width, y: (e.clientY - r.top) / r.height });
+        const x = ((e.clientX - r.left) / r.width) * 100;
+        const y = ((e.clientY - r.top) / r.height) * 100;
+        if (gradRef.current) {
+          gradRef.current.style.background = `radial-gradient(ellipse 55% 55% at ${x}% ${y}%, ${p.color}28 0%, transparent 70%)`;
+        }
       }}
       onClick={onOpen}
     >
       <div className="absolute inset-0" style={{ background: `${p.color}09` }} />
-      <div className="absolute inset-0 pointer-events-none transition-opacity duration-500"
-        style={{ opacity: hov ? 1 : 0, background: `radial-gradient(ellipse 55% 55% at ${mouse.x * 100}% ${mouse.y * 100}%, ${p.color}28 0%, transparent 70%)` }} />
+      <div ref={gradRef} className="absolute inset-0 pointer-events-none transition-opacity duration-500"
+        style={{ opacity: hov ? 1 : 0, background: `radial-gradient(ellipse 55% 55% at 50% 50%, ${p.color}28 0%, transparent 70%)` }} />
 
-      {/* corner deco */}
       <div className="absolute top-5 right-5 w-7 h-7 opacity-20"
         style={{ borderTop: `1px solid ${p.color}`, borderRight: `1px solid ${p.color}` }} />
       <div className="absolute bottom-5 left-5 w-7 h-7 opacity-20"
         style={{ borderBottom: `1px solid ${p.color}`, borderLeft: `1px solid ${p.color}` }} />
 
-      {/* mockup */}
       <div className="absolute inset-0 flex items-start justify-center pt-10 px-8 pointer-events-none"
         style={{ transition: "transform 0.55s cubic-bezier(0.16,1,0.3,1)", transform: hov ? "translateY(-8px) scale(1.02)" : "translateY(0) scale(1)" }}>
         <div className="w-full" style={{ maxWidth: "88%", height: "55%" }}>
@@ -268,11 +223,9 @@ function ProjectCard({ p, i, onOpen }: { p: FullProject; i: number; onOpen: () =
         </div>
       </div>
 
-      {/* fade gradient */}
       <div className="absolute inset-0 pointer-events-none"
         style={{ background: `linear-gradient(to top, #080A12 0%, ${p.color}12 40%, transparent 60%)` }} />
 
-      {/* text layer */}
       <div className="absolute inset-0 p-7 flex flex-col justify-end pointer-events-none">
         <div className="flex items-start justify-between mb-2">
           <span className="text-xs font-bold tracking-widest uppercase px-2.5 py-1 rounded-full"
@@ -286,7 +239,7 @@ function ProjectCard({ p, i, onOpen }: { p: FullProject; i: number; onOpen: () =
         <h3 className="font-heading font-black text-[clamp(26px,3.5vw,48px)] text-white tracking-tighter leading-none">{p.title}</h3>
         <div className="mt-3 flex items-center gap-2 font-bold text-sm transition-all duration-300"
           style={{ color: p.color, opacity: hov ? 1 : 0, transform: hov ? "translateX(0)" : "translateX(-10px)" }}>
-          View Case Study
+          {viewCase}
           <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
           </svg>
@@ -302,9 +255,18 @@ function ProjectCard({ p, i, onOpen }: { p: FullProject; i: number; onOpen: () =
 // ─── Section ──────────────────────────────────────────────────────────────────
 
 export default function Work() {
+  const { t } = useLang();
+  const w = t.work;
   const hRef = useRef<HTMLDivElement>(null);
   const [vis, setVis] = useState(false);
   const [active, setActive] = useState<FullProject | null>(null);
+
+  // Merge visual data with translated text
+  const projects: FullProject[] = PROJECT_VISUAL.map((v, i) => ({
+    ...v,
+    category: w.projects[i].category,
+    description: w.projects[i].description,
+  }));
 
   useEffect(() => {
     const el = hRef.current;
@@ -323,10 +285,10 @@ export default function Work() {
             <div>
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-6 h-px" style={{ background: "#3A45C4" }} />
-                <span className="text-xs font-bold tracking-widest uppercase" style={{ color: "#3A45C4" }}>Selected Work</span>
+                <span className="text-xs font-bold tracking-widest uppercase" style={{ color: "#3A45C4" }}>{w.label}</span>
               </div>
               <h2 className="font-heading font-black text-5xl md:text-[80px] text-white leading-[0.9] tracking-tighter">
-                Work that<br /><span style={{ color: "rgba(107,120,216,0.3)" }}>leaves a mark.</span>
+                {w.heading1}<br /><span style={{ color: "rgba(107,120,216,0.3)" }}>{w.heading2}</span>
               </h2>
             </div>
             <button
@@ -334,7 +296,7 @@ export default function Work() {
               style={{ borderColor: "rgba(107,120,216,0.15)", color: "rgba(160,170,235,0.5)" }}
               onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(107,120,216,0.35)"; e.currentTarget.style.color = "#A0AAEB"; }}
               onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(107,120,216,0.15)"; e.currentTarget.style.color = "rgba(160,170,235,0.5)"; }}>
-              All Projects
+              {w.allProjects}
               <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
               </svg>
@@ -343,7 +305,7 @@ export default function Work() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {projects.map((p, i) => (
-              <ProjectCard key={p.title} p={p} i={i} onOpen={() => setActive(p)} />
+              <ProjectCard key={p.title} p={p} viewCase={w.viewCase} i={i} onOpen={() => setActive(p)} />
             ))}
           </div>
         </div>

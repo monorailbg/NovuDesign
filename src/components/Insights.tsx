@@ -1,56 +1,10 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
+import { useLang } from "@/context/LanguageContext";
+import type { T } from "@/lib/i18n";
 
-const posts = [
-  {
-    tag: "Strategy",
-    color: "#9B3420",
-    readTime: "6 min read",
-    date: "May 2025",
-    title: "Stop Designing Features. Start Engineering Outcomes.",
-    excerpt: "Most studios ship screens. We ship leverage. Here's the framework we use to make sure every pixel we produce maps directly to a business metric that matters.",
-    body: [
-      "There's a quiet crisis in digital product work: teams are shipping faster than ever, yet conversion rates stagnate, retention bleeds out quietly, and brand equity remains stubbornly intangible. The culprit isn't execution — it's framing.",
-      "When design is scoped as feature delivery, you get feature delivery. When it's scoped as outcome engineering, you get compounding returns. The distinction sounds semantic. It isn't.",
-      "The shift starts upstream. Before we touch a single wireframe, we run a north-star alignment session: what is the one metric that, if it doubled, would fundamentally change the business? That answer becomes the brief. Every subsequent design decision gets stress-tested against it — not against subjective aesthetics, not against stakeholder preferences, not against what the competitor launched last quarter.",
-      "We call this the Outcome Audit. It maps each proposed design surface to a node in the conversion funnel, assigns a hypothesis, and defines the minimum viable signal for validation. It sounds rigorous because it is. It's also what separates work that looks great in a portfolio from work that actually moves the needle.",
-      "The best design isn't the most beautiful one. It's the one that produces the most predictable, scalable behaviour change in the right users at the right moment. Beauty is the delivery mechanism. Outcome is the product.",
-    ],
-  },
-  {
-    tag: "Systems",
-    color: "#3A45C4",
-    readTime: "8 min read",
-    date: "April 2025",
-    title: "Your Design System Is Your Most Undervalued Infrastructure Asset.",
-    excerpt: "A mature component library isn't a developer convenience. It's a compounding strategic asset — one that reduces time-to-market, enforces brand consistency at scale, and dramatically lowers the cost of future iteration.",
-    body: [
-      "Most organisations treat their design system as a UI library. A collection of buttons, inputs, and modals that lives in Figma and occasionally makes its way into a Storybook. That framing leaves enormous value on the table.",
-      "A properly architected design system is infrastructure. The same way a well-structured database schema pays dividends for years, a token-based component API with strict semantic versioning enforces consistency without centralised gatekeeping. It decouples brand governance from engineering velocity — which is the only way to scale both simultaneously.",
-      "The economics are straightforward. Every hour a developer spends recreating a component that already exists elsewhere in the codebase is compounded waste. Every pixel inconsistency between platforms creates cognitive friction for users — and cognitive friction has a directly measurable impact on task completion rates. The accumulation of these micro-frictions is what makes legacy products feel 'slow' even when performance metrics are healthy.",
-      "We structure design systems around three layers: foundation tokens (colour, type scale, spacing, motion), semantic tokens (purpose-mapped aliases that survive rebrand without cascading changes), and component APIs (composable primitives with explicit prop contracts). The interface between layers is the value. Rebrand a product at the token level and the entire system updates. No regression hunting. No inconsistent one-offs.",
-      "Done correctly, a design system isn't a cost centre. It's a force multiplier on every future sprint. Ship faster. Onboard designers and engineers faster. Maintain quality at a scale that would otherwise require three times the headcount.",
-    ],
-  },
-  {
-    tag: "Performance",
-    color: "#6B78D8",
-    readTime: "5 min read",
-    date: "March 2025",
-    title: "Performance Is Brand: The Business Case for Sub-Second Experiences.",
-    excerpt: "Core Web Vitals aren't a Google checkbox. They're a direct line to revenue. A 100ms improvement in LCP correlates with measurable uplift in conversion. Here's why every millisecond is a brand decision.",
-    body: [
-      "The conversation around web performance has historically lived in the engineering lane. Developers optimise bundles, implement lazy loading, leverage CDN edge caching — and then hand the result to the marketing team as a 'fast site'. That handoff is where the insight gets lost.",
-      "Performance is a brand signal. Every 100ms of additional load time is a micro-interaction — and it communicates something about the brand making the user wait. The psychological literature on this is unambiguous: users attribute slow interfaces to the organisation behind them, not to infrastructure constraints they can't see. A slow site feels like a brand that doesn't respect your time.",
-      "The Google/Deloitte data is well-documented: a 0.1-second improvement in load time increases mobile conversion rates by up to 8%. But the downstream effects are less often discussed. Bounce rate reduction compounds into SEO ranking improvements, which compound into organic acquisition cost reduction. The funnel economics of a 200ms LCP improvement versus a 3-second LCP are not incremental — they're structural.",
-      "Our performance strategy operates across three vectors: perceived performance (skeleton screens, optimistic UI updates, and strategic animation to mask latency), technical performance (next-gen image formats, edge-rendered critical paths, route-level code splitting), and Core Web Vitals hygiene (LCP under 1.2s, CLS near zero, INP below 200ms — hard targets, not aspirational ones).",
-      "The most expensive performance decision is the one you make at the architecture level and never revisit. We bake performance budgets into the design process from day one — not as an afterthought, but as a constraint that shapes what we build and how we build it.",
-    ],
-  },
-];
-
-type Post = typeof posts[0];
+type Post = T["insights"]["posts"][number];
 
 function ArticleCard({ p, i, vis, onOpen }: { p: Post; i: number; vis: boolean; onOpen: () => void }) {
   const [hov, setHov] = useState(false);
@@ -163,6 +117,8 @@ function ArticleModal({ p, onClose }: { p: Post; onClose: () => void }) {
 }
 
 export default function Insights() {
+  const { t } = useLang();
+  const ins = t.insights;
   const ref = useRef<HTMLDivElement>(null);
   const [vis, setVis] = useState(false);
   const [open, setOpen] = useState<Post | null>(null);
@@ -187,20 +143,20 @@ export default function Insights() {
             <div>
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-6 h-px" style={{ background: "#9B3420" }} />
-                <span className="text-xs font-bold tracking-widest uppercase" style={{ color: "#9B3420" }}>Insights</span>
+                <span className="text-xs font-bold tracking-widest uppercase" style={{ color: "#9B3420" }}>{ins.label}</span>
               </div>
               <h2 className="font-heading font-black text-5xl md:text-[80px] text-white leading-[0.9] tracking-tighter">
-                How we<br /><span style={{ color: "rgba(107,120,216,0.28)" }}>think about craft.</span>
+                {ins.heading1}<br /><span style={{ color: "rgba(107,120,216,0.28)" }}>{ins.heading2}</span>
               </h2>
             </div>
             <p className="max-w-xs text-sm leading-relaxed md:text-right" style={{ color: "rgba(160,170,235,0.35)", fontFamily: "var(--font-space-grotesk)" }}>
-              Long-form thinking on design strategy, systems, and the business of building things that last.
+              {ins.sub}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {posts.map((p, i) => (
-              <ArticleCard key={p.title} p={p} i={i} vis={vis} onOpen={() => setOpen(p)} />
+            {ins.posts.map((p, i) => (
+              <ArticleCard key={i} p={p} i={i} vis={vis} onOpen={() => setOpen(p)} />
             ))}
           </div>
         </div>

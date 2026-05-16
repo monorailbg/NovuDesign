@@ -1,12 +1,11 @@
 "use client";
 
-const items = [
-  "Brand Identity", "Motion Design", "Web Development", "UX Strategy",
-  "Visual Systems", "Art Direction", "Creative Direction", "Interaction Design",
-];
+import { useLang } from "@/context/LanguageContext";
 
 export default function Marquee() {
-  const repeated = [...items, ...items];
+  const { t } = useLang();
+  const repeated = [...t.marquee.items, ...t.marquee.items];
+
   return (
     <div className="relative py-5 overflow-hidden border-y select-none" style={{ borderColor: "rgba(107,120,216,0.1)" }}>
       <div className="flex gap-12 whitespace-nowrap" style={{ animation: "marquee 26s linear infinite" }}>

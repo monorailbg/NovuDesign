@@ -2,10 +2,11 @@
 
 import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
-
-const skills = ["Brand Strategy", "Motion Design", "Frontend Dev", "Typography", "UX Research", "Visual Systems"];
+import { useLang } from "@/context/LanguageContext";
 
 export default function About() {
+  const { t } = useLang();
+  const a = t.about;
   const ref = useRef<HTMLDivElement>(null);
   const [vis, setVis] = useState(false);
 
@@ -36,11 +37,10 @@ export default function About() {
               style={{ background: "linear-gradient(to top, rgba(155,52,32,0.5) 0%, transparent 60%)" }} />
           </div>
 
-          {/* Floating badge */}
           <div className="absolute -bottom-5 -right-4 lg:-right-8 px-5 py-3 rounded-2xl border backdrop-blur-md"
             style={{ background: "rgba(155,52,32,0.85)", borderColor: "rgba(107,120,216,0.25)" }}>
-            <p className="text-2xl font-heading font-black text-white leading-none">80+</p>
-            <p className="text-xs font-semibold tracking-widest uppercase mt-0.5" style={{ color: "#A0AAEB" }}>Projects Delivered</p>
+            <p className="text-2xl font-heading font-black text-white leading-none">{a.badge[0]}</p>
+            <p className="text-xs font-semibold tracking-widest uppercase mt-0.5" style={{ color: "#A0AAEB" }}>{a.badge[1]}</p>
           </div>
         </div>
 
@@ -48,30 +48,26 @@ export default function About() {
         <div className="flex flex-col gap-7">
           <div className="flex items-center gap-3">
             <div className="w-6 h-px" style={{ background: "#9B3420" }} />
-            <span className="text-xs font-bold tracking-widest uppercase" style={{ color: "#9B3420" }}>About</span>
+            <span className="text-xs font-bold tracking-widest uppercase" style={{ color: "#9B3420" }}>{a.label}</span>
           </div>
 
           <h2 className="font-heading font-black text-4xl md:text-5xl text-white leading-[1.0] tracking-tighter">
-            Built by someone who<br />
+            {a.heading1}<br />
             <span style={{
               background: "linear-gradient(135deg, #A0AAEB 0%, #3A45C4 45%, #9B3420 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-            }}>obsesses over craft.</span>
+            }}>{a.heading2}</span>
           </h2>
 
           <div className="flex flex-col gap-4 text-sm md:text-base leading-relaxed" style={{ color: "rgba(160,170,235,0.5)" }}>
-            <p>
-              NovuDesign was built on a simple belief: great design isn&apos;t just how something looks — it&apos;s how it makes people feel. Every pixel is intentional. Every interaction earns its place.
-            </p>
-            <p>
-              With over five years working with startups, agencies, and global brands, we bring the same level of obsessive detail to a landing page as we do to a full brand system.
-            </p>
+            <p>{a.p1}</p>
+            <p>{a.p2}</p>
           </div>
 
           <div className="flex flex-wrap gap-2 mt-1">
-            {skills.map((s) => (
+            {a.skills.map((s) => (
               <span key={s} className="text-xs font-semibold px-4 py-1.5 rounded-full border"
                 style={{ borderColor: "rgba(107,120,216,0.18)", color: "rgba(160,170,235,0.55)", background: "rgba(58,69,196,0.08)" }}>
                 {s}
@@ -80,7 +76,7 @@ export default function About() {
           </div>
 
           <div className="flex items-center gap-10 pt-5 border-t" style={{ borderColor: "rgba(107,120,216,0.1)" }}>
-            {[["5+", "Years"], ["80+", "Projects"], ["100%", "Passion"]].map(([num, label]) => (
+            {a.stats.map(([num, label]) => (
               <div key={label}>
                 <p className="font-heading font-black text-2xl text-white">{num}</p>
                 <p className="text-xs font-semibold tracking-widest uppercase mt-0.5" style={{ color: "rgba(107,120,216,0.4)" }}>{label}</p>

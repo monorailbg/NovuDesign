@@ -1,8 +1,11 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
+import { useLang } from "@/context/LanguageContext";
 
 export default function Contact() {
+  const { t } = useLang();
+  const c = t.contact;
   const ref = useRef<HTMLDivElement>(null);
   const [vis, setVis] = useState(false);
   const [hov, setHov] = useState(false);
@@ -35,17 +38,17 @@ export default function Contact() {
           <div className="relative text-center">
             <div className="flex items-center justify-center gap-3 mb-8">
               <div className="w-6 h-px" style={{ background:"#9B3420" }} />
-              <span className="text-xs font-bold tracking-widest uppercase" style={{ color:"#A0AAEB" }}>Let's Build Together</span>
+              <span className="text-xs font-bold tracking-widest uppercase" style={{ color:"#A0AAEB" }}>{c.label}</span>
               <div className="w-6 h-px" style={{ background:"#9B3420" }} />
             </div>
 
             <h2 className="font-heading font-black text-[clamp(48px,8vw,112px)] text-white tracking-tighter leading-[0.88] mb-6">
-              Got a bold<br />
-              <span style={{ background:"linear-gradient(135deg,#A0AAEB,#3A45C4,#7B2316)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }}>idea?</span>
+              {c.heading1}<br />
+              <span style={{ background:"linear-gradient(135deg,#A0AAEB,#3A45C4,#7B2316)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }}>{c.heading2}</span>
             </h2>
 
             <p className="max-w-md mx-auto text-base leading-relaxed mb-12" style={{ color:"rgba(160,170,235,0.45)" }}>
-              Tell us about your project and let's make something extraordinary together. We respond within 24 hours.
+              {c.sub}
             </p>
 
             <a href="mailto:hello@novudesign.co" data-cursor
@@ -64,7 +67,7 @@ export default function Contact() {
             </a>
 
             <p className="mt-6 text-xs" style={{ color:"rgba(107,120,216,0.25)" }}>
-              Or find us on{" "}
+              {c.social}{" "}
               {["Twitter","Instagram","LinkedIn"].map((s,i) => (
                 <span key={s}>
                   <a href="#" className="transition-colors duration-200 cursor-pointer hover:text-violet-300" style={{ color:"rgba(107,120,216,0.4)" }}>{s}</a>

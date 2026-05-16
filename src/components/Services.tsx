@@ -1,19 +1,9 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
+import { useLang } from "@/context/LanguageContext";
 
-const services = [
-  { num: "01", title: "Brand Identity",    color: "#9B3420", tags: ["Logo Design","Visual Systems","Brand Guidelines","Typography"],
-    desc: "Logos, visual systems, and brand guidelines that define who you are — built to resonate and endure." },
-  { num: "02", title: "Web Design & Dev",  color: "#3A45C4", tags: ["Next.js","Motion","Tailwind","Accessibility"],
-    desc: "Pixel-perfect sites built with modern tech. Fast, accessible, and animated to feel alive." },
-  { num: "03", title: "Motion & Animation",color: "#6B78D8", tags: ["GSAP","Framer Motion","3D","Scroll FX"],
-    desc: "Scroll effects, micro-interactions, and transitions that turn your interface into an experience." },
-  { num: "04", title: "UX Strategy",       color: "#A0AAEB", tags: ["Research","Wireframes","Prototyping","Testing"],
-    desc: "Research-backed architecture and interaction design that converts visitors into loyal customers." },
-];
-
-function Card({ s, i }: { s: typeof services[0]; i: number }) {
+function Card({ s, i }: { s: { num: string; title: string; color: string; tags: string[]; desc: string }; i: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const [vis, setVis] = useState(false);
   const [hov, setHov] = useState(false);
@@ -68,8 +58,11 @@ function Card({ s, i }: { s: typeof services[0]; i: number }) {
 }
 
 export default function Services() {
+  const { t } = useLang();
+  const sv = t.services;
   const hRef = useRef<HTMLDivElement>(null);
   const [vis, setVis] = useState(false);
+
   useEffect(() => {
     const el = hRef.current;
     if (!el) return;
@@ -85,14 +78,14 @@ export default function Services() {
           style={{ opacity: vis?1:0, transform: vis?"translateY(0)":"translateY(24px)", transition:"all 0.7s ease" }}>
           <div className="flex items-center gap-3 mb-5">
             <div className="w-6 h-px" style={{ background:"#9B3420" }} />
-            <span className="text-xs font-bold tracking-widest uppercase" style={{ color:"#9B3420" }}>What We Do</span>
+            <span className="text-xs font-bold tracking-widest uppercase" style={{ color:"#9B3420" }}>{sv.label}</span>
           </div>
           <h2 className="font-heading font-black text-5xl md:text-[80px] text-white leading-[0.9] tracking-tighter">
-            Full-stack<br /><span style={{ color:"rgba(107,120,216,0.3)" }}>creative studio.</span>
+            {sv.heading1}<br /><span style={{ color:"rgba(107,120,216,0.3)" }}>{sv.heading2}</span>
           </h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {services.map((s, i) => <Card key={s.num} s={s} i={i} />)}
+          {sv.items.map((s, i) => <Card key={s.num} s={s} i={i} />)}
         </div>
       </div>
     </section>

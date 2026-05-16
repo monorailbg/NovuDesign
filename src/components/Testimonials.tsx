@@ -1,32 +1,11 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
+import { useLang } from "@/context/LanguageContext";
 
-const testimonials = [
-  {
-    quote: "NovuDesign didn't just redesign our brand — they completely transformed how we present ourselves to the world. The result was beyond what we imagined.",
-    name: "Alex Carter",
-    title: "CEO, Luminary Labs",
-    initials: "AC",
-    color: "#9B3420",
-  },
-  {
-    quote: "Working with NovuDesign felt like having a world-class studio in our back pocket. Fast, communicative, and the craft is absolutely stunning.",
-    name: "Sarah Kim",
-    title: "Founder, Prism Studio",
-    initials: "SK",
-    color: "#3A45C4",
-  },
-  {
-    quote: "Our conversion rate doubled after the redesign. But beyond the numbers — the site finally *feels* like us. I can't recommend them enough.",
-    name: "Marcus Bell",
-    title: "Head of Growth, Archetype",
-    initials: "MB",
-    color: "#6B78D8",
-  },
-];
+type TestimonialItem = { quote: string; name: string; title: string; initials: string; color: string };
 
-function Card({ t, i, vis }: { t: typeof testimonials[0]; i: number; vis: boolean }) {
+function Card({ t, i, vis }: { t: TestimonialItem; i: number; vis: boolean }) {
   const [hov, setHov] = useState(false);
   return (
     <div
@@ -41,11 +20,9 @@ function Card({ t, i, vis }: { t: typeof testimonials[0]; i: number; vis: boolea
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
     >
-      {/* glow */}
       <div className="absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-500"
         style={{ opacity: hov ? 1 : 0, background: `radial-gradient(ellipse at 30% 20%, ${t.color}10 0%, transparent 65%)` }} />
 
-      {/* quote mark */}
       <span className="font-heading font-black text-6xl leading-none select-none"
         style={{ color: `${t.color}30` }}>&ldquo;</span>
 
@@ -68,6 +45,8 @@ function Card({ t, i, vis }: { t: typeof testimonials[0]; i: number; vis: boolea
 }
 
 export default function Testimonials() {
+  const { t } = useLang();
+  const tm = t.testimonials;
   const ref = useRef<HTMLDivElement>(null);
   const [vis, setVis] = useState(false);
 
@@ -92,17 +71,17 @@ export default function Testimonials() {
             className="mb-20">
             <div className="flex items-center gap-3 mb-5">
               <div className="w-6 h-px" style={{ background: "#9B3420" }} />
-              <span className="text-xs font-bold tracking-widest uppercase" style={{ color: "#9B3420" }}>Social Proof</span>
+              <span className="text-xs font-bold tracking-widest uppercase" style={{ color: "#9B3420" }}>{tm.label}</span>
             </div>
             <h2 className="font-heading font-black text-5xl md:text-[80px] text-white leading-[0.9] tracking-tighter">
-              Words from<br />
-              <span style={{ color: "rgba(107,120,216,0.28)" }}>those who know.</span>
+              {tm.heading1}<br />
+              <span style={{ color: "rgba(107,120,216,0.28)" }}>{tm.heading2}</span>
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {testimonials.map((t, i) => (
-              <Card key={t.name} t={t} i={i} vis={vis} />
+            {tm.items.map((item, i) => (
+              <Card key={item.name} t={item} i={i} vis={vis} />
             ))}
           </div>
         </div>
