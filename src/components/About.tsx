@@ -1,120 +1,89 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
+import Image from "next/image";
 
-const stats = [
-  { value: 80, suffix: "+", label: "Projects Delivered", color: "#EC4899" },
-  { value: 5, suffix: "★", label: "Avg Client Rating", color: "#A78BFA" },
-  { value: 3, suffix: "yr", label: "In Business", color: "#06B6D4" },
-  { value: 100, suffix: "%", label: "On-Time Delivery", color: "#34D399" },
-];
-
-function CountUp({ target, suffix, active, color }: { target: number; suffix: string; active: boolean; color: string }) {
-  const [val, setVal] = useState(0);
-  useEffect(() => {
-    if (!active) return;
-    const duration = 1800;
-    const start = performance.now();
-    const tick = (now: number) => {
-      const p = Math.min((now - start) / duration, 1);
-      const ease = 1 - Math.pow(1 - p, 3);
-      setVal(Math.round(ease * target));
-      if (p < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  }, [active, target]);
-  return (
-    <span className="font-heading font-black text-5xl md:text-6xl" style={{ color }}>
-      {val}{suffix}
-    </span>
-  );
-}
-
-const process = [
-  { num: "01", title: "Discover", desc: "We dig deep into your brand, goals, and audience through collaborative workshops." },
-  { num: "02", title: "Strategize", desc: "We map out the creative direction — positioning, visual language, and user flows." },
-  { num: "03", title: "Create", desc: "We design and build, sharing progress in real-time with fast iteration cycles." },
-  { num: "04", title: "Launch", desc: "We deliver, deploy, and provide support to make sure everything lands perfectly." },
-];
+const skills = ["Brand Strategy", "Motion Design", "Frontend Dev", "Typography", "UX Research", "Visual Systems"];
 
 export default function About() {
-  const statsRef = useRef<HTMLDivElement>(null);
-  const headRef = useRef<HTMLDivElement>(null);
-  const [statsVis, setStatsVis] = useState(false);
-  const [headVis, setHeadVis] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const [vis, setVis] = useState(false);
 
   useEffect(() => {
-    const observe = (el: HTMLElement | null, cb: () => void) => {
-      if (!el) return;
-      const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { cb(); obs.disconnect(); } }, { threshold: 0.1 });
-      obs.observe(el);
-      return () => obs.disconnect();
-    };
-    observe(statsRef.current, () => setStatsVis(true));
-    observe(headRef.current, () => setHeadVis(true));
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { setVis(true); obs.disconnect(); }
+    }, { threshold: 0.1 });
+    obs.observe(el);
+    return () => obs.disconnect();
   }, []);
 
   return (
     <section id="about" className="py-36 px-6 relative overflow-hidden">
-      {/* Background accent */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full blur-[120px] opacity-[0.04]" style={{ background: "linear-gradient(135deg,#EC4899,#06B6D4)" }} />
-      </div>
+      <div className="absolute -top-60 -left-60 w-[700px] h-[700px] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(109,40,217,0.07) 0%, transparent 70%)" }} />
 
-      <div className="max-w-6xl mx-auto">
-        {/* Stats */}
-        <div
-          ref={statsRef}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-32 p-10 rounded-3xl border"
-          style={{ borderColor: "rgba(255,255,255,0.07)", background: "rgba(255,255,255,0.02)" }}
-        >
-          {stats.map((s, i) => (
-            <div
-              key={s.label}
-              className="text-center"
-              style={{ opacity: statsVis ? 1 : 0, transform: statsVis ? "translateY(0)" : "translateY(16px)", transition: `all 0.6s ease ${i * 0.1}s` }}
-            >
-              <CountUp target={s.value} suffix={s.suffix} active={statsVis} color={s.color} />
-              <p className="mt-2 text-xs font-semibold tracking-wider uppercase" style={{ color: "rgba(255,255,255,0.35)" }}>{s.label}</p>
-            </div>
-          ))}
-        </div>
+      <div ref={ref} className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center"
+        style={{ opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(32px)", transition: "all 0.8s ease" }}>
 
-        {/* Process */}
-        <div ref={headRef}>
-          <div
-            className="mb-16"
-            style={{ opacity: headVis ? 1 : 0, transform: headVis ? "translateY(0)" : "translateY(24px)", transition: "all 0.7s ease" }}
-          >
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-6 h-px" style={{ background: "#A78BFA" }} />
-              <span className="text-xs font-bold tracking-widest uppercase" style={{ color: "#A78BFA" }}>How We Work</span>
-            </div>
-            <h2 className="font-heading font-black text-5xl md:text-[80px] text-white leading-[0.9] tracking-tighter">
-              Our process,<br />
-              <span style={{ color: "rgba(255,255,255,0.3)" }}>refined.</span>
-            </h2>
+        {/* Image column */}
+        <div className="relative flex justify-center lg:justify-start">
+          <div className="relative w-full max-w-sm aspect-[3/4] rounded-3xl overflow-hidden border"
+            style={{ borderColor: "rgba(167,139,250,0.18)", background: "rgba(109,40,217,0.06)", boxShadow: "0 0 80px rgba(109,40,217,0.2)" }}>
+            <Image src="/founder.jpg" alt="Founder" fill className="object-cover" style={{ opacity: 0.92 }} />
+            <div className="absolute inset-0 pointer-events-none"
+              style={{ background: "linear-gradient(to top, rgba(76,29,149,0.55) 0%, transparent 60%)" }} />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-px" style={{ background: "rgba(255,255,255,0.06)" }}>
-            {process.map((step, i) => (
-              <div
-                key={step.num}
-                className="p-8 relative group cursor-default"
-                style={{
-                  background: "#0A0A0A",
-                  opacity: headVis ? 1 : 0,
-                  transform: headVis ? "translateY(0)" : "translateY(24px)",
-                  transition: `all 0.6s ease ${0.2 + i * 0.1}s`,
-                }}
-              >
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{ background: "rgba(255,255,255,0.02)" }}
-                />
-                <span className="block font-heading font-black text-5xl mb-6" style={{ color: "rgba(255,255,255,0.08)" }}>{step.num}</span>
-                <h3 className="font-heading font-black text-xl text-white mb-3">{step.title}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>{step.desc}</p>
+          {/* Floating badge */}
+          <div className="absolute -bottom-5 -right-4 lg:-right-8 px-5 py-3 rounded-2xl border backdrop-blur-md"
+            style={{ background: "rgba(76,29,149,0.85)", borderColor: "rgba(167,139,250,0.25)" }}>
+            <p className="text-2xl font-heading font-black text-white leading-none">80+</p>
+            <p className="text-xs font-semibold tracking-widest uppercase mt-0.5" style={{ color: "#A78BFA" }}>Projects Delivered</p>
+          </div>
+        </div>
+
+        {/* Text column */}
+        <div className="flex flex-col gap-7">
+          <div className="flex items-center gap-3">
+            <div className="w-6 h-px" style={{ background: "#7C3AED" }} />
+            <span className="text-xs font-bold tracking-widest uppercase" style={{ color: "#7C3AED" }}>About</span>
+          </div>
+
+          <h2 className="font-heading font-black text-4xl md:text-5xl text-white leading-[1.0] tracking-tighter">
+            Built by someone who<br />
+            <span style={{
+              background: "linear-gradient(135deg, #C4B5FD 0%, #8B5CF6 50%, #7C3AED 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}>obsesses over craft.</span>
+          </h2>
+
+          <div className="flex flex-col gap-4 text-sm md:text-base leading-relaxed" style={{ color: "rgba(196,181,253,0.5)" }}>
+            <p>
+              NovuDesign was built on a simple belief: great design isn&apos;t just how something looks — it&apos;s how it makes people feel. Every pixel is intentional. Every interaction earns its place.
+            </p>
+            <p>
+              With over five years working with startups, agencies, and global brands, we bring the same level of obsessive detail to a landing page as we do to a full brand system.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-2 mt-1">
+            {skills.map((s) => (
+              <span key={s} className="text-xs font-semibold px-4 py-1.5 rounded-full border"
+                style={{ borderColor: "rgba(167,139,250,0.18)", color: "rgba(196,181,253,0.55)", background: "rgba(109,40,217,0.08)" }}>
+                {s}
+              </span>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-10 pt-5 border-t" style={{ borderColor: "rgba(167,139,250,0.1)" }}>
+            {[["5+", "Years"], ["80+", "Projects"], ["100%", "Passion"]].map(([num, label]) => (
+              <div key={label}>
+                <p className="font-heading font-black text-2xl text-white">{num}</p>
+                <p className="text-xs font-semibold tracking-widest uppercase mt-0.5" style={{ color: "rgba(167,139,250,0.4)" }}>{label}</p>
               </div>
             ))}
           </div>

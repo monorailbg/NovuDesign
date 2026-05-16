@@ -151,21 +151,33 @@ function WovenBond() {
   );
 }
 
-// ─── Word reveal ─────────────────────────────────────────────────────────────
+// ─── Word reveals ────────────────────────────────────────────────────────────
 function Word({ text, delay }: { text: string; delay: number }) {
   const [show, setShow] = useState(false);
-  useEffect(() => {
-    const t = setTimeout(() => setShow(true), delay);
-    return () => clearTimeout(t);
-  }, [delay]);
+  useEffect(() => { const t = setTimeout(() => setShow(true), delay); return () => clearTimeout(t); }, [delay]);
   return (
     <span className="inline-block" style={{
       opacity: show ? 1 : 0,
       transform: show ? "translateY(0)" : "translateY(36px)",
       transition: "opacity 0.75s ease, transform 0.75s ease",
-    }}>
-      {text}
-    </span>
+    }}>{text}</span>
+  );
+}
+
+// Gradient must be on the same element as the text — not a parent — for background-clip:text to work
+function GradientWord({ text, delay }: { text: string; delay: number }) {
+  const [show, setShow] = useState(false);
+  useEffect(() => { const t = setTimeout(() => setShow(true), delay); return () => clearTimeout(t); }, [delay]);
+  return (
+    <span className="inline-block" style={{
+      opacity: show ? 1 : 0,
+      transform: show ? "translateY(0)" : "translateY(36px)",
+      transition: "opacity 0.75s ease, transform 0.75s ease",
+      background: "linear-gradient(135deg, #C4B5FD 0%, #8B5CF6 50%, #7C3AED 100%)",
+      WebkitBackgroundClip: "text",
+      WebkitTextFillColor: "transparent",
+      backgroundClip: "text",
+    }}>{text}</span>
   );
 }
 
@@ -214,11 +226,8 @@ export default function Hero() {
             <Word text="craft" delay={330} />{" "}
             <Word text="digital" delay={460} />
           </span>
-          <span className="block text-[clamp(50px,9vw,132px)] overflow-hidden" style={{
-            background: "linear-gradient(135deg, #C4B5FD 0%, #8B5CF6 45%, #6D28D9 100%)",
-            WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
-          }}>
-            <Word text="legends." delay={600} />
+          <span className="block text-[clamp(50px,9vw,132px)] overflow-hidden">
+            <GradientWord text="legends." delay={600} />
           </span>
         </h1>
 
