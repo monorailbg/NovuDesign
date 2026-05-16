@@ -31,7 +31,7 @@ export default function About() {
         <div className="relative flex justify-center lg:justify-start">
           <div className="relative w-full max-w-sm aspect-[3/4] rounded-3xl overflow-hidden border"
             style={{ borderColor: "rgba(167,139,250,0.18)", background: "rgba(109,40,217,0.06)", boxShadow: "0 0 80px rgba(109,40,217,0.2)" }}>
-            <Image src="/founder.jpg" alt="Founder" fill className="object-cover" style={{ opacity: 0.92 }} />
+            <Image src="/founder.png" alt="Founder" fill className="object-cover" style={{ opacity: 0.92 }} />
             <div className="absolute inset-0 pointer-events-none"
               style={{ background: "linear-gradient(to top, rgba(76,29,149,0.55) 0%, transparent 60%)" }} />
           </div>
