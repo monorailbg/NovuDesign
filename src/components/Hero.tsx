@@ -3,72 +3,173 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
-function AuroraBackground() {
+// ─── Torus-knot woven bond ───────────────────────────────────────────────────
+function WovenBond() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d")!;
+
     let raf: number;
-    let t = 0;
+    let rotY = 0;
 
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      canvas.width  = canvas.offsetWidth  * window.devicePixelRatio;
+      canvas.height = canvas.offsetHeight * window.devicePixelRatio;
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
     };
     resize();
     window.addEventListener("resize", resize);
 
-    const orbs = [
-      { x: 0.2, y: 0.3, r: 0.45, color: "rgba(236,72,153,0.18)", speed: 0.0007 },
-      { x: 0.8, y: 0.6, r: 0.40, color: "rgba(6,182,212,0.14)", speed: 0.0011 },
-      { x: 0.5, y: 0.8, r: 0.35, color: "rgba(167,139,250,0.12)", speed: 0.0009 },
-      { x: 0.9, y: 0.2, r: 0.30, color: "rgba(236,72,153,0.10)", speed: 0.0013 },
-    ];
+    // Torus-knot (p=3, q=2) — trefoil bond
+    const P = 3, Q = 2;
+    const R = 2.0, r = 0.65;
+    const N = 800;          // curve resolution
+    const STRANDS = 3;      // parallel offset strands for braid thickness
+
+    function knotPoint(t: number) {
+      const x = (R + r * Math.cos(Q * t)) * Math.cos(P * t);
+      const y = (R + r * Math.cos(Q * t)) * Math.sin(P * t);
+      const z =  r * Math.sin(Q * t);
+      return { x, y, z };
+    }
+
+    function rotateY(p: {x:number;y:number;z:number}, a: number) {
+      return {
+        x:  p.x * Math.cos(a) + p.z * Math.sin(a),
+        y:  p.y,
+        z: -p.x * Math.sin(a) + p.z * Math.cos(a),
+      };
+    }
+
+    function rotateX(p: {x:number;y:number;z:number}, a: number) {
+      return {
+        x: p.x,
+        y: p.y * Math.cos(a) - p.z * Math.sin(a),
+        z: p.y * Math.sin(a) + p.z * Math.cos(a),
+      };
+    }
+
+    const TILT_X = 0.42; // static tilt so we see the weave
 
     const draw = () => {
-      t += 1;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const W = canvas.width, H = canvas.height;
+      const W = canvas.offsetWidth;
+      const H = canvas.offsetHeight;
+      ctx.clearRect(0, 0, W, H);
 
-      orbs.forEach((orb, i) => {
-        const ox = (orb.x + 0.1 * Math.sin(t * orb.speed * 1000 + i)) * W;
-        const oy = (orb.y + 0.1 * Math.cos(t * orb.speed * 800 + i)) * H;
-        const r = orb.r * Math.min(W, H);
-        const g = ctx.createRadialGradient(ox, oy, 0, ox, oy, r);
-        g.addColorStop(0, orb.color);
-        g.addColorStop(1, "transparent");
-        ctx.fillStyle = g;
-        ctx.fillRect(0, 0, W, H);
-      });
+      const scale = Math.min(W, H) * 0.165;
+      const cx = W / 2;
+      const cy = H / 2;
 
+      // Build all segment data across all strands
+      type Seg = {
+        x0: number; y0: number;
+        x1: number; y1: number;
+        z:  number;           // average depth for sorting
+        t:  number;           // position along curve [0..1]
+        strand: number;
+      };
+      const segments: Seg[] = [];
+
+      for (let s = 0; s < STRANDS; s++) {
+        const offset = (s / STRANDS) * (2 * Math.PI / N) * 4; // slight phase shift
+        for (let i = 0; i < N; i++) {
+          const t0 = ((i)   / N) * 2 * Math.PI + offset;
+          const t1 = ((i+1) / N) * 2 * Math.PI + offset;
+
+          let p0 = knotPoint(t0);
+          let p1 = knotPoint(t1);
+
+          // tiny radial offset per strand so they sit side-by-side
+          const radialShift = (s - (STRANDS - 1) / 2) * 0.12;
+          const perpAngle0 = Math.atan2(p0.y, p0.x) + Math.PI / 2;
+          const perpAngle1 = Math.atan2(p1.y, p1.x) + Math.PI / 2;
+          p0 = { x: p0.x + radialShift * Math.cos(perpAngle0), y: p0.y + radialShift * Math.sin(perpAngle0), z: p0.z };
+          p1 = { x: p1.x + radialShift * Math.cos(perpAngle1), y: p1.y + radialShift * Math.sin(perpAngle1), z: p1.z };
+
+          // Rotate
+          p0 = rotateX(rotateY(p0, rotY), TILT_X);
+          p1 = rotateX(rotateY(p1, rotY), TILT_X);
+
+          segments.push({
+            x0: cx + p0.x * scale, y0: cy - p0.y * scale,
+            x1: cx + p1.x * scale, y1: cy - p1.y * scale,
+            z: (p0.z + p1.z) / 2,
+            t: i / N,
+            strand: s,
+          });
+        }
+      }
+
+      // Sort back-to-front (painter's algo for weave depth)
+      segments.sort((a, b) => a.z - b.z);
+
+      // Draw
+      const zMin = -r - 0.1, zMax = r + 0.1;
+      for (const seg of segments) {
+        const depth = (seg.z - zMin) / (zMax - zMin); // 0 = back, 1 = front
+
+        // Violet gradient: deep indigo → bright violet-300
+        const lightness = 28 + depth * 42;           // 28%..70%
+        const sat       = 65 + depth * 20;            // 65%..85%
+        const hue       = 258 + seg.strand * 8;       // 258°..274°
+        const alpha     = 0.55 + depth * 0.45;        // 0.55..1.0
+        const width     = 1.4 + depth * 2.8;          // thin back, thick front
+
+        ctx.beginPath();
+        ctx.moveTo(seg.x0, seg.y0);
+        ctx.lineTo(seg.x1, seg.y1);
+        ctx.strokeStyle = `hsla(${hue},${sat}%,${lightness}%,${alpha})`;
+        ctx.lineWidth   = width;
+        ctx.lineCap     = "round";
+
+        // Soft glow on foreground strands
+        if (depth > 0.65) {
+          ctx.shadowColor = `hsla(${hue},90%,75%,${(depth - 0.65) * 0.7})`;
+          ctx.shadowBlur  = 10 + depth * 12;
+        } else {
+          ctx.shadowBlur = 0;
+        }
+        ctx.stroke();
+      }
+
+      ctx.shadowBlur = 0;
+      rotY += 0.0025; // slow, calming rotation
       raf = requestAnimationFrame(draw);
     };
-    draw();
 
+    draw();
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />;
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 w-full h-full"
+      style={{ opacity: 0.92 }}
+    />
+  );
 }
 
+// ─── Word reveal ─────────────────────────────────────────────────────────────
 function Word({ text, delay }: { text: string; delay: number }) {
-  const [visible, setVisible] = useState(false);
+  const [show, setShow] = useState(false);
   useEffect(() => {
-    const t = setTimeout(() => setVisible(true), delay);
+    const t = setTimeout(() => setShow(true), delay);
     return () => clearTimeout(t);
   }, [delay]);
   return (
     <span
-      className="inline-block transition-all duration-700"
+      className="inline-block"
       style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(40px)",
-        transitionDelay: "0ms",
+        opacity:    show ? 1 : 0,
+        transform:  show ? "translateY(0)" : "translateY(36px)",
+        transition: "opacity 0.75s ease, transform 0.75s ease",
       }}
     >
       {text}
@@ -76,155 +177,126 @@ function Word({ text, delay }: { text: string; delay: number }) {
   );
 }
 
+// ─── Hero ─────────────────────────────────────────────────────────────────────
 export default function Hero() {
-  const mouseRef = useRef({ x: 0.5, y: 0.5 });
-  const floatRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const onMove = (e: MouseEvent) => {
-      mouseRef.current = {
-        x: e.clientX / window.innerWidth,
-        y: e.clientY / window.innerHeight,
-      };
-    };
-    window.addEventListener("mousemove", onMove);
-
-    let raf: number;
-    const pos = { x: 0.5, y: 0.5 };
-    const animate = () => {
-      pos.x += (mouseRef.current.x - pos.x) * 0.05;
-      pos.y += (mouseRef.current.y - pos.y) * 0.05;
-      if (floatRef.current) {
-        floatRef.current.style.transform = `translate(${(pos.x - 0.5) * -24}px, ${(pos.y - 0.5) * -16}px)`;
-      }
-      raf = requestAnimationFrame(animate);
-    };
-    animate();
-
-    return () => {
-      window.removeEventListener("mousemove", onMove);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
-
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 pt-28 pb-20">
-      <AuroraBackground />
 
-      {/* Noise texture overlay */}
+      {/* Deep violet base glow */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        background: "radial-gradient(ellipse 80% 60% at 50% 50%, rgba(109,40,217,0.18) 0%, transparent 70%)",
+      }} />
+
+      {/* Woven bond canvas — centred, square */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="relative w-full max-w-2xl aspect-square opacity-80">
+          <WovenBond />
+        </div>
+      </div>
+
+      {/* Subtle noise */}
       <div
-        className="absolute inset-0 opacity-[0.035] pointer-events-none"
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")`,
-          backgroundSize: "200px 200px",
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+          backgroundSize: "180px 180px",
         }}
       />
 
-      {/* Grid */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: "linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)",
-          backgroundSize: "100px 100px",
-          maskImage: "radial-gradient(ellipse at center, black 30%, transparent 80%)",
-        }}
-      />
+      {/* Content — above the knot */}
+      <div className="relative flex flex-col items-center text-center">
 
-      {/* Floating orbs (parallax with mouse) */}
-      <div ref={floatRef} className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-[15%] left-[8%] w-64 h-64 rounded-full blur-3xl opacity-20" style={{ background: "#EC4899" }} />
-        <div className="absolute bottom-[20%] right-[10%] w-48 h-48 rounded-full blur-3xl opacity-15" style={{ background: "#06B6D4" }} />
-        <div className="absolute top-[55%] left-[15%] w-32 h-32 rounded-full blur-2xl opacity-20" style={{ background: "#A78BFA" }} />
-      </div>
-
-      {/* Badge */}
-      <div
-        className="relative mb-10 flex items-center gap-2.5 px-5 py-2 rounded-full border border-white/10 backdrop-blur-sm"
-        style={{ background: "rgba(255,255,255,0.04)", animation: "fadeUp 0.6s ease forwards" }}
-      >
-        <span className="relative flex h-2 w-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: "#06B6D4" }} />
-          <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: "#06B6D4" }} />
-        </span>
-        <span className="text-xs font-semibold tracking-[0.2em] uppercase" style={{ color: "#06B6D4" }}>
-          Now Taking Projects · 2025
-        </span>
-      </div>
-
-      {/* Headline */}
-      <h1 className="relative font-heading font-black text-center tracking-tighter leading-[0.88] max-w-6xl overflow-hidden">
-        <span className="block text-[clamp(52px,9.5vw,136px)] text-white">
-          <Word text="We" delay={200} />{" "}
-          <Word text="craft" delay={320} />{" "}
-          <Word text="digital" delay={440} />
-        </span>
-        <span className="block text-[clamp(52px,9.5vw,136px)]" style={{
-          background: "linear-gradient(135deg, #EC4899 0%, #F472B6 30%, #A78BFA 60%, #06B6D4 100%)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          backgroundClip: "text",
-        }}>
-          <Word text="legends." delay={580} />
-        </span>
-      </h1>
-
-      {/* Sub */}
-      <p
-        className="relative mt-8 max-w-lg text-center text-lg leading-relaxed"
-        style={{
-          color: "rgba(255,255,255,0.45)",
-          fontFamily: "var(--font-space-grotesk)",
-          animation: "fadeUp 0.8s ease 0.9s both",
-        }}
-      >
-        Strategy, identity, and motion — forged into digital experiences that stop people mid-scroll.
-      </p>
-
-      {/* CTAs */}
-      <div className="relative mt-12 flex flex-wrap items-center justify-center gap-4" style={{ animation: "fadeUp 0.8s ease 1.1s both" }}>
-        <Link
-          href="#work"
-          className="group relative flex items-center gap-2.5 px-8 py-4 rounded-full font-bold text-white overflow-hidden cursor-pointer"
-          style={{ background: "linear-gradient(135deg, #EC4899 0%, #A78BFA 50%, #06B6D4 100%)", backgroundSize: "200% 200%" }}
-          onMouseEnter={(e) => (e.currentTarget.style.backgroundPosition = "100% 100%")}
-          onMouseLeave={(e) => (e.currentTarget.style.backgroundPosition = "0% 0%")}
-        >
-          <span>View Our Work</span>
-          <svg className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-          </svg>
-        </Link>
-
-        <Link
-          href="#contact"
-          className="group flex items-center gap-2 px-8 py-4 rounded-full font-bold border cursor-pointer transition-all duration-300"
-          style={{ borderColor: "rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.7)" }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)";
-            e.currentTarget.style.color = "#fff";
-            e.currentTarget.style.background = "rgba(255,255,255,0.06)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)";
-            e.currentTarget.style.color = "rgba(255,255,255,0.7)";
-            e.currentTarget.style.background = "transparent";
+        {/* Badge */}
+        <div
+          className="mb-10 flex items-center gap-2.5 px-5 py-2 rounded-full border backdrop-blur-sm"
+          style={{
+            background: "rgba(109,40,217,0.12)",
+            borderColor: "rgba(167,139,250,0.2)",
+            animation: "fadeUp 0.6s ease forwards",
           }}
         >
-          Start a Project
-        </Link>
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: "#A78BFA" }} />
+            <span className="relative rounded-full h-2 w-2" style={{ background: "#A78BFA" }} />
+          </span>
+          <span className="text-xs font-semibold tracking-[0.2em] uppercase" style={{ color: "#A78BFA" }}>
+            Now Taking Projects · 2025
+          </span>
+        </div>
+
+        {/* Headline */}
+        <h1 className="font-heading font-black tracking-tighter leading-[0.88] max-w-5xl">
+          <span className="block text-[clamp(50px,9vw,132px)] text-white overflow-hidden">
+            <Word text="We" delay={200} />{" "}
+            <Word text="craft" delay={330} />{" "}
+            <Word text="digital" delay={460} />
+          </span>
+          <span
+            className="block text-[clamp(50px,9vw,132px)] overflow-hidden"
+            style={{
+              background: "linear-gradient(135deg, #C4B5FD 0%, #8B5CF6 45%, #6D28D9 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
+            <Word text="legends." delay={600} />
+          </span>
+        </h1>
+
+        {/* Subtext */}
+        <p
+          className="mt-8 max-w-md text-base md:text-lg leading-relaxed"
+          style={{
+            color: "rgba(196,181,253,0.55)",
+            fontFamily: "var(--font-space-grotesk)",
+            animation: "fadeUp 0.8s ease 0.95s both",
+          }}
+        >
+          Strategy, identity, and motion — forged into digital experiences that stop people mid-scroll.
+        </p>
+
+        {/* CTAs */}
+        <div className="mt-11 flex flex-wrap items-center justify-center gap-4" style={{ animation: "fadeUp 0.8s ease 1.15s both" }}>
+          <Link
+            href="#work"
+            className="group flex items-center gap-2.5 px-8 py-4 rounded-full font-bold text-white cursor-pointer transition-all duration-300 hover:-translate-y-0.5"
+            style={{
+              background: "linear-gradient(135deg, #7C3AED, #A78BFA)",
+              boxShadow: "0 0 32px rgba(124,58,237,0.4)",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "0 0 48px rgba(139,92,246,0.55)")}
+            onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "0 0 32px rgba(124,58,237,0.4)")}
+          >
+            View Our Work
+            <svg className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+            </svg>
+          </Link>
+
+          <Link
+            href="#contact"
+            className="flex items-center gap-2 px-8 py-4 rounded-full font-bold border cursor-pointer transition-all duration-300 hover:-translate-y-0.5"
+            style={{ borderColor: "rgba(167,139,250,0.2)", color: "rgba(196,181,253,0.7)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(167,139,250,0.4)"; e.currentTarget.style.color = "#C4B5FD"; e.currentTarget.style.background = "rgba(109,40,217,0.12)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(167,139,250,0.2)"; e.currentTarget.style.color = "rgba(196,181,253,0.7)"; e.currentTarget.style.background = "transparent"; }}
+          >
+            Start a Project
+          </Link>
+        </div>
       </div>
 
       {/* Scroll cue */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3" style={{ animation: "fadeIn 1s ease 1.5s both" }}>
-        <div className="w-px h-16 overflow-hidden">
-          <div className="w-full h-full" style={{ background: "linear-gradient(to bottom, transparent, rgba(255,255,255,0.3), transparent)", animation: "scrollLine 1.8s ease-in-out infinite" }} />
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3" style={{ animation: "fadeIn 1s ease 1.6s both" }}>
+        <div className="w-px h-14 overflow-hidden">
+          <div className="w-full h-full" style={{ background: "linear-gradient(to bottom, transparent, rgba(167,139,250,0.5), transparent)", animation: "scrollLine 2s ease-in-out infinite" }} />
         </div>
       </div>
 
       <style>{`
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes scrollLine { 0% { transform: translateY(-100%); } 100% { transform: translateY(200%); } }
+        @keyframes fadeUp   { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes fadeIn   { from { opacity:0; } to { opacity:1; } }
+        @keyframes scrollLine { 0%{transform:translateY(-100%)} 100%{transform:translateY(200%)} }
       `}</style>
     </section>
   );
