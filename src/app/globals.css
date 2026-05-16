@@ -20,14 +20,24 @@
   --font-heading: var(--font-archivo);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--color-background);
   color: var(--color-text);
   font-family: var(--font-body), sans-serif;
+  overflow-x: hidden;
+  cursor: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading), sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 @media (prefers-reduced-motion: reduce) {
