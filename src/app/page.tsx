@@ -7,6 +7,7 @@ import Work from "@/components/Work";
 import Manifesto from "@/components/Manifesto";
 import About from "@/components/About";
 import Testimonials from "@/components/Testimonials";
+import Insights from "@/components/Insights";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -23,6 +24,7 @@ export default function Home() {
         <Manifesto />
         <About />
         <Testimonials />
+        <Insights />
         <Contact />
       </main>
       <Footer />
