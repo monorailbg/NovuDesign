@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useCallback } from "react";
+import { useLenis } from "./SmoothScroll";
 
 export type Project = {
   title: string;
@@ -23,17 +24,17 @@ function CloseIcon() {
 
 export default function ProjectModal({ project, onClose }: { project: Project; onClose: () => void }) {
   const close = useCallback(() => onClose(), [onClose]);
+  const lenis = useLenis();
 
   useEffect(() => {
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    lenis?.stop();
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") close(); };
     window.addEventListener("keydown", onKey);
     return () => {
-      document.body.style.overflow = prev;
+      lenis?.start();
       window.removeEventListener("keydown", onKey);
     };
-  }, [close]);
+  }, [close, lenis]);
 
   return (
     <div
@@ -50,6 +51,7 @@ export default function ProjectModal({ project, onClose }: { project: Project; o
       {/* Panel */}
       <div
         className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl border flex flex-col"
+        data-lenis-prevent
         style={{
           background: "rgba(12,15,30,0.98)",
           borderColor: `${project.color}30`,
