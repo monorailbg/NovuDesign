@@ -221,7 +221,7 @@ export default function Hero() {
 
         {/* Headline */}
         <h1 className="font-heading font-black tracking-tighter leading-[0.88] max-w-5xl">
-          <span className="block text-[clamp(50px,9vw,132px)] text-white overflow-hidden">
+          <span className="block text-[clamp(50px,9vw,132px)] text-white">
             <Word text="We" delay={200} />{" "}
             <Word text="craft" delay={330} />{" "}
             <Word text="digital" delay={460} />

@@ -24,10 +24,10 @@ function RevealWord({ word, delay, gradient }: { word: string; delay: number; gr
 
   if (gradient) {
     return (
-      <span ref={ref} className="inline-block overflow-hidden" style={{ verticalAlign: "bottom" }}>
+      <span ref={ref} className="inline-block" style={{ verticalAlign: "bottom" }}>
         <span className="inline-block" style={{
           opacity: show ? 1 : 0,
-          transform: show ? "translateY(0)" : "translateY(110%)",
+          transform: show ? "translateY(0)" : "translateY(28px)",
           transition: "opacity 0.7s ease, transform 0.7s ease",
           background: "linear-gradient(135deg, #A0AAEB 0%, #3A45C4 45%, #9B3420 100%)",
           WebkitBackgroundClip: "text",
@@ -39,10 +39,10 @@ function RevealWord({ word, delay, gradient }: { word: string; delay: number; gr
   }
 
   return (
-    <span ref={ref} className="inline-block overflow-hidden" style={{ verticalAlign: "bottom" }}>
+    <span ref={ref} className="inline-block" style={{ verticalAlign: "bottom" }}>
       <span className="inline-block text-white" style={{
         opacity: show ? 1 : 0,
-        transform: show ? "translateY(0)" : "translateY(110%)",
+        transform: show ? "translateY(0)" : "translateY(28px)",
         transition: "opacity 0.7s ease, transform 0.7s ease",
       }}>{word}</span>
     </span>
