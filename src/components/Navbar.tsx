@@ -7,32 +7,41 @@ const links = ["Work", "Services", "About", "Contact"];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const t = setTimeout(() => setVisible(true), 100);
+    const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => { clearTimeout(t); window.removeEventListener("scroll", onScroll); };
   }, []);
 
   return (
     <nav
-      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between gap-8 px-6 py-3 rounded-full border transition-all duration-300 ${
-        scrolled
-          ? "bg-[#0A0A0A]/90 border-white/10 backdrop-blur-md shadow-lg shadow-black/40"
-          : "bg-white/5 border-white/5 backdrop-blur-sm"
-      }`}
-      style={{ width: "min(680px, calc(100vw - 32px))" }}
+      className="fixed top-5 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between gap-6 px-5 py-2.5 rounded-full border transition-all duration-500"
+      style={{
+        width: "min(700px, calc(100vw - 32px))",
+        opacity: visible ? 1 : 0,
+        transform: `translateX(-50%) translateY(${visible ? 0 : -12}px)`,
+        background: scrolled ? "rgba(10,10,10,0.85)" : "rgba(255,255,255,0.04)",
+        borderColor: scrolled ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.06)",
+        backdropFilter: "blur(20px)",
+        boxShadow: scrolled ? "0 0 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)" : "none",
+      }}
     >
-      <Link href="/" className="font-heading font-bold text-lg tracking-tight text-white">
-        Novu<span style={{ color: "var(--color-primary)" }}>.</span>
+      <Link href="/" className="font-heading font-black text-xl tracking-tight text-white flex-shrink-0 cursor-pointer">
+        Novu<span style={{ background: "linear-gradient(135deg,#EC4899,#06B6D4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>.</span>
       </Link>
 
-      <ul className="hidden md:flex items-center gap-6">
+      <ul className="hidden md:flex items-center gap-1">
         {links.map((l) => (
           <li key={l}>
             <Link
               href={`#${l.toLowerCase()}`}
-              className="text-sm font-medium text-zinc-400 hover:text-white transition-colors duration-200 cursor-pointer"
+              className="px-3.5 py-1.5 text-sm font-medium rounded-full transition-all duration-200 cursor-pointer"
+              style={{ color: "rgba(255,255,255,0.5)" }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = "#fff"; e.currentTarget.style.background = "rgba(255,255,255,0.07)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(255,255,255,0.5)"; e.currentTarget.style.background = "transparent"; }}
             >
               {l}
             </Link>
@@ -42,10 +51,8 @@ export default function Navbar() {
 
       <Link
         href="#contact"
-        className="text-sm font-semibold px-4 py-2 rounded-full transition-all duration-200 cursor-pointer"
-        style={{ background: "var(--color-primary)", color: "#fff" }}
-        onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
-        onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+        className="relative flex-shrink-0 text-sm font-bold px-5 py-2 rounded-full text-white cursor-pointer overflow-hidden transition-opacity duration-200 hover:opacity-90"
+        style={{ background: "linear-gradient(135deg, #EC4899, #A78BFA)" }}
       >
         Let's Talk
       </Link>
