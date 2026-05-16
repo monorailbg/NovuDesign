@@ -619,6 +619,89 @@ function ProjectCard({ p, viewCase, i, onOpen }: { p: FullProject; viewCase: str
   );
 }
 
+// ─── All Projects Modal ───────────────────────────────────────────────────────
+
+function AllProjectsModal({ projects, viewCase, onClose, onOpen }: {
+  projects: FullProject[];
+  viewCase: string;
+  onClose: () => void;
+  onOpen: (p: FullProject) => void;
+}) {
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", onKey);
+    return () => { document.body.style.overflow = prev; window.removeEventListener("keydown", onKey); };
+  }, [onClose]);
+
+  return (
+    <div className="fixed inset-0 z-[9980] flex items-center justify-center p-4 md:p-10"
+      style={{ animation: "apFadeIn 0.25s ease forwards" }}>
+      <div className="absolute inset-0 backdrop-blur-xl cursor-pointer"
+        style={{ background: "rgba(6,8,16,0.93)" }} onClick={onClose} />
+
+      <div className="relative w-full max-w-5xl max-h-[92vh] flex flex-col rounded-3xl border overflow-hidden"
+        style={{ background: "rgba(9,11,20,0.98)", borderColor: "rgba(107,120,216,0.14)", boxShadow: "0 40px 100px rgba(0,0,0,0.7), 0 0 60px rgba(58,69,196,0.1)", animation: "apPanelUp 0.35s cubic-bezier(0.16,1,0.3,1) forwards" }}
+        onClick={e => e.stopPropagation()}>
+
+        {/* Header */}
+        <div className="flex items-center justify-between px-8 py-5 border-b flex-shrink-0"
+          style={{ borderColor: "rgba(107,120,216,0.1)" }}>
+          <span className="text-sm font-bold tracking-widest uppercase" style={{ color: "rgba(160,170,235,0.4)" }}>
+            All Projects
+          </span>
+          <button onClick={onClose}
+            className="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer transition-all duration-200"
+            style={{ background: "rgba(160,170,235,0.07)", color: "rgba(160,170,235,0.4)" }}
+            onMouseEnter={e => { e.currentTarget.style.background = "rgba(107,120,216,0.2)"; e.currentTarget.style.color = "#A0AAEB"; }}
+            onMouseLeave={e => { e.currentTarget.style.background = "rgba(160,170,235,0.07)"; e.currentTarget.style.color = "rgba(160,170,235,0.4)"; }}>
+            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Grid */}
+        <div className="overflow-y-auto p-6 md:p-8 grid grid-cols-1 sm:grid-cols-2 gap-5" data-lenis-prevent>
+          {projects.map((p, i) => (
+            <button key={p.title} onClick={() => { onClose(); setTimeout(() => onOpen(p), 50); }}
+              className="group relative flex flex-col rounded-2xl border overflow-hidden cursor-pointer text-left transition-all duration-300"
+              style={{ borderColor: "rgba(107,120,216,0.1)", background: "rgba(58,69,196,0.04)" }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = `${p.color}40`; e.currentTarget.style.background = `${p.color}08`; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(107,120,216,0.1)"; e.currentTarget.style.background = "rgba(58,69,196,0.04)"; }}>
+
+              {/* Mockup preview */}
+              <div className="h-52 flex-shrink-0 overflow-hidden">
+                {p.compactMockup}
+              </div>
+
+              {/* Info */}
+              <div className="px-5 py-4 flex items-start justify-between gap-3">
+                <div>
+                  <p className="text-xs font-bold tracking-widest uppercase mb-1" style={{ color: p.color }}>{p.category}</p>
+                  <h3 className="font-heading font-black text-base text-white leading-tight">{p.title}</h3>
+                </div>
+                <div className="flex items-center gap-1.5 text-xs font-bold flex-shrink-0 mt-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                  style={{ color: p.color }}>
+                  {viewCase}
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                  </svg>
+                </div>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+      <style>{`
+        @keyframes apFadeIn  { from{opacity:0} to{opacity:1} }
+        @keyframes apPanelUp { from{opacity:0;transform:translateY(24px) scale(0.97)} to{opacity:1;transform:translateY(0) scale(1)} }
+      `}</style>
+    </div>
+  );
+}
+
 // ─── Section ──────────────────────────────────────────────────────────────────
 
 export default function Work() {
@@ -627,6 +710,7 @@ export default function Work() {
   const hRef = useRef<HTMLDivElement>(null);
   const [vis, setVis] = useState(false);
   const [active, setActive] = useState<FullProject | null>(null);
+  const [allOpen, setAllOpen] = useState(false);
 
   const projects: FullProject[] = PROJECT_VISUAL.map((v, i) => ({
     ...v,
@@ -658,6 +742,7 @@ export default function Work() {
               </h2>
             </div>
             <button
+              onClick={() => setAllOpen(true)}
               className="hidden md:inline-flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-full border cursor-pointer transition-all duration-300 flex-shrink-0 self-end"
               style={{ borderColor: "rgba(107,120,216,0.15)", color: "rgba(160,170,235,0.5)" }}
               onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(107,120,216,0.35)"; e.currentTarget.style.color = "#A0AAEB"; }}
@@ -679,6 +764,15 @@ export default function Work() {
 
       {active && (
         <ProjectModal project={{ ...active, mockup: active.mockup }} onClose={() => setActive(null)} />
+      )}
+
+      {allOpen && (
+        <AllProjectsModal
+          projects={projects}
+          viewCase={w.viewCase}
+          onClose={() => setAllOpen(false)}
+          onOpen={(p) => setActive(p)}
+        />
       )}
     </>
   );
