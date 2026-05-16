@@ -19,15 +19,26 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     });
     setLenis(l);
 
+    // Intercept all hash-anchor clicks so Lenis handles the scroll
+    const handleAnchor = (e: MouseEvent) => {
+      const anchor = (e.target as Element).closest('a[href^="#"]') as HTMLAnchorElement | null;
+      if (!anchor) return;
+      const hash = anchor.getAttribute("href");
+      if (!hash || hash === "#") return;
+      const target = document.querySelector(hash);
+      if (!target) return;
+      e.preventDefault();
+      l.scrollTo(target as HTMLElement, { offset: -80, duration: 1.2 });
+    };
+    document.addEventListener("click", handleAnchor);
+
     let raf: number;
-    function loop(time: number) {
-      l.raf(time);
-      raf = requestAnimationFrame(loop);
-    }
+    function loop(time: number) { l.raf(time); raf = requestAnimationFrame(loop); }
     raf = requestAnimationFrame(loop);
 
     return () => {
       cancelAnimationFrame(raf);
+      document.removeEventListener("click", handleAnchor);
       l.destroy();
       setLenis(null);
     };

@@ -41,10 +41,10 @@ const en = {
     allProjects: "All Projects",
     viewCase: "View Case Study",
     projects: [
-      { category: "Brand Identity + Web",   description: "A complete rebrand for a luxury lifestyle company. We rebuilt their visual identity from scratch — custom logotype, colour system, print collateral, and a new web presence that feels like stepping into a private members club." },
-      { category: "Motion Design",           description: "Cinematic product launch video and interactive demo site for a stealth-mode deep tech company. We handled full creative direction — storyboard to delivery." },
-      { category: "Web Design + Dev",        description: "SaaS dashboard redesign that cut time-to-task by 40%. We rebuilt the information architecture, design system, and frontend from first principles." },
-      { category: "UX + Art Direction",      description: "Full creative direction for a renowned architecture firm's digital presence. A restrained, editorial approach that lets the work breathe." },
+      { category: "Tour Guide · Web App", description: "A bilingual tour platform for Tokyo's hidden neighbourhoods. We built the brand, the booking experience, and the full-stack web app — from torii to checkout. Trilingual: DE, EN, JP." },
+      { category: "Healthcare · Web",     description: "Full digital presence for a Munich dental practice. Trust-building design with an integrated appointment system that doubled online bookings within the first month of launch." },
+      { category: "Luxury · Brand + Web", description: "Brand identity and editorial web presence for a Berlin-based luxury hair atelier. Restrained elegance that converts at the price point their craft commands." },
+      { category: "E-Commerce · Shopify", description: "End-to-end e-commerce build for a premium pet retailer. Custom Shopify theme, product photography direction, and a loyalty programme that drives consistent repeat purchase." },
     ],
   },
   manifesto: {
@@ -171,10 +171,10 @@ const de: typeof en = {
     allProjects: "Alle Projekte",
     viewCase: "Fallstudie Ansehen",
     projects: [
-      { category: "Markenidentität + Web",    description: "Ein vollständiges Rebranding für ein Luxus-Lifestyle-Unternehmen. Wir bauten ihre visuelle Identität von Grund auf neu — Custom-Logotyp, Farbsystem, Druckerzeugnisse und eine neue Webpräsenz, die sich anfühlt wie der Eintritt in einen exklusiven Privatclub." },
-      { category: "Motion Design",                 description: "Kinematisches Produktlaunch-Video und interaktive Demo-Site für ein Stealth-Mode-DeepTech-Unternehmen. Wir übernahmen die vollständige Kreativleitung — vom Storyboard bis zur Auslieferung." },
-      { category: "Webdesign + Entwicklung",       description: "SaaS-Dashboard-Redesign, das die Zeit bis zur Aufgabenerledigung um 40 % reduzierte. Wir bauten Informationsarchitektur, Designsystem und Frontend von Grund auf neu." },
-      { category: "UX + Art Direction",            description: "Vollständige Kreativleitung für die digitale Präsenz eines renommierten Architekturbüros. Ein zurückhaltender, redaktioneller Ansatz, der die Arbeit atmen lässt." },
+      { category: "Stadtführer · Web-App",    description: "Eine mehrsprachige Tour-Plattform für Tokios versteckte Stadtviertel. Wir entwickelten die Marke, das Buchungserlebnis und die Full-Stack-Web-App — von Torii bis Checkout. Dreisprachig: DE, EN, JP." },
+      { category: "Gesundheit · Web",         description: "Vollständige digitale Präsenz für eine Münchner Zahnarztpraxis. Vertrauensbildendes Design mit integriertem Terminsystem, das die Online-Buchungen im ersten Monat verdoppelte." },
+      { category: "Luxury · Marke + Web",     description: "Markenidentität und redaktionelle Webpräsenz für ein Berliner Luxus-Haaratelier. Zurückhaltende Eleganz, die zum Preisniveau des Handwerks konvertiert." },
+      { category: "E-Commerce · Shopify",     description: "End-to-End E-Commerce-Aufbau für einen Premium-Tierbedarf-Händler. Individuelles Shopify-Theme, Produktfotografie-Regie und ein Treueprogramm für nachhaltigen Wiederkauf." },
     ],
   },
   manifesto: {
