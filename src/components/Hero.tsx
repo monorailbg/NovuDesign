@@ -226,7 +226,7 @@ export default function Hero() {
             <Word text="craft" delay={330} />{" "}
             <Word text="digital" delay={460} />
           </span>
-          <span className="block text-[clamp(50px,9vw,132px)] overflow-hidden pb-[0.15em]">
+          <span className="block text-[clamp(50px,9vw,132px)] pb-[0.12em]">
             <GradientWord text="legends." delay={600} />
           </span>
         </h1>
