@@ -114,10 +114,10 @@ function WovenBond() {
         if (segs.length === 0) continue;
 
         const d   = b / (N_BUCK - 1);          // 0 = back, 1 = front
-        const L   = Math.round(24 + d * 46);   // lightness 24%→70%
-        const S   = Math.round(60 + d * 22);   // saturation 60%→82%
-        const hue = 260 + (b % 2) * 8;         // subtle hue variation
-        const alpha = 0.45 + d * 0.55;
+        const L   = Math.round(22 + d * 50);   // lightness 22%→72%
+        const S   = Math.round(62 + d * 20);   // saturation 62%→82%
+        const hue = Math.round(232 - d * 218) + (b % 2) * 6; // VB(232)→madder(14)
+        const alpha = 0.42 + d * 0.58;
         const lw  = 1.2 + d * 2.6;
 
         ctx.beginPath();
@@ -146,7 +146,7 @@ function WovenBond() {
       ref={canvasRef}
       className="absolute inset-0 w-full h-full"
       // CSS filter gives the glow cheaply — no per-segment shadowBlur needed
-      style={{ filter: "blur(0px) drop-shadow(0 0 18px rgba(139,92,246,0.45))", opacity: 0.9 }}
+      style={{ filter: "blur(0px) drop-shadow(0 0 18px rgba(78,95,212,0.4))", opacity: 0.9 }}
     />
   );
 }
@@ -173,7 +173,7 @@ function GradientWord({ text, delay }: { text: string; delay: number }) {
       opacity: show ? 1 : 0,
       transform: show ? "translateY(0)" : "translateY(36px)",
       transition: "opacity 0.75s ease, transform 0.75s ease",
-      background: "linear-gradient(135deg, #C4B5FD 0%, #8B5CF6 50%, #7C3AED 100%)",
+      background: "linear-gradient(135deg, #A0AAEB 0%, #3A45C4 45%, #9B3420 100%)",
       WebkitBackgroundClip: "text",
       WebkitTextFillColor: "transparent",
       backgroundClip: "text",
@@ -188,7 +188,7 @@ export default function Hero() {
 
       {/* Violet base glow */}
       <div className="absolute inset-0 pointer-events-none" style={{
-        background: "radial-gradient(ellipse 70% 55% at 50% 50%, rgba(109,40,217,0.16) 0%, transparent 70%)",
+        background: "radial-gradient(ellipse 70% 55% at 50% 50%, rgba(40,48,160,0.14) 0%, transparent 70%)",
       }} />
 
       {/* Woven bond — contained square so canvas stays small */}
@@ -209,12 +209,12 @@ export default function Hero() {
 
         {/* Badge */}
         <div className="mb-10 flex items-center gap-2.5 px-5 py-2 rounded-full border backdrop-blur-sm"
-          style={{ background: "rgba(109,40,217,0.12)", borderColor: "rgba(167,139,250,0.2)", animation: "fadeUp 0.6s ease forwards" }}>
+          style={{ background: "rgba(58,69,196,0.12)", borderColor: "rgba(107,120,216,0.2)", animation: "fadeUp 0.6s ease forwards" }}>
           <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: "#A78BFA" }} />
-            <span className="relative rounded-full h-2 w-2" style={{ background: "#A78BFA" }} />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: "#6B78D8" }} />
+            <span className="relative rounded-full h-2 w-2" style={{ background: "#6B78D8" }} />
           </span>
-          <span className="text-xs font-semibold tracking-[0.2em] uppercase" style={{ color: "#A78BFA" }}>
+          <span className="text-xs font-semibold tracking-[0.2em] uppercase" style={{ color: "#A0AAEB" }}>
             Now Taking Projects · 2025
           </span>
         </div>
@@ -233,7 +233,7 @@ export default function Hero() {
 
         {/* Sub */}
         <p className="mt-8 max-w-md text-base md:text-lg leading-relaxed"
-          style={{ color: "rgba(196,181,253,0.55)", fontFamily: "var(--font-space-grotesk)", animation: "fadeUp 0.8s ease 0.95s both" }}>
+          style={{ color: "rgba(160,170,235,0.55)", fontFamily: "var(--font-space-grotesk)", animation: "fadeUp 0.8s ease 0.95s both" }}>
           Strategy, identity, and motion — forged into digital experiences that stop people mid-scroll.
         </p>
 
@@ -241,9 +241,9 @@ export default function Hero() {
         <div className="mt-11 flex flex-wrap items-center justify-center gap-4" style={{ animation: "fadeUp 0.8s ease 1.15s both" }}>
           <Link href="#work"
             className="group flex items-center gap-2.5 px-8 py-4 rounded-full font-bold text-white cursor-pointer transition-all duration-300 hover:-translate-y-0.5"
-            style={{ background: "linear-gradient(135deg, #7C3AED, #A78BFA)", boxShadow: "0 0 32px rgba(124,58,237,0.4)" }}
-            onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "0 0 48px rgba(139,92,246,0.55)")}
-            onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "0 0 32px rgba(124,58,237,0.4)")}>
+            style={{ background: "linear-gradient(135deg, #9B3420, #3A45C4)", boxShadow: "0 0 32px rgba(155,52,32,0.4)" }}
+            onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "0 0 48px rgba(58,69,196,0.55)")}
+            onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "0 0 32px rgba(155,52,32,0.4)")}>
             View Our Work
             <svg className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
@@ -251,9 +251,9 @@ export default function Hero() {
           </Link>
           <Link href="#contact"
             className="flex items-center gap-2 px-8 py-4 rounded-full font-bold border cursor-pointer transition-all duration-300 hover:-translate-y-0.5"
-            style={{ borderColor: "rgba(167,139,250,0.2)", color: "rgba(196,181,253,0.7)" }}
-            onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(167,139,250,0.4)"; e.currentTarget.style.color = "#C4B5FD"; e.currentTarget.style.background = "rgba(109,40,217,0.12)"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(167,139,250,0.2)"; e.currentTarget.style.color = "rgba(196,181,253,0.7)"; e.currentTarget.style.background = "transparent"; }}>
+            style={{ borderColor: "rgba(107,120,216,0.2)", color: "rgba(160,170,235,0.7)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(107,120,216,0.4)"; e.currentTarget.style.color = "#A0AAEB"; e.currentTarget.style.background = "rgba(58,69,196,0.12)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(107,120,216,0.2)"; e.currentTarget.style.color = "rgba(160,170,235,0.7)"; e.currentTarget.style.background = "transparent"; }}>
             Start a Project
           </Link>
         </div>
@@ -262,7 +262,7 @@ export default function Hero() {
       {/* Scroll cue */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3" style={{ animation: "fadeIn 1s ease 1.6s both" }}>
         <div className="w-px h-14 overflow-hidden">
-          <div className="w-full h-full" style={{ background: "linear-gradient(to bottom, transparent, rgba(167,139,250,0.5), transparent)", animation: "scrollLine 2s ease-in-out infinite" }} />
+          <div className="w-full h-full" style={{ background: "linear-gradient(to bottom, transparent, rgba(107,120,216,0.5), transparent)", animation: "scrollLine 2s ease-in-out infinite" }} />
         </div>
       </div>
 

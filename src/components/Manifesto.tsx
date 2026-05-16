@@ -29,7 +29,7 @@ function RevealWord({ word, delay, gradient }: { word: string; delay: number; gr
           opacity: show ? 1 : 0,
           transform: show ? "translateY(0)" : "translateY(110%)",
           transition: "opacity 0.7s ease, transform 0.7s ease",
-          background: "linear-gradient(135deg, #C4B5FD 0%, #8B5CF6 50%, #7C3AED 100%)",
+          background: "linear-gradient(135deg, #A0AAEB 0%, #3A45C4 45%, #9B3420 100%)",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
           backgroundClip: "text",
@@ -53,18 +53,18 @@ export default function Manifesto() {
   return (
     <section className="py-40 px-6 relative overflow-hidden flex items-center justify-center">
       {/* full-bleed horizontal rule top */}
-      <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(167,139,250,0.15), transparent)" }} />
-      <div className="absolute bottom-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(167,139,250,0.15), transparent)" }} />
+      <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(107,120,216,0.15), transparent)" }} />
+      <div className="absolute bottom-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(107,120,216,0.15), transparent)" }} />
 
       {/* ambient */}
       <div className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 80% 60% at 50% 50%, rgba(109,40,217,0.07) 0%, transparent 70%)" }} />
+        style={{ background: "radial-gradient(ellipse 80% 60% at 50% 50%, rgba(40,48,160,0.07) 0%, transparent 70%)" }} />
 
       <div className="max-w-6xl mx-auto w-full">
         {/* Oversized label */}
         <div className="flex items-center gap-3 mb-12">
-          <div className="w-6 h-px" style={{ background: "#7C3AED" }} />
-          <span className="text-xs font-bold tracking-widest uppercase" style={{ color: "#7C3AED" }}>Our Belief</span>
+          <div className="w-6 h-px" style={{ background: "#9B3420" }} />
+          <span className="text-xs font-bold tracking-widest uppercase" style={{ color: "#9B3420" }}>Our Belief</span>
         </div>
 
         {/* Giant statement */}
@@ -85,8 +85,8 @@ export default function Manifesto() {
 
         {/* Supporting line */}
         <div className="mt-16 flex flex-col sm:flex-row items-start sm:items-center gap-8">
-          <div className="w-px h-12 sm:w-24 sm:h-px flex-shrink-0" style={{ background: "rgba(167,139,250,0.2)" }} />
-          <p className="max-w-lg text-base md:text-lg leading-relaxed" style={{ color: "rgba(196,181,253,0.4)", fontFamily: "var(--font-space-grotesk)" }}>
+          <div className="w-px h-12 sm:w-24 sm:h-px flex-shrink-0" style={{ background: "rgba(107,120,216,0.2)" }} />
+          <p className="max-w-lg text-base md:text-lg leading-relaxed" style={{ color: "rgba(160,170,235,0.4)", fontFamily: "var(--font-space-grotesk)" }}>
             Every project we touch is held to an impossible standard — because the work that reaches people deeply is never ordinary.
           </p>
         </div>

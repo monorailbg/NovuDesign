@@ -43,7 +43,7 @@ export default function Cursor() {
       <div ref={dot} className="fixed top-0 left-0 z-[9999] w-2 h-2 rounded-full pointer-events-none mix-blend-difference"
         style={{ background: "#fff", willChange: "transform" }} />
       <div ref={ring} className="fixed top-0 left-0 z-[9998] w-10 h-10 rounded-full pointer-events-none"
-        style={{ border: "1px solid rgba(167,139,250,0.5)", willChange: "transform" }} />
+        style={{ border: "1px solid rgba(107,120,216,0.5)", willChange: "transform" }} />
     </>
   );
 }
