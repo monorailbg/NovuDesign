@@ -3,10 +3,10 @@
 import { useRef, useEffect, useState } from "react";
 
 const projects = [
-  { title:"Luminary",      category:"Brand Identity + Web", year:"2024", color:"#7C3AED", accent:"#A78BFA", span:"col-span-1 md:col-span-2", height:"h-[420px]", description:"Complete rebrand for a luxury lifestyle company — logo, web, print." },
-  { title:"Apex Protocol", category:"Motion Design",         year:"2024", color:"#8B5CF6", accent:"#C4B5FD", span:"col-span-1",              height:"h-[420px]", description:"Cinematic product launch video and interactive demo site." },
-  { title:"Verdant Labs",  category:"Web Design + Dev",      year:"2025", color:"#6D28D9", accent:"#8B5CF6", span:"col-span-1",              height:"h-[380px]", description:"SaaS dashboard redesign — 40% reduction in time-to-task." },
-  { title:"Forma Studio",  category:"UX + Art Direction",    year:"2025", color:"#A78BFA", accent:"#C4B5FD", span:"col-span-1 md:col-span-2", height:"h-[380px]", description:"Full creative direction for an architecture firm's digital presence." },
+  { title:"Luminary",      category:"Brand Identity + Web", year:"2024", color:"#9B3420", accent:"#C4563A", span:"col-span-1 md:col-span-2", height:"h-[420px]", description:"Complete rebrand for a luxury lifestyle company — logo, web, print." },
+  { title:"Apex Protocol", category:"Motion Design",         year:"2024", color:"#3A45C4", accent:"#A0AAEB", span:"col-span-1",              height:"h-[420px]", description:"Cinematic product launch video and interactive demo site." },
+  { title:"Verdant Labs",  category:"Web Design + Dev",      year:"2025", color:"#7B2316", accent:"#9B3420", span:"col-span-1",              height:"h-[380px]", description:"SaaS dashboard redesign — 40% reduction in time-to-task." },
+  { title:"Forma Studio",  category:"UX + Art Direction",    year:"2025", color:"#6B78D8", accent:"#A0AAEB", span:"col-span-1 md:col-span-2", height:"h-[380px]", description:"Full creative direction for an architecture firm's digital presence." },
 ];
 
 function ProjectCard({ p, i }: { p: typeof projects[0]; i: number }) {
@@ -33,7 +33,7 @@ function ProjectCard({ p, i }: { p: typeof projects[0]; i: number }) {
       ref={ref} data-cursor
       className={`relative overflow-hidden rounded-2xl border cursor-pointer ${p.span} ${p.height}`}
       style={{
-        borderColor: hov ? `${p.color}50` : "rgba(167,139,250,0.1)",
+        borderColor: hov ? `${p.color}50` : "rgba(107,120,216,0.1)",
         opacity:   vis ? 1 : 0,
         transform: vis ? "translateY(0) scale(1)" : "translateY(20px) scale(0.98)",
         transition:`opacity 0.7s ${i*0.12}s, transform 0.7s ${i*0.12}s, border-color 0.3s`,
@@ -58,11 +58,11 @@ function ProjectCard({ p, i }: { p: typeof projects[0]; i: number }) {
         <div className="flex items-start justify-between">
           <span className="text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-full"
             style={{ background:`${p.color}22`, color:p.color }}>{p.category}</span>
-          <span className="text-xs font-mono" style={{ color:"rgba(196,181,253,0.25)" }}>{p.year}</span>
+          <span className="text-xs font-mono" style={{ color:"rgba(160,170,235,0.25)" }}>{p.year}</span>
         </div>
         <div>
           <p className="text-sm mb-3 max-w-sm transition-all duration-400"
-            style={{ color:"rgba(196,181,253,0.4)", opacity:hov?1:0, transform:hov?"translateY(0)":"translateY(8px)" }}>{p.description}</p>
+            style={{ color:"rgba(160,170,235,0.4)", opacity:hov?1:0, transform:hov?"translateY(0)":"translateY(8px)" }}>{p.description}</p>
           <h3 className="font-heading font-black text-[clamp(28px,4vw,52px)] text-white tracking-tighter leading-none">{p.title}</h3>
           <div className="mt-4 flex items-center gap-2 font-bold text-sm transition-all duration-300"
             style={{ color:p.color, opacity:hov?1:0, transform:hov?"translateX(0)":"translateX(-10px)" }}>
@@ -95,17 +95,17 @@ export default function Work() {
           style={{ opacity:vis?1:0, transform:vis?"translateY(0)":"translateY(24px)", transition:"all 0.7s ease" }}>
           <div>
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-6 h-px" style={{ background:"#8B5CF6" }} />
-              <span className="text-xs font-bold tracking-widest uppercase" style={{ color:"#8B5CF6" }}>Selected Work</span>
+              <div className="w-6 h-px" style={{ background:"#3A45C4" }} />
+              <span className="text-xs font-bold tracking-widest uppercase" style={{ color:"#3A45C4" }}>Selected Work</span>
             </div>
             <h2 className="font-heading font-black text-5xl md:text-[80px] text-white leading-[0.9] tracking-tighter">
-              Work that<br /><span style={{ color:"rgba(167,139,250,0.3)" }}>leaves a mark.</span>
+              Work that<br /><span style={{ color:"rgba(107,120,216,0.3)" }}>leaves a mark.</span>
             </h2>
           </div>
           <a href="#" className="hidden md:inline-flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-full border cursor-pointer transition-all duration-300 flex-shrink-0 self-end"
-            style={{ borderColor:"rgba(167,139,250,0.15)", color:"rgba(196,181,253,0.5)" }}
-            onMouseEnter={(e) => { e.currentTarget.style.borderColor="rgba(167,139,250,0.35)"; e.currentTarget.style.color="#C4B5FD"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.borderColor="rgba(167,139,250,0.15)"; e.currentTarget.style.color="rgba(196,181,253,0.5)"; }}>
+            style={{ borderColor:"rgba(107,120,216,0.15)", color:"rgba(160,170,235,0.5)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor="rgba(107,120,216,0.35)"; e.currentTarget.style.color="#A0AAEB"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor="rgba(107,120,216,0.15)"; e.currentTarget.style.color="rgba(160,170,235,0.5)"; }}>
             All Projects
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
