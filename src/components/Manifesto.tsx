@@ -1,0 +1,96 @@
+"use client";
+
+import { useRef, useEffect, useState } from "react";
+
+const words = ["Good", "design", "doesn't", "whisper."];
+const words2 = ["It", "commands", "the", "room."];
+
+function RevealWord({ word, delay, gradient }: { word: string; delay: number; gradient?: boolean }) {
+  const [show, setShow] = useState(false);
+  const ref = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        setTimeout(() => setShow(true), delay);
+        obs.disconnect();
+      }
+    }, { threshold: 0.3 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [delay]);
+
+  if (gradient) {
+    return (
+      <span ref={ref} className="inline-block overflow-hidden" style={{ verticalAlign: "bottom" }}>
+        <span className="inline-block" style={{
+          opacity: show ? 1 : 0,
+          transform: show ? "translateY(0)" : "translateY(110%)",
+          transition: "opacity 0.7s ease, transform 0.7s ease",
+          background: "linear-gradient(135deg, #C4B5FD 0%, #8B5CF6 50%, #7C3AED 100%)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          backgroundClip: "text",
+        }}>{word}</span>
+      </span>
+    );
+  }
+
+  return (
+    <span ref={ref} className="inline-block overflow-hidden" style={{ verticalAlign: "bottom" }}>
+      <span className="inline-block text-white" style={{
+        opacity: show ? 1 : 0,
+        transform: show ? "translateY(0)" : "translateY(110%)",
+        transition: "opacity 0.7s ease, transform 0.7s ease",
+      }}>{word}</span>
+    </span>
+  );
+}
+
+export default function Manifesto() {
+  return (
+    <section className="py-40 px-6 relative overflow-hidden flex items-center justify-center">
+      {/* full-bleed horizontal rule top */}
+      <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(167,139,250,0.15), transparent)" }} />
+      <div className="absolute bottom-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(167,139,250,0.15), transparent)" }} />
+
+      {/* ambient */}
+      <div className="absolute inset-0 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse 80% 60% at 50% 50%, rgba(109,40,217,0.07) 0%, transparent 70%)" }} />
+
+      <div className="max-w-6xl mx-auto w-full">
+        {/* Oversized label */}
+        <div className="flex items-center gap-3 mb-12">
+          <div className="w-6 h-px" style={{ background: "#7C3AED" }} />
+          <span className="text-xs font-bold tracking-widest uppercase" style={{ color: "#7C3AED" }}>Our Belief</span>
+        </div>
+
+        {/* Giant statement */}
+        <p className="font-heading font-black tracking-tighter leading-[0.88]"
+          style={{ fontSize: "clamp(42px, 8.5vw, 120px)" }}>
+          {words.map((w, i) => (
+            <span key={i}>
+              <RevealWord word={w} delay={i * 120} />{" "}
+            </span>
+          ))}
+          <br />
+          {words2.map((w, i) => (
+            <span key={i}>
+              <RevealWord word={w} delay={480 + i * 120} gradient={i === 1} />{" "}
+            </span>
+          ))}
+        </p>
+
+        {/* Supporting line */}
+        <div className="mt-16 flex flex-col sm:flex-row items-start sm:items-center gap-8">
+          <div className="w-px h-12 sm:w-24 sm:h-px flex-shrink-0" style={{ background: "rgba(167,139,250,0.2)" }} />
+          <p className="max-w-lg text-base md:text-lg leading-relaxed" style={{ color: "rgba(196,181,253,0.4)", fontFamily: "var(--font-space-grotesk)" }}>
+            Every project we touch is held to an impossible standard — because the work that reaches people deeply is never ordinary.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
