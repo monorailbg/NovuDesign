@@ -136,28 +136,33 @@ function ProjectCard({ p, viewCase, i, onOpen }: { p: FullProject; viewCase: str
         <IframePreview src={p.url} />
       </div>
 
-      {/* Fade gradient */}
-      <div className="absolute inset-0 pointer-events-none"
-        style={{ background: `linear-gradient(to top, #080A12 0%, ${p.color}12 40%, transparent 60%)` }} />
+      {/* Fade gradient — tall opaque bottom band */}
+      <div className="absolute inset-x-0 bottom-0 pointer-events-none"
+        style={{ height: "65%", background: `linear-gradient(to top, rgba(8,10,18,1) 0%, rgba(8,10,18,0.95) 40%, rgba(8,10,18,0.6) 70%, transparent 100%)` }} />
 
       {/* Text overlay */}
-      <div className="absolute inset-0 p-7 flex flex-col justify-end pointer-events-none">
-        <div className="flex items-start justify-between mb-2">
+      <div className="absolute inset-0 p-7 flex flex-col pointer-events-none">
+        {/* Top: category + year */}
+        <div className="flex items-start justify-between">
           <span className="text-xs font-bold tracking-widest uppercase px-2.5 py-1 rounded-full"
             style={{ background: `${p.color}22`, color: p.color }}>{p.category}</span>
-          <span className="text-xs font-mono" style={{ color: "rgba(160,170,235,0.25)" }}>{p.year}</span>
+          <span className="text-xs font-mono" style={{ color: "rgba(160,170,235,0.35)" }}>{p.year}</span>
         </div>
-        <p className="text-sm mb-2 transition-all duration-300"
-          style={{ color: "rgba(160,170,235,0.45)", opacity: hov ? 1 : 0, transform: hov ? "translateY(0)" : "translateY(8px)" }}>
-          {p.description.split(" ").slice(0, 11).join(" ")}…
-        </p>
-        <h3 className="font-heading font-black text-[clamp(26px,3.5vw,48px)] text-white tracking-tighter leading-none">{p.title}</h3>
-        <div className="mt-3 flex items-center gap-2 font-bold text-sm transition-all duration-300"
-          style={{ color: p.color, opacity: hov ? 1 : 0, transform: hov ? "translateX(0)" : "translateX(-10px)" }}>
-          {viewCase}
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-          </svg>
+
+        {/* Bottom: title → description → cta */}
+        <div className="mt-auto">
+          <h3 className="font-heading font-black text-[clamp(24px,3.2vw,44px)] text-white tracking-tighter leading-none mb-2">{p.title}</h3>
+          <p className="text-sm leading-relaxed mb-3"
+            style={{ color: "rgba(210,218,255,0.75)" }}>
+            {p.description.split(" ").slice(0, 14).join(" ")}…
+          </p>
+          <div className="flex items-center gap-2 font-bold text-sm transition-all duration-300"
+            style={{ color: p.color, opacity: hov ? 1 : 0, transform: hov ? "translateX(0)" : "translateX(-8px)" }}>
+            {viewCase}
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+            </svg>
+          </div>
         </div>
       </div>
 
