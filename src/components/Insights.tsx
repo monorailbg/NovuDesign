@@ -136,6 +136,15 @@ export default function Insights() {
       <section id="insights" className="py-36 px-6 relative overflow-hidden">
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] pointer-events-none"
           style={{ background: "radial-gradient(ellipse, rgba(58,69,196,0.06) 0%, transparent 70%)" }} />
+        {/* Subtle grid lines: horizontal + vertical */}
+        <div className="absolute inset-0 pointer-events-none" style={{
+          backgroundImage: "linear-gradient(rgba(107,120,216,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(107,120,216,0.04) 1px, transparent 1px)",
+          backgroundSize: "80px 80px",
+        }} />
+        {/* Radial glow at bottom center */}
+        <div className="absolute pointer-events-none" style={{ bottom: "-80px", left: "50%", transform: "translateX(-50%)", width: 700, height: 400, background: "radial-gradient(ellipse, rgba(58,69,196,0.08) 0%, transparent 65%)" }} />
+        {/* Top-right accent glow */}
+        <div className="absolute pointer-events-none" style={{ top: "-40px", right: "10%", width: 300, height: 300, borderRadius: "50%", background: "radial-gradient(circle, rgba(155,52,32,0.05) 0%, transparent 65%)" }} />
 
         <div className="max-w-6xl mx-auto" ref={ref}>
           <div style={{ opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(24px)", transition: "all 0.7s ease" }}

@@ -64,6 +64,12 @@ export default function Testimonials() {
     <section className="py-36 px-6 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full pointer-events-none"
         style={{ background: "radial-gradient(circle, rgba(40,48,160,0.07) 0%, transparent 70%)" }} />
+      {/* Scattered blurred orbs */}
+      <div className="absolute pointer-events-none" style={{ top: "15%", left: "8%", width: 220, height: 220, borderRadius: "50%", background: "rgba(107,120,216,0.05)", filter: "blur(40px)" }} />
+      <div className="absolute pointer-events-none" style={{ top: "55%", left: "60%", width: 180, height: 180, borderRadius: "50%", background: "rgba(155,52,32,0.06)", filter: "blur(35px)" }} />
+      <div className="absolute pointer-events-none" style={{ bottom: "10%", left: "30%", width: 260, height: 260, borderRadius: "50%", background: "rgba(58,69,196,0.04)", filter: "blur(50px)" }} />
+      <div className="absolute pointer-events-none" style={{ top: "5%", left: "45%", width: 150, height: 150, borderRadius: "50%", background: "rgba(107,120,216,0.06)", filter: "blur(30px)" }} />
+      <div className="absolute pointer-events-none" style={{ bottom: "25%", right: "5%", width: 200, height: 200, borderRadius: "50%", background: "rgba(58,69,196,0.05)", filter: "blur(45px)" }} />
 
       <div className="max-w-6xl mx-auto">
         <div ref={ref}>

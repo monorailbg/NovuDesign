@@ -72,7 +72,13 @@ export default function Services() {
   }, []);
 
   return (
-    <section id="services" className="py-36 px-6">
+    <section id="services" className="py-36 px-6 relative overflow-hidden">
+      {/* Dot grid pattern */}
+      <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "radial-gradient(circle, rgba(107,120,216,0.12) 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
+      {/* Faint indigo radial glow from top-right */}
+      <div style={{ position: "absolute", top: "-100px", right: "-80px", width: 480, height: 480, borderRadius: "50%", background: "radial-gradient(circle, rgba(58,69,196,0.08) 0%, transparent 65%)", pointerEvents: "none" }} />
+      {/* Subtle crimson accent bottom-left */}
+      <div style={{ position: "absolute", bottom: "-60px", left: "10%", width: 300, height: 300, borderRadius: "50%", background: "radial-gradient(circle, rgba(155,52,32,0.05) 0%, transparent 70%)", pointerEvents: "none" }} />
       <div className="max-w-6xl mx-auto">
         <div ref={hRef} className="mb-20"
           style={{ opacity: vis?1:0, transform: vis?"translateY(0)":"translateY(24px)", transition:"all 0.7s ease" }}>

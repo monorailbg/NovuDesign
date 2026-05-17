@@ -32,140 +32,209 @@ function BrowserFrame({ children, color, compact, url }: {
 // ─── 1. Unentdecktes Tokio ──────────────────────────────────────────────────
 
 function TokyoMockup({ compact }: { compact?: boolean }) {
-  const cherry = "#D63A5A";
-  const gold   = "#C9963A";
-  const bg     = "#0D0B14";
-
-  const petals = [
-    { x: 8,  y: 18, r: 38 }, { x: 82, y: 10, r: 72 },
-    { x: 55, y: 28, r: 15 }, { x: 92, y: 52, r: 55 },
-    { x: 20, y: 68, r: 90 }, { x: 70, y: 80, r: 130 },
-    { x: 38, y: 88, r: 200 },
-  ];
+  const cherry = "#CF3254";
+  const gold   = "#C4982A";
+  const bg     = "#0B0912";
 
   return (
     <BrowserFrame color={cherry} compact={compact} url="unentdecktestokio.de">
       <div style={{ position: "absolute", inset: 0, background: bg, overflow: "hidden", fontFamily: "system-ui" }}>
 
-        {/* Ambient glow */}
-        <div style={{ position: "absolute", top: "-20%", left: "30%", width: "60%", height: "60%", borderRadius: "50%", background: `${cherry}18`, filter: "blur(40px)" }} />
+        {/* Ambient glow blobs */}
+        <div style={{ position: "absolute", top: "-15%", right: "-8%", width: "55%", height: "55%", borderRadius: "50%", background: `radial-gradient(circle, ${cherry}28 0%, transparent 70%)`, filter: "blur(20px)", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", bottom: "5%", left: "-10%", width: "48%", height: "48%", borderRadius: "50%", background: `radial-gradient(circle, ${gold}20 0%, transparent 70%)`, filter: "blur(25px)", pointerEvents: "none" }} />
+        {/* Deep purple atmospheric glow center */}
+        <div style={{ position: "absolute", top: "30%", left: "20%", width: "60%", height: "40%", background: "radial-gradient(ellipse, rgba(80,20,120,0.18) 0%, transparent 70%)", pointerEvents: "none" }} />
 
-        {/* Cherry blossom petals */}
-        {petals.map((p, i) => (
-          <div key={i} style={{
-            position: "absolute", left: `${p.x}%`, top: `${p.y}%`,
-            width: compact ? 7 : 11, height: compact ? 7 : 11,
-            borderRadius: "50% 0 50% 0",
-            background: cherry, opacity: 0.08 + i * 0.028,
-            transform: `rotate(${p.r}deg)`,
-          }} />
-        ))}
+        {/* Seigaiha dot pattern top-right */}
+        <div style={{
+          position: "absolute", top: 0, right: 0, width: "45%", height: "55%",
+          opacity: 0.06, pointerEvents: "none",
+          backgroundImage: `radial-gradient(circle, ${gold} 1px, transparent 1px)`,
+          backgroundSize: compact ? "8px 8px" : "12px 12px",
+        }} />
+
+        {/* Thin horizontal gold rule above nav */}
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${cherry}60, ${gold}40, transparent)`, zIndex: 11 }} />
 
         {/* Nav */}
         <div style={{
           position: "absolute", top: 0, left: 0, right: 0,
-          height: compact ? 20 : 28, zIndex: 10,
+          height: compact ? 22 : 32, zIndex: 10,
           display: "flex", alignItems: "center", justifyContent: "space-between",
-          padding: `0 ${compact ? 8 : 14}px`,
-          borderBottom: `1px solid ${cherry}22`,
-          background: "rgba(13,11,20,0.85)", backdropFilter: "blur(8px)",
+          padding: `0 ${compact ? 8 : 16}px`,
+          borderBottom: `1px solid rgba(207,50,84,0.2)`,
+          background: "rgba(11,9,18,0.95)",
         }}>
-          <div style={{ display: "flex", alignItems: "center", gap: compact ? 3 : 5 }}>
-            <div style={{ width: compact ? 10 : 14, height: compact ? 10 : 14, borderRadius: "50%", background: cherry, flexShrink: 0 }} />
-            <span style={{ fontSize: compact ? 6 : 8, fontWeight: 900, letterSpacing: "0.22em", color: "#fff" }}>TOKIO</span>
+          {/* Logo: dot + TOKIO */}
+          <div style={{ display: "flex", alignItems: "center", gap: compact ? 4 : 6 }}>
+            <div style={{ width: compact ? 6 : 9, height: compact ? 6 : 9, borderRadius: "50%", background: `radial-gradient(circle, #fff 20%, ${cherry})`, boxShadow: `0 0 8px ${cherry}90`, flexShrink: 0 }} />
+            <span style={{ fontSize: compact ? 6.5 : 9, fontWeight: 900, letterSpacing: "0.28em", color: "#fff", textTransform: "uppercase" }}>TOKIO</span>
           </div>
+          {/* Nav links — non-compact only */}
           {!compact && (
-            <div style={{ display: "flex", gap: 14 }}>
-              {["Touren","Karte","Über uns","Buchen"].map(n => (
-                <span key={n} style={{ fontSize: 6.5, color: "rgba(255,255,255,0.4)", letterSpacing: "0.08em" }}>{n}</span>
+            <div style={{ display: "flex", gap: 16 }}>
+              {["Touren","Stadtteile","Buchen"].map(n => (
+                <span key={n} style={{ fontSize: 6, color: "rgba(255,255,255,0.35)", letterSpacing: "0.1em", textTransform: "uppercase" }}>{n}</span>
               ))}
             </div>
           )}
-          <div style={{ display: "flex", gap: 5, alignItems: "center" }}>
-            {["DE","EN","JP"].map((l, i) => (
-              <span key={l} style={{ fontSize: compact ? 4.5 : 6, color: i === 0 ? "#fff" : "rgba(255,255,255,0.3)", fontWeight: i === 0 ? 700 : 400, letterSpacing: "0.1em" }}>{l}</span>
+          {/* Language switcher */}
+          <div style={{ display: "flex", gap: compact ? 3 : 5, alignItems: "center" }}>
+            {["DE","EN","JP"].map((l, li) => (
+              <span key={l} style={{
+                fontSize: compact ? 4.5 : 5.5,
+                color: li === 0 ? "#fff" : "rgba(255,255,255,0.25)",
+                fontWeight: li === 0 ? 800 : 400,
+                background: li === 0 ? cherry : "transparent",
+                padding: li === 0 ? (compact ? "1px 3px" : "1px 5px") : undefined,
+                borderRadius: 2,
+                letterSpacing: "0.08em",
+              }}>{l}</span>
             ))}
           </div>
         </div>
 
-        {/* Torii gate */}
-        <div style={{ position: "absolute", left: "50%", top: compact ? 24 : 34, transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: compact ? 2 : 3 }}>
-          {/* Top curved beam */}
-          <div style={{ position: "relative", width: compact ? 68 : 112 }}>
-            <div style={{ height: compact ? 5 : 8, background: cherry, borderRadius: "3px 3px 0 0", opacity: 0.9 }} />
-            <div style={{ position: "absolute", top: compact ? 5 : 8, left: compact ? -4 : 6, right: compact ? -4 : 6, height: compact ? 2 : 3, background: cherry, opacity: 0.4, borderRadius: "0 0 3px 3px" }} />
-          </div>
-          {/* Second beam */}
-          <div style={{ width: compact ? 54 : 90, height: compact ? 3 : 4, background: cherry, opacity: 0.65, borderRadius: 2 }} />
-          {/* Pillars */}
-          <div style={{ display: "flex", gap: compact ? 36 : 60 }}>
-            {[0,1].map(i => (
-              <div key={i} style={{
-                width: compact ? 5 : 7, height: compact ? 30 : 50,
-                background: `linear-gradient(to bottom, ${cherry}, ${cherry}44)`,
-                borderRadius: "2px 2px 1px 1px",
-              }} />
-            ))}
-          </div>
-        </div>
-
-        {/* Headline */}
-        <div style={{ position: "absolute", top: compact ? 82 : 128, left: 0, right: 0, textAlign: "center" }}>
-          {!compact && <div style={{ fontSize: 6, letterSpacing: "0.5em", color: gold, marginBottom: 5, fontWeight: 600 }}>東京を発見する</div>}
-          <div style={{ fontSize: compact ? 9 : 14, fontWeight: 900, letterSpacing: compact ? "0.12em" : "0.18em", color: "#fff", lineHeight: 1.3 }}>
-            UNENTDECKTES
-          </div>
-          <div style={{ fontSize: compact ? 9 : 14, fontWeight: 900, letterSpacing: compact ? "0.12em" : "0.18em", color: cherry, lineHeight: 1.3 }}>
-            TOKIO
-          </div>
-          {!compact && (
-            <div style={{ marginTop: 6, fontSize: 6.5, color: "rgba(255,255,255,0.3)", letterSpacing: "0.2em" }}>
-              EXKLUSIVE STADTTOUREN · SEIT 2019
-            </div>
-          )}
-        </div>
-
-        {/* Tour cards */}
-        <div style={{
-          position: "absolute",
-          bottom: compact ? 6 : 8,
-          left: compact ? 6 : 8, right: compact ? 6 : 8,
-          display: "grid",
-          gridTemplateColumns: compact ? "1fr 1fr" : "1fr 1fr 1fr",
-          gap: compact ? 4 : 5,
-        }}>
-          {[
-            { name: "Shibuya", jp: "渋谷", sub: "Neon & Nightlife", color: "#8E44AD" },
-            { name: "Yanaka",  jp: "谷中", sub: "Altes Tokyo",      color: cherry },
-            { name: "Shinjuku",jp: "新宿", sub: "Gärten & Tempel",  color: "#1A7BB8" },
-          ].slice(0, compact ? 2 : 3).map(({ name, jp, sub, color }) => (
-            <div key={name} style={{
-              background: `rgba(255,255,255,0.04)`,
-              border: `1px solid ${color}30`,
-              borderRadius: compact ? 5 : 6,
-              padding: compact ? "5px 6px" : "7px 8px",
-              backdropFilter: "blur(4px)",
-            }}>
-              <div style={{ fontSize: compact ? 4.5 : 6, color: "rgba(255,255,255,0.3)", marginBottom: 1 }}>{jp}</div>
-              <div style={{ fontSize: compact ? 7 : 9, fontWeight: 800, color: "#fff" }}>{name}</div>
-              {!compact && <div style={{ fontSize: 5.5, color: "rgba(255,255,255,0.4)", marginTop: 2 }}>{sub}</div>}
-              <div style={{ display: "flex", alignItems: "center", gap: 3, marginTop: compact ? 2 : 3 }}>
-                <span style={{ fontSize: compact ? 4.5 : 6, color: gold }}>★ 4.9</span>
-                {!compact && <span style={{ fontSize: 5, color: "rgba(255,255,255,0.25)" }}>· ab 49€</span>}
+        {compact ? (
+          /* ── COMPACT layout ── */
+          <>
+            {/* Left hero text */}
+            <div style={{ position: "absolute", top: 26, left: 8, right: "46%", bottom: 0, display: "flex", flexDirection: "column", justifyContent: "center", gap: 3, paddingBottom: 36 }}>
+              <div style={{ fontSize: 4.5, letterSpacing: "0.45em", color: gold, fontWeight: 700, textTransform: "uppercase" }}>東京を発見する</div>
+              <div style={{ lineHeight: 1.05 }}>
+                <div style={{ fontSize: 10.5, fontWeight: 900, letterSpacing: "0.12em", color: "#fff" }}>UNENT-</div>
+                <div style={{ fontSize: 10.5, fontWeight: 900, letterSpacing: "0.12em", color: "#fff" }}>DECKTES</div>
+                <div style={{ fontSize: 10.5, fontWeight: 900, letterSpacing: "0.12em", color: cherry, textShadow: `0 0 12px ${cherry}60` }}>TOKIO</div>
+              </div>
+              <div style={{ fontSize: 4, color: "rgba(255,255,255,0.3)", letterSpacing: "0.08em", lineHeight: 1.5 }}>Stadttouren · seit 2019</div>
+              <div style={{ marginTop: 2, alignSelf: "flex-start", background: cherry, borderRadius: 8, padding: "3px 8px", boxShadow: `0 2px 10px ${cherry}55`, display: "flex", alignItems: "center" }}>
+                <span style={{ fontSize: 4.5, color: "#fff", fontWeight: 700, letterSpacing: "0.06em" }}>Buchen →</span>
               </div>
             </div>
-          ))}
-        </div>
+            {/* Right photo placeholder with torii */}
+            <div style={{ position: "absolute", top: 26, right: 6, bottom: 30, width: "40%", borderRadius: 6, background: `linear-gradient(155deg, ${cherry}99 0%, ${gold}50 48%, #2D0A4F 100%)`, overflow: "hidden", boxShadow: `inset 0 0 20px rgba(0,0,0,0.4)` }}>
+              {/* Torii gate CSS art */}
+              <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -58%)" }}>
+                <div style={{ width: 28, height: 3.5, background: "rgba(255,255,255,0.85)", borderRadius: "2px 2px 0 0", marginBottom: 2, boxShadow: "0 1px 4px rgba(0,0,0,0.3)" }} />
+                <div style={{ width: 22, height: 2, background: "rgba(255,255,255,0.65)", borderRadius: 1, marginLeft: 3, marginBottom: 3 }} />
+                <div style={{ display: "flex", gap: 13, justifyContent: "center" }}>
+                  {[0,1].map(i => <div key={i} style={{ width: 2.5, height: 16, background: "rgba(255,255,255,0.75)", borderRadius: "1px 1px 2px 2px" }} />)}
+                </div>
+              </div>
+              {/* Stats strip */}
+              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, background: "rgba(0,0,0,0.6)", backdropFilter: "blur(4px)", padding: "3px 4px", display: "flex", justifyContent: "space-around" }}>
+                <span style={{ fontSize: 3.5, color: "rgba(255,255,255,0.7)", fontWeight: 700 }}>500+</span>
+                <span style={{ fontSize: 3.5, color: gold, fontWeight: 700 }}>4.9★</span>
+                <span style={{ fontSize: 3.5, color: "rgba(255,255,255,0.45)" }}>2019</span>
+              </div>
+            </div>
+            {/* Destination cards bottom strip */}
+            <div style={{ position: "absolute", bottom: 5, left: 6, right: 6, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 3 }}>
+              {[
+                { name: "Shibuya", jp: "渋谷", color: "#8E44AD", price: "49€" },
+                { name: "Yanaka",  jp: "谷中", color: cherry,    price: "39€" },
+              ].map(({ name, jp, color, price }) => (
+                <div key={name} style={{ background: "rgba(255,255,255,0.04)", border: `1px solid ${color}40`, borderTop: `2px solid ${color}`, borderRadius: "0 0 4px 4px", padding: "3px 5px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                  <div>
+                    <div style={{ fontSize: 3, color: "rgba(255,255,255,0.25)" }}>{jp}</div>
+                    <div style={{ fontSize: 5.5, fontWeight: 800, color: "#fff" }}>{name}</div>
+                  </div>
+                  <div style={{ textAlign: "right" }}>
+                    <div style={{ fontSize: 3.5, color: gold, fontWeight: 700 }}>★ 4.9</div>
+                    <div style={{ fontSize: 3, color: "rgba(255,255,255,0.22)" }}>{price}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        ) : (
+          /* ── FULL layout ── */
+          <>
+            {/* Hero split */}
+            <div style={{ position: "absolute", top: 32, left: 0, right: 0, bottom: 0, display: "flex" }}>
+              {/* Left: headline + CTA */}
+              <div style={{ width: "50%", padding: "16px 18px", display: "flex", flexDirection: "column", justifyContent: "center", gap: 7 }}>
+                <div style={{ fontSize: 6, letterSpacing: "0.55em", color: gold, fontWeight: 700, textTransform: "uppercase" }}>東京を発見する</div>
+                <div style={{ lineHeight: 1.05 }}>
+                  <div style={{ fontSize: 17, fontWeight: 900, letterSpacing: "0.18em", color: "#fff" }}>UNENT-</div>
+                  <div style={{ fontSize: 17, fontWeight: 900, letterSpacing: "0.18em", color: "#fff" }}>DECKTES</div>
+                  <div style={{ fontSize: 17, fontWeight: 900, letterSpacing: "0.18em", color: cherry, textShadow: `0 0 20px ${cherry}70` }}>TOKIO</div>
+                </div>
+                <div style={{ fontSize: 6, color: "rgba(255,255,255,0.28)", letterSpacing: "0.15em", lineHeight: 1.7, textTransform: "uppercase" }}>
+                  Exklusive Stadttouren<br />im Herzen Japans · seit 2019
+                </div>
+                {/* CTA Button */}
+                <div style={{
+                  alignSelf: "flex-start", marginTop: 2,
+                  background: cherry, borderRadius: 20, padding: "5px 16px",
+                  boxShadow: `0 4px 20px ${cherry}55, 0 0 40px ${cherry}20`,
+                  display: "flex", alignItems: "center", gap: 4,
+                }}>
+                  <span style={{ fontSize: 7, fontWeight: 700, color: "#fff", letterSpacing: "0.1em" }}>Tour buchen →</span>
+                </div>
+              </div>
+              {/* Right: photo placeholder with torii gate */}
+              <div style={{ flex: 1, margin: "14px 16px 0 0", borderRadius: "8px 8px 0 0", background: `linear-gradient(155deg, ${cherry}95 0%, ${gold}65 44%, #2A0E50 100%)`, position: "relative", overflow: "hidden", boxShadow: `inset 0 0 40px rgba(0,0,0,0.3)` }}>
+                {/* Subtle light rays */}
+                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 50%)", pointerEvents: "none" }} />
+                {/* Torii gate CSS art */}
+                <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -65%)" }}>
+                  {/* Top curved beam */}
+                  <div style={{ width: 72, height: 7, background: "rgba(255,255,255,0.88)", borderRadius: "4px 4px 2px 2px", marginBottom: 3, boxShadow: "0 2px 8px rgba(0,0,0,0.3)" }} />
+                  {/* Second beam */}
+                  <div style={{ width: 58, height: 4, background: "rgba(255,255,255,0.65)", borderRadius: 2, marginLeft: 7, marginBottom: 6 }} />
+                  {/* Pillars */}
+                  <div style={{ display: "flex", gap: 40, justifyContent: "center" }}>
+                    {[0,1].map(i => <div key={i} style={{ width: 6, height: 46, background: "rgba(255,255,255,0.78)", borderRadius: "2px 2px 3px 3px", boxShadow: "1px 0 6px rgba(0,0,0,0.2)" }} />)}
+                  </div>
+                </div>
+                {/* Stats overlay */}
+                <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, background: "rgba(0,0,0,0.6)", backdropFilter: "blur(6px)", padding: "7px 12px", display: "flex", justifyContent: "space-around", alignItems: "center" }}>
+                  <div style={{ textAlign: "center" }}>
+                    <div style={{ fontSize: 10, fontWeight: 900, color: "#fff" }}>500+</div>
+                    <div style={{ fontSize: 4.5, color: "rgba(255,255,255,0.4)", letterSpacing: "0.12em", textTransform: "uppercase" }}>Touren</div>
+                  </div>
+                  <div style={{ width: 1, height: 22, background: "rgba(255,255,255,0.12)" }} />
+                  <div style={{ textAlign: "center" }}>
+                    <div style={{ fontSize: 10, fontWeight: 900, color: gold }}>4.9★</div>
+                    <div style={{ fontSize: 4.5, color: "rgba(255,255,255,0.4)", letterSpacing: "0.12em", textTransform: "uppercase" }}>Rating</div>
+                  </div>
+                  <div style={{ width: 1, height: 22, background: "rgba(255,255,255,0.12)" }} />
+                  <div style={{ textAlign: "center" }}>
+                    <div style={{ fontSize: 10, fontWeight: 900, color: "#fff" }}>2019</div>
+                    <div style={{ fontSize: 4.5, color: "rgba(255,255,255,0.4)", letterSpacing: "0.12em", textTransform: "uppercase" }}>Seit</div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-        {/* CTA */}
-        {!compact && (
-          <div style={{ position: "absolute", top: 195, left: "50%", transform: "translateX(-50%)" }}>
+            {/* Destination cards at bottom-left */}
             <div style={{
-              fontSize: 7, fontWeight: 700, color: "#fff",
-              background: cherry, borderRadius: 20, padding: "4px 14px",
-              letterSpacing: "0.1em", whiteSpace: "nowrap",
-            }}>Tour buchen →</div>
-          </div>
+              position: "absolute", bottom: 0, left: 0, width: "50%",
+              display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 5, padding: "0 16px 14px",
+            }}>
+              {[
+                { name: "Shibuya", jp: "渋谷", color: "#8E44AD", price: "49€", star: "4.9" },
+                { name: "Yanaka",  jp: "谷中", color: cherry,    price: "39€", star: "4.8" },
+                { name: "Shinjuku",jp: "新宿", color: "#1A7BB8", price: "55€", star: "5.0" },
+              ].map(({ name, jp, color, price, star }) => (
+                <div key={name} style={{
+                  background: "rgba(255,255,255,0.04)",
+                  border: `1px solid ${color}35`,
+                  borderTop: `2.5px solid ${color}`,
+                  borderRadius: "0 0 6px 6px",
+                  padding: "7px 8px",
+                }}>
+                  <div style={{ fontSize: 4.5, color: "rgba(255,255,255,0.22)", marginBottom: 1 }}>{jp}</div>
+                  <div style={{ fontSize: 8.5, fontWeight: 800, color: "#fff", marginBottom: 3 }}>{name}</div>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    <span style={{ fontSize: 5.5, color: gold, fontWeight: 700 }}>★ {star}</span>
+                    <span style={{ fontSize: 4.5, color: "rgba(255,255,255,0.25)" }}>ab {price}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
         )}
       </div>
     </BrowserFrame>
@@ -175,130 +244,188 @@ function TokyoMockup({ compact }: { compact?: boolean }) {
 // ─── 2. PureSmile Dental ──────────────────────────────────────────────────────
 
 function DentalMockup({ compact }: { compact?: boolean }) {
-  const blue = "#0C6FD4";
-  const teal = "#0AA3A3";
+  const blue = "#0B62C4";
+  const teal = "#0D9E8E";
 
   return (
     <BrowserFrame color={blue} compact={compact} url="puresmile-dental.de">
-      <div style={{ position: "absolute", inset: 0, background: "#F7FBFF", overflow: "hidden", fontFamily: "system-ui" }}>
+      <div style={{ position: "absolute", inset: 0, background: "#FFFFFF", overflow: "hidden", fontFamily: "system-ui" }}>
+
+        {/* Subtle blue wash background */}
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(165deg, #F6FAFF 0%, #FFFFFF 55%, #F0FAF9 100%)", pointerEvents: "none" }} />
 
         {/* Nav */}
         <div style={{
           position: "absolute", top: 0, left: 0, right: 0, zIndex: 10,
-          height: compact ? 20 : 28,
+          height: compact ? 22 : 30,
           display: "flex", alignItems: "center", justifyContent: "space-between",
-          padding: `0 ${compact ? 8 : 12}px`,
-          background: "#fff", borderBottom: `1px solid ${blue}14`,
-          boxShadow: "0 1px 4px rgba(0,0,0,0.05)",
+          padding: `0 ${compact ? 8 : 14}px`,
+          background: "#fff", borderBottom: `1px solid rgba(11,98,196,0.1)`,
+          boxShadow: "0 1px 6px rgba(0,0,0,0.06)",
         }}>
-          <div style={{ display: "flex", alignItems: "center", gap: compact ? 3 : 5 }}>
-            {/* Tooth icon */}
-            <div style={{ position: "relative", width: compact ? 11 : 15, height: compact ? 13 : 17, flexShrink: 0 }}>
-              <div style={{ width: "100%", height: "100%", background: blue, borderRadius: "40% 40% 35% 35%" }} />
-              <div style={{ position: "absolute", bottom: 0, left: "18%", width: "64%", height: "38%", background: "#F7FBFF", borderRadius: "0 0 30% 30%" }} />
-              <div style={{ position: "absolute", bottom: "28%", left: "50%", width: "1px", height: "30%", background: "#F7FBFF", transform: "translateX(-50%)" }} />
+          <div style={{ display: "flex", alignItems: "center", gap: compact ? 4 : 6 }}>
+            {/* Tooth CSS icon */}
+            <div style={{ position: "relative", width: compact ? 12 : 16, height: compact ? 14 : 18, flexShrink: 0 }}>
+              <div style={{ width: "100%", height: "100%", background: `linear-gradient(160deg, ${blue}, ${teal}80)`, borderRadius: "42% 42% 30% 30%" }} />
+              <div style={{ position: "absolute", bottom: 0, left: "16%", width: "68%", height: "36%", background: "#fff", borderRadius: "0 0 28% 28%" }} />
+              <div style={{ position: "absolute", bottom: "26%", left: "49%", width: 1, height: "28%", background: "rgba(255,255,255,0.7)", transform: "translateX(-50%)" }} />
             </div>
-            <span style={{ fontSize: compact ? 6 : 8.5, fontWeight: 800, color: blue, letterSpacing: "0.06em" }}>PURESMILE</span>
+            <div>
+              <span style={{ fontSize: compact ? 7 : 9, fontWeight: 900, color: blue, letterSpacing: "0.04em" }}>PureSmile</span>
+              {!compact && <span style={{ fontSize: 5.5, color: "rgba(0,0,0,0.3)", marginLeft: 2 }}>Dental</span>}
+            </div>
           </div>
           {!compact && (
-            <div style={{ display: "flex", gap: 12 }}>
-              {["Leistungen","Team","Preise","Kontakt"].map(n => (
-                <span key={n} style={{ fontSize: 6.5, color: "rgba(0,0,0,0.38)" }}>{n}</span>
+            <div style={{ display: "flex", gap: 14 }}>
+              {["Leistungen","Team","Preise"].map(n => (
+                <span key={n} style={{ fontSize: 6, color: "rgba(0,0,0,0.4)", letterSpacing: "0.02em" }}>{n}</span>
               ))}
             </div>
           )}
           <div style={{
-            fontSize: compact ? 5 : 7, fontWeight: 700, color: "#fff",
-            background: blue, borderRadius: 20, padding: compact ? "2px 6px" : "3px 9px",
-          }}>Termin</div>
+            fontSize: compact ? 5 : 6.5, fontWeight: 700, color: "#fff",
+            background: `linear-gradient(135deg, ${blue}, ${teal})`,
+            borderRadius: 20, padding: compact ? "2px 7px" : "3px 10px",
+            boxShadow: `0 2px 8px ${blue}40`,
+          }}>Termin buchen</div>
         </div>
 
-        {/* Hero split */}
-        <div style={{ position: "absolute", top: compact ? 20 : 28, left: 0, right: 0, bottom: 0, display: "flex" }}>
+        {/* Hero content */}
+        <div style={{ position: "absolute", top: compact ? 22 : 30, left: 0, right: 0, bottom: 0, display: "flex" }}>
 
-          {/* Left: doctor card */}
-          <div style={{
-            width: compact ? "46%" : "42%",
-            background: `linear-gradient(160deg, ${blue}16 0%, ${teal}12 100%)`,
-            borderRight: `1px solid ${blue}10`,
-            display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end",
-            padding: compact ? "6px 6px 8px" : "10px 10px 12px",
-            position: "relative", overflow: "hidden",
-          }}>
-            {/* Doctor silhouette */}
-            <div style={{ position: "absolute", top: compact ? 6 : 8, left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center" }}>
-              <div style={{ width: compact ? 22 : 34, height: compact ? 22 : 34, borderRadius: "50%", background: `linear-gradient(135deg, ${blue}50, ${teal}40)` }} />
-              <div style={{ width: compact ? 38 : 58, height: compact ? 22 : 36, background: `${blue}28`, borderRadius: "6px 6px 0 0", marginTop: compact ? 2 : 3 }} />
-            </div>
-            <div style={{ textAlign: "center" }}>
-              <div style={{ fontSize: compact ? 4.5 : 6, color: "rgba(0,0,0,0.35)" }}>Dr. med. dent.</div>
-              <div style={{ fontSize: compact ? 6.5 : 9, fontWeight: 800, color: "#0D1B2A" }}>Sarah Klein</div>
-              {!compact && (
-                <>
-                  <div style={{ fontSize: 6, color: teal, marginTop: 2 }}>Implantologie · Ästhetik</div>
-                  <div style={{ display: "flex", justifyContent: "center", gap: 1, marginTop: 4 }}>
-                    {[0,1,2,3,4].map(i => <span key={i} style={{ fontSize: 8, color: "#F5A623" }}>★</span>)}
-                  </div>
-                  <div style={{ fontSize: 5.5, color: "rgba(0,0,0,0.3)", marginTop: 2 }}>4.9 · 312 Bewertungen</div>
-                </>
-              )}
-            </div>
-          </div>
-
-          {/* Right: content */}
-          <div style={{ flex: 1, padding: compact ? "6px 7px" : "10px 12px", display: "flex", flexDirection: "column", gap: compact ? 4 : 6 }}>
-            <div>
-              <div style={{ fontSize: compact ? 8 : 13, fontWeight: 900, color: "#0D1B2A", lineHeight: 1.2 }}>
-                Ihr Lächeln,<br /><span style={{ color: blue }}>unsere Passion.</span>
-              </div>
-              {!compact && (
-                <div style={{ fontSize: 6.5, color: "rgba(0,0,0,0.42)", marginTop: 4, lineHeight: 1.55 }}>
-                  Modernste Zahntechnik in<br />entspannter Atmosphäre.
-                </div>
-              )}
-            </div>
-
-            {/* Services */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: compact ? 3 : 4 }}>
-              {[
-                { icon: "🦷", label: "Prophylaxe" },
-                { icon: "✨", label: "Bleaching" },
-                { icon: "🔬", label: "Implantate" },
-                { icon: "😊", label: "Ästhetik" },
-              ].slice(0, compact ? 4 : 4).map(({ icon, label }) => (
-                <div key={label} style={{
-                  background: "#fff", borderRadius: 5, padding: compact ? "3px 4px" : "5px 6px",
-                  border: `1px solid ${blue}14`, boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
-                  display: "flex", alignItems: "center", gap: compact ? 3 : 4,
-                }}>
-                  <span style={{ fontSize: compact ? 9 : 12 }}>{icon}</span>
-                  <span style={{ fontSize: compact ? 5.5 : 7, color: "rgba(0,0,0,0.55)", fontWeight: 600 }}>{label}</span>
-                </div>
-              ))}
-            </div>
-
-            {!compact && (
+          {compact ? (
+            /* ── COMPACT layout ── */
+            <>
+              {/* Left: Doctor photo frame */}
               <div style={{
-                background: "#fff", borderRadius: 7, padding: "6px 8px",
-                border: `1px solid ${blue}18`, boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
-                display: "flex", justifyContent: "space-between", alignItems: "center",
+                width: "44%",
+                background: `linear-gradient(160deg, ${blue}18 0%, ${teal}12 100%)`,
+                borderRight: `1px solid rgba(11,98,196,0.08)`,
+                display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end",
+                padding: "6px 6px 8px",
+                position: "relative", overflow: "hidden",
               }}>
+                {/* Oval doctor frame */}
+                <div style={{ position: "absolute", top: 6, left: "50%", transform: "translateX(-50%)", width: 36, height: 44, borderRadius: "50% 50% 40% 40%", background: `linear-gradient(160deg, ${blue}40, ${teal}30)`, border: `2px solid rgba(255,255,255,0.7)`, overflow: "hidden" }}>
+                  {/* Silhouette */}
+                  <div style={{ position: "absolute", bottom: 0, left: "50%", transform: "translateX(-50%)", width: 20, height: 26, background: `${blue}35`, borderRadius: "6px 6px 0 0" }} />
+                  <div style={{ position: "absolute", top: 6, left: "50%", transform: "translateX(-50%)", width: 16, height: 16, borderRadius: "50%", background: `linear-gradient(135deg, ${blue}55, ${teal}45)` }} />
+                </div>
+                <div style={{ textAlign: "center" }}>
+                  <div style={{ fontSize: 4, color: "rgba(0,0,0,0.3)" }}>Dr. med. dent.</div>
+                  <div style={{ fontSize: 6.5, fontWeight: 800, color: "#0D1B2A" }}>Sarah Klein</div>
+                </div>
+              </div>
+              {/* Right: content */}
+              <div style={{ flex: 1, padding: "7px 8px", display: "flex", flexDirection: "column", gap: 5 }}>
+                <div style={{ fontSize: 9, fontWeight: 900, color: "#0D1B2A", lineHeight: 1.15 }}>
+                  Ihr Lächeln,<br /><span style={{ color: blue }}>unsere Passion.</span>
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 3 }}>
+                  {[
+                    { icon: "🦷", label: "Prophylaxe" },
+                    { icon: "✨", label: "Bleaching" },
+                    { icon: "🔬", label: "Implantate" },
+                    { icon: "😊", label: "Ästhetik" },
+                  ].map(({ icon, label }) => (
+                    <div key={label} style={{
+                      background: "#F6FAFF", borderRadius: 5, padding: "3px 5px",
+                      border: `1px solid ${blue}14`,
+                      display: "flex", alignItems: "center", gap: 3,
+                    }}>
+                      <span style={{ fontSize: 9 }}>{icon}</span>
+                      <span style={{ fontSize: 5, color: "rgba(0,0,0,0.55)", fontWeight: 600 }}>{label}</span>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ fontSize: 6, fontWeight: 700, color: "#fff", background: `linear-gradient(135deg, ${blue}, ${teal})`, borderRadius: 20, padding: "3px 10px", alignSelf: "flex-start", boxShadow: `0 2px 8px ${blue}40` }}>
+                  Termin buchen →
+                </div>
+              </div>
+            </>
+          ) : (
+            /* ── FULL layout ── */
+            <>
+              {/* Left: Main content (55%) */}
+              <div style={{ width: "55%", padding: "14px 16px", display: "flex", flexDirection: "column", gap: 8 }}>
                 <div>
-                  <div style={{ fontSize: 5.5, color: "rgba(0,0,0,0.3)" }}>Nächster freier Termin</div>
-                  <div style={{ fontSize: 8, fontWeight: 800, color: "#0D1B2A" }}>Mo, 19. Mai · 14:30</div>
+                  <div style={{ fontSize: 14, fontWeight: 900, color: "#0D1B2A", lineHeight: 1.15 }}>
+                    Ihr Lächeln,
+                  </div>
+                  <div style={{ fontSize: 14, fontWeight: 900, color: blue, lineHeight: 1.15 }}>
+                    unsere Passion.
+                  </div>
+                  <div style={{ fontSize: 6, color: "rgba(0,0,0,0.4)", marginTop: 5, lineHeight: 1.6 }}>
+                    Modernste Zahntechnik in entspannter<br />Atmosphäre — im Herzen Münchens.
+                  </div>
                 </div>
-                <div style={{ fontSize: 7, fontWeight: 700, color: "#fff", background: blue, borderRadius: 20, padding: "3px 10px" }}>
-                  Buchen →
+                {/* Trust badges */}
+                <div style={{ display: "flex", gap: 5 }}>
+                  {[
+                    { val: "★4.9", label: "Google" },
+                    { val: "300+", label: "Patienten" },
+                    { val: "15 J.", label: "Erfahrung" },
+                  ].map(({ val, label }) => (
+                    <div key={label} style={{ background: "#F6FAFF", borderRadius: 6, padding: "3px 6px", border: `1px solid ${blue}14`, textAlign: "center" }}>
+                      <div style={{ fontSize: 7.5, fontWeight: 800, color: blue }}>{val}</div>
+                      <div style={{ fontSize: 4.5, color: "rgba(0,0,0,0.35)" }}>{label}</div>
+                    </div>
+                  ))}
+                </div>
+                {/* Services grid */}
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 4 }}>
+                  {[
+                    { icon: "🦷", label: "Prophylaxe" },
+                    { icon: "✨", label: "Bleaching" },
+                    { icon: "🔬", label: "Implantate" },
+                    { icon: "😊", label: "Ästhetik" },
+                  ].map(({ icon, label }) => (
+                    <div key={label} style={{
+                      background: "#fff", borderRadius: 6, padding: "5px 7px",
+                      border: `1px solid ${blue}15`, boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
+                      display: "flex", alignItems: "center", gap: 5,
+                    }}>
+                      <span style={{ fontSize: 12 }}>{icon}</span>
+                      <span style={{ fontSize: 6.5, color: "rgba(0,0,0,0.55)", fontWeight: 600 }}>{label}</span>
+                    </div>
+                  ))}
+                </div>
+                {/* Appointment card */}
+                <div style={{
+                  background: "#F6FAFF", borderRadius: 8, padding: "7px 9px",
+                  border: `1px solid ${blue}18`, boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
+                  display: "flex", justifyContent: "space-between", alignItems: "center",
+                }}>
+                  <div>
+                    <div style={{ fontSize: 5, color: "rgba(0,0,0,0.28)", letterSpacing: "0.05em", textTransform: "uppercase" }}>Nächster freier Termin</div>
+                    <div style={{ fontSize: 8.5, fontWeight: 900, color: "#0D1B2A", marginTop: 1 }}>Mo, 19. Mai · 14:30</div>
+                  </div>
+                  <div style={{ fontSize: 7, fontWeight: 700, color: "#fff", background: `linear-gradient(135deg, ${blue}, ${teal})`, borderRadius: 20, padding: "4px 12px", boxShadow: `0 2px 10px ${blue}40` }}>
+                    Buchen →
+                  </div>
                 </div>
               </div>
-            )}
 
-            {compact && (
-              <div style={{ fontSize: 6, fontWeight: 700, color: "#fff", background: blue, borderRadius: 20, padding: "3px 10px", alignSelf: "flex-start" }}>
-                Termin buchen →
+              {/* Right: Doctor photo frame (45%) */}
+              <div style={{ width: "45%", position: "relative", overflow: "hidden" }}>
+                {/* Background gradient panel */}
+                <div style={{ position: "absolute", inset: 0, background: `linear-gradient(155deg, ${blue}12 0%, ${teal}10 100%)`, borderLeft: `1px solid rgba(11,98,196,0.08)` }} />
+                {/* Oval doctor photo frame */}
+                <div style={{ position: "absolute", top: "10%", left: "50%", transform: "translateX(-50%)", width: 80, height: 96, borderRadius: "50% 50% 45% 45%", background: `linear-gradient(160deg, ${blue}35, ${teal}28)`, border: "3px solid rgba(255,255,255,0.85)", boxShadow: `0 4px 20px ${blue}25`, overflow: "hidden" }}>
+                  {/* Doctor silhouette */}
+                  <div style={{ position: "absolute", bottom: 0, left: "50%", transform: "translateX(-50%)", width: 52, height: 60, background: `${blue}30`, borderRadius: "8px 8px 0 0" }} />
+                  <div style={{ position: "absolute", top: 12, left: "50%", transform: "translateX(-50%)", width: 36, height: 36, borderRadius: "50%", background: `linear-gradient(135deg, ${blue}55, ${teal}45)` }} />
+                  {/* White coat highlight */}
+                  <div style={{ position: "absolute", bottom: 10, left: "20%", width: "60%", height: 30, background: "rgba(255,255,255,0.15)", borderRadius: "6px 6px 0 0" }} />
+                </div>
+                {/* Name badge below oval */}
+                <div style={{ position: "absolute", bottom: "22%", left: "50%", transform: "translateX(-50%)", background: "#fff", borderRadius: 8, padding: "5px 10px", boxShadow: "0 2px 10px rgba(0,0,0,0.08)", textAlign: "center", whiteSpace: "nowrap" }}>
+                  <div style={{ fontSize: 8, fontWeight: 900, color: "#0D1B2A" }}>Dr. Sarah Klein</div>
+                  <div style={{ fontSize: 5, color: teal, marginTop: 1 }}>Implantologie & Ästhetik</div>
+                </div>
               </div>
-            )}
-          </div>
+            </>
+          )}
         </div>
       </div>
     </BrowserFrame>
@@ -309,8 +436,8 @@ function DentalMockup({ compact }: { compact?: boolean }) {
 
 function HairSalonMockup({ compact }: { compact?: boolean }) {
   const gold  = "#B8922A";
-  const black = "#0A0A0A";
-  const cream = "#F5EFE6";
+  const bg    = "#090806";
+  const cream = "#F0E8D8";
 
   const services = [
     ["Damen-Schnitt & Styling", "ab 65 €"],
@@ -323,89 +450,121 @@ function HairSalonMockup({ compact }: { compact?: boolean }) {
 
   return (
     <BrowserFrame color={gold} compact={compact} url="maison-eclat.de">
-      <div style={{ position: "absolute", inset: 0, background: cream, overflow: "hidden", fontFamily: "Georgia, serif" }}>
+      <div style={{ position: "absolute", inset: 0, background: bg, overflow: "hidden", fontFamily: "Georgia, serif" }}>
 
-        {/* Subtle grid */}
-        <div style={{ position: "absolute", inset: 0, opacity: 0.025, backgroundImage: `linear-gradient(${black} 1px, transparent 1px), linear-gradient(90deg, ${black} 1px, transparent 1px)`, backgroundSize: "24px 24px" }} />
+        {/* Very subtle warm texture overlay */}
+        <div style={{ position: "absolute", inset: 0, opacity: 0.04, backgroundImage: `linear-gradient(45deg, ${gold} 1px, transparent 1px), linear-gradient(-45deg, ${gold} 1px, transparent 1px)`, backgroundSize: compact ? "18px 18px" : "24px 24px", pointerEvents: "none" }} />
+
+        {/* Ambient glow: warm center */}
+        <div style={{ position: "absolute", top: "20%", left: "30%", width: "55%", height: "45%", background: `radial-gradient(ellipse, rgba(184,146,42,0.08) 0%, transparent 70%)`, pointerEvents: "none" }} />
+
+        {/* Hairline gold top border */}
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${gold}80, transparent)`, zIndex: 11 }} />
 
         {/* Nav */}
         <div style={{
           position: "absolute", top: 0, left: 0, right: 0, zIndex: 10,
-          height: compact ? 20 : 28,
+          height: compact ? 22 : 30,
           display: "flex", alignItems: "center", justifyContent: "space-between",
-          padding: `0 ${compact ? 8 : 14}px`,
-          borderBottom: `1px solid rgba(0,0,0,0.1)`,
-          background: cream,
+          padding: `0 ${compact ? 8 : 16}px`,
+          borderBottom: `1px solid rgba(184,146,42,0.2)`,
+          background: "rgba(9,8,6,0.97)",
         }}>
-          <span style={{ fontSize: compact ? 7 : 9, fontWeight: 700, letterSpacing: "0.32em", color: black, fontStyle: "normal" }}>MAISON ÉCLAT</span>
+          <span style={{ fontSize: compact ? 6.5 : 8.5, fontWeight: 700, letterSpacing: "0.38em", color: cream, textTransform: "uppercase" }}>MAISON ÉCLAT</span>
           {!compact && (
-            <div style={{ display: "flex", gap: 16 }}>
+            <div style={{ display: "flex", gap: 14 }}>
               {["SCHNITT","FARBE","PFLEGE","BRAUT"].map(n => (
-                <span key={n} style={{ fontSize: 6, color: "rgba(0,0,0,0.38)", letterSpacing: "0.18em", fontFamily: "system-ui" }}>{n}</span>
+                <span key={n} style={{ fontSize: 5.5, color: `${cream}50`, letterSpacing: "0.2em", fontFamily: "system-ui" }}>{n}</span>
               ))}
             </div>
           )}
           <div style={{
-            fontSize: compact ? 5 : 6.5, letterSpacing: "0.15em", fontFamily: "system-ui",
-            color: gold, border: `1px solid ${gold}`, borderRadius: 20,
+            fontSize: compact ? 4.5 : 6, letterSpacing: "0.14em", fontFamily: "system-ui",
+            color: gold, border: `1px solid ${gold}80`, borderRadius: 20,
             padding: compact ? "1px 6px" : "2px 10px",
-          }}>RESERVIERUNG</div>
+          }}>RÉSERVER</div>
         </div>
 
-        {/* Content */}
-        <div style={{ position: "absolute", top: compact ? 20 : 28, left: 0, right: 0, bottom: 0, display: "flex" }}>
+        {/* Hairline below nav */}
+        <div style={{ position: "absolute", top: compact ? 22 : 30, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${gold}30, transparent)`, zIndex: 9 }} />
 
-          {/* Left: Monogram */}
+        {/* Content */}
+        <div style={{ position: "absolute", top: compact ? 23 : 31, left: 0, right: 0, bottom: 0, display: "flex" }}>
+
+          {/* Left: Monogram column */}
           <div style={{
-            width: compact ? "46%" : "44%",
-            borderRight: `1px solid rgba(0,0,0,0.07)`,
+            width: compact ? "44%" : "40%",
+            borderRight: `1px solid rgba(184,146,42,0.15)`,
             display: "flex", flexDirection: "column",
             alignItems: "center", justifyContent: "center",
-            padding: compact ? 8 : 16, gap: compact ? 4 : 8,
+            padding: compact ? 8 : 18, gap: compact ? 5 : 10,
+            position: "relative", overflow: "hidden",
           }}>
-            <div style={{ fontSize: compact ? 52 : 88, color: gold, lineHeight: 1, opacity: 0.82, fontStyle: "italic", fontWeight: 400 }}>M</div>
+            {/* Giant italic M monogram */}
+            <div style={{ fontSize: compact ? 56 : 92, color: gold, lineHeight: 1, opacity: 0.78, fontStyle: "italic", fontWeight: 400, textShadow: `0 0 30px ${gold}30`, letterSpacing: "-0.02em" }}>M</div>
+
             {!compact && (
               <>
-                <div style={{ width: 32, height: 1, background: `linear-gradient(90deg, transparent, ${gold}, transparent)` }} />
-                <div style={{ fontSize: 5.5, letterSpacing: "0.35em", color: "rgba(0,0,0,0.35)", textAlign: "center", fontFamily: "system-ui", lineHeight: 1.8 }}>
-                  L&apos;ART DE BEAUTÉ<br />BERLIN · PARIS
+                {/* Thin gradient rule */}
+                <div style={{ width: 40, height: 1, background: `linear-gradient(90deg, transparent, ${gold}, transparent)` }} />
+                <div style={{ fontSize: 5, letterSpacing: "0.4em", color: `${cream}60`, textAlign: "center", fontFamily: "system-ui", lineHeight: 2, textTransform: "uppercase" }}>
+                  L&apos;ART DE BEAUTÉ<br />BERLIN · MITTE
                 </div>
                 {/* Color swatches */}
-                <div style={{ display: "flex", gap: 4, marginTop: 4 }}>
+                <div style={{ display: "flex", gap: 4, marginTop: 2 }}>
                   {swatches.map((c, i) => (
-                    <div key={i} style={{ width: 12, height: 12, borderRadius: "50%", background: c, border: "1.5px solid rgba(255,255,255,0.8)", boxShadow: "0 1px 3px rgba(0,0,0,0.2)" }} />
+                    <div key={i} style={{ width: 11, height: 11, borderRadius: "50%", background: c, border: "1.5px solid rgba(255,255,255,0.12)", boxShadow: "0 1px 4px rgba(0,0,0,0.4)" }} />
                   ))}
                 </div>
               </>
             )}
             {compact && (
-              <div style={{ display: "flex", gap: 3 }}>
-                {swatches.slice(0, 4).map((c, i) => (
-                  <div key={i} style={{ width: 9, height: 9, borderRadius: "50%", background: c, border: "1.5px solid rgba(255,255,255,0.8)" }} />
-                ))}
-              </div>
+              <>
+                <div style={{ width: 28, height: 1, background: `linear-gradient(90deg, transparent, ${gold}, transparent)` }} />
+                <div style={{ display: "flex", gap: 3.5 }}>
+                  {swatches.slice(0, 5).map((c, i) => (
+                    <div key={i} style={{ width: 8, height: 8, borderRadius: "50%", background: c, border: "1px solid rgba(255,255,255,0.1)" }} />
+                  ))}
+                </div>
+              </>
             )}
           </div>
 
           {/* Right: Service list */}
-          <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", padding: compact ? "6px 8px" : "12px 14px", gap: 0 }}>
-            <div style={{ fontSize: compact ? 5.5 : 7, letterSpacing: "0.25em", color: gold, marginBottom: compact ? 6 : 10, fontFamily: "system-ui", fontWeight: 600 }}>LEISTUNGEN</div>
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", padding: compact ? "6px 9px" : "14px 16px", gap: 0 }}>
+            {/* LEISTUNGEN header */}
+            <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: compact ? 7 : 12 }}>
+              <div style={{ width: compact ? 8 : 12, height: 1, background: gold }} />
+              <div style={{ fontSize: compact ? 5 : 6.5, letterSpacing: "0.3em", color: gold, fontFamily: "system-ui", fontWeight: 600, textTransform: "uppercase" }}>LEISTUNGEN</div>
+            </div>
+
             {(compact ? services.slice(0, 3) : services).map(([name, price], i) => (
               <div key={name} style={{
                 display: "flex", justifyContent: "space-between", alignItems: "center",
-                padding: compact ? "4px 6px" : "6px 8px",
-                background: i === 0 ? gold : "transparent",
-                borderBottom: i !== 0 ? `1px solid rgba(0,0,0,0.07)` : "none",
-                borderRadius: i === 0 ? 4 : 0,
-                marginBottom: i === 0 ? compact ? 3 : 5 : 0,
+                padding: compact ? "4px 7px" : "7px 9px",
+                background: i === 0 ? `rgba(184,146,42,0.14)` : "transparent",
+                borderBottom: i < (compact ? 2 : 3) ? `1px solid rgba(184,146,42,0.1)` : "none",
+                borderLeft: i === 0 ? `2px solid ${gold}` : "2px solid transparent",
+                borderRadius: i === 0 ? "0 4px 4px 0" : 0,
+                marginBottom: i === 0 ? compact ? 2 : 3 : 0,
               }}>
-                <span style={{ fontSize: compact ? 6.5 : 8, fontFamily: "system-ui", color: i === 0 ? "#fff" : black, fontWeight: i === 0 ? 600 : 400, letterSpacing: "0.03em" }}>{name}</span>
-                <span style={{ fontSize: compact ? 6 : 7.5, fontFamily: "system-ui", color: i === 0 ? "rgba(255,255,255,0.85)" : gold, fontWeight: 600 }}>{price}</span>
+                <span style={{ fontSize: compact ? 6 : 7.5, fontFamily: "Georgia, serif", color: i === 0 ? cream : `${cream}80`, fontWeight: i === 0 ? 600 : 400, letterSpacing: "0.02em" }}>{name}</span>
+                <span style={{ fontSize: compact ? 5.5 : 7, fontFamily: "system-ui", color: gold, fontWeight: 700, letterSpacing: "0.02em" }}>{price}</span>
               </div>
             ))}
+
             {!compact && (
-              <div style={{ marginTop: 10 }}>
-                <div style={{ fontSize: 6, color: "rgba(0,0,0,0.3)", letterSpacing: "0.1em", fontFamily: "system-ui" }}>Di–Sa · 10:00–19:00 · Mitte, Berlin</div>
+              <>
+                <div style={{ marginTop: 10, marginBottom: 8, fontSize: 5, color: `${cream}35`, letterSpacing: "0.12em", fontFamily: "system-ui", textTransform: "uppercase" }}>Di–Sa · 10:00–19:00 · Mitte, Berlin</div>
+                {/* Outlined gold pill button */}
+                <div style={{ alignSelf: "flex-start", border: `1px solid ${gold}`, borderRadius: 20, padding: "4px 12px", display: "flex", alignItems: "center", gap: 5 }}>
+                  <span style={{ fontSize: 6, color: gold, letterSpacing: "0.15em", fontFamily: "system-ui", textTransform: "uppercase", fontWeight: 600 }}>TERMIN RESERVIEREN →</span>
+                </div>
+              </>
+            )}
+            {compact && (
+              <div style={{ marginTop: 6, alignSelf: "flex-start", border: `1px solid ${gold}70`, borderRadius: 14, padding: "2px 8px" }}>
+                <span style={{ fontSize: 4.5, color: gold, letterSpacing: "0.12em", fontFamily: "system-ui", textTransform: "uppercase" }}>RESERVIEREN →</span>
               </div>
             )}
           </div>
@@ -418,106 +577,143 @@ function HairSalonMockup({ compact }: { compact?: boolean }) {
 // ─── 4. Pawfect Pet Store ─────────────────────────────────────────────────────
 
 function PetStoreMockup({ compact }: { compact?: boolean }) {
-  const orange = "#F06030";
-  const green  = "#2A6448";
+  const orange = "#E85A1E";
+  const green  = "#1E5C38";
   const cream  = "#FFF8F0";
 
   const categories = [
-    { emoji: "🐕", name: "Hunde",  count: "124",  bg: "#FFF0E8", border: orange,   hot: true  },
-    { emoji: "🐈", name: "Katzen", count: "89",   bg: "#EEF7F2", border: green,    hot: false },
-    { emoji: "🦜", name: "Vögel",  count: "45",   bg: "#FFFBF0", border: "#C4991E", hot: false },
-    { emoji: "🐟", name: "Fische", count: "67",   bg: "#F0F7FF", border: "#2980B9", hot: false },
-    { emoji: "🐇", name: "Nager",  count: "38",   bg: "#FFF0F8", border: "#C0418B", hot: false },
-    { emoji: "🎁", name: "Angebot",count: "−30%", bg: `${orange}14`, border: orange, hot: true },
+    { emoji: "🐕", name: "Hunde",   count: "124",  bg: "#FFF0E8", border: orange,    hot: true  },
+    { emoji: "🐈", name: "Katzen",  count: "89",   bg: "#EEF8F2", border: green,     hot: false },
+    { emoji: "🦜", name: "Vögel",   count: "45",   bg: "#FFFBF0", border: "#C4991E", hot: false },
+    { emoji: "🐟", name: "Fische",  count: "67",   bg: "#F0F7FF", border: "#2980B9", hot: false },
+    { emoji: "🐇", name: "Nager",   count: "38",   bg: "#FFF0F8", border: "#C0418B", hot: false },
+    { emoji: "🎁", name: "Angebot", count: "−30%", bg: `${orange}18`, border: orange, hot: true },
   ];
 
   return (
     <BrowserFrame color={orange} compact={compact} url="pawfect-store.de">
       <div style={{ position: "absolute", inset: 0, background: cream, overflow: "hidden", fontFamily: "system-ui" }}>
 
-        {/* Nav */}
+        {/* Nav — forest green bar */}
         <div style={{
           position: "absolute", top: 0, left: 0, right: 0, zIndex: 10,
-          height: compact ? 20 : 28,
+          height: compact ? 22 : 30,
           background: green,
           display: "flex", alignItems: "center", justifyContent: "space-between",
           padding: `0 ${compact ? 8 : 12}px`,
+          boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
         }}>
-          {/* Paw logo */}
-          <div style={{ display: "flex", alignItems: "center", gap: compact ? 3 : 5 }}>
+          {/* Paw CSS logo + wordmark */}
+          <div style={{ display: "flex", alignItems: "center", gap: compact ? 4 : 6 }}>
             <div style={{ position: "relative", width: compact ? 14 : 18, height: compact ? 14 : 18, flexShrink: 0 }}>
-              <div style={{ position: "absolute", bottom: 0, left: "10%", width: "80%", height: "70%", borderRadius: "50% 50% 45% 45%", background: orange }} />
-              {[{l:"15%",t:"0px"},{l:"52%",t:"-1px"},{l:"3%",t:"30%"},{l:"66%",t:"30%"}].map((pos, i) => (
+              {/* Palm oval */}
+              <div style={{ position: "absolute", bottom: 0, left: "10%", width: "80%", height: "68%", borderRadius: "50% 50% 44% 44%", background: orange }} />
+              {/* 4 toe beans */}
+              {[{l:"14%",t:"2px"},{l:"50%",t:"-1px"},{l:"2%",t:"32%"},{l:"65%",t:"32%"}].map((pos, i) => (
                 <div key={i} style={{ position: "absolute", left: pos.l, top: pos.t, width: compact ? 4 : 5, height: compact ? 4 : 5, borderRadius: "50%", background: orange }} />
               ))}
             </div>
-            <span style={{ fontSize: compact ? 7 : 9, fontWeight: 900, color: "#fff", letterSpacing: "0.06em" }}>PAWFECT</span>
+            <span style={{ fontSize: compact ? 7.5 : 10, fontWeight: 900, color: "#fff", letterSpacing: "0.08em" }}>PAWFECT</span>
           </div>
           {!compact && (
-            <div style={{ display: "flex", gap: 12 }}>
+            <div style={{ display: "flex", gap: 13 }}>
               {["Hunde","Katzen","Vögel","Sale"].map(n => (
-                <span key={n} style={{ fontSize: 6.5, color: "rgba(255,255,255,0.6)" }}>{n}</span>
+                <span key={n} style={{ fontSize: 6.5, color: "rgba(255,255,255,0.65)" }}>{n}</span>
               ))}
             </div>
           )}
-          <div style={{ display: "flex", gap: compact ? 4 : 6, alignItems: "center" }}>
-            {!compact && <span style={{ fontSize: 12 }}>🔍</span>}
-            <div style={{ fontSize: compact ? 5 : 7, fontWeight: 700, background: orange, color: "#fff", borderRadius: 20, padding: compact ? "2px 5px" : "2px 9px" }}>Shop</div>
+          <div style={{ display: "flex", gap: compact ? 4 : 7, alignItems: "center" }}>
+            {!compact && (
+              <div style={{ fontSize: 6, color: "rgba(255,255,255,0.55)" }}>🔍</div>
+            )}
+            {/* Cart badge */}
+            <div style={{ position: "relative" }}>
+              <div style={{ fontSize: compact ? 5 : 7, fontWeight: 700, background: orange, color: "#fff", borderRadius: 20, padding: compact ? "2px 6px" : "3px 10px", boxShadow: `0 1px 6px ${orange}60` }}>
+                {compact ? "🛒" : "Warenkorb"}
+              </div>
+              <div style={{ position: "absolute", top: -3, right: -3, width: compact ? 7 : 9, height: compact ? 7 : 9, borderRadius: "50%", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ fontSize: compact ? 3.5 : 5, fontWeight: 800, color: orange }}>2</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Sale banner */}
+        {/* Sale banner — non-compact */}
         {!compact && (
           <div style={{
-            position: "absolute", top: 28, left: 0, right: 0,
-            height: 22, background: `${orange}18`,
-            display: "flex", alignItems: "center", justifyContent: "center", gap: 12,
-            borderBottom: `1px solid ${orange}20`,
+            position: "absolute", top: 30, left: 0, right: 0,
+            height: 22, background: `rgba(232,90,30,0.1)`,
+            display: "flex", alignItems: "center", justifyContent: "center", gap: 10,
+            borderBottom: `1px solid ${orange}22`,
           }}>
-            <span style={{ fontSize: 7, color: orange, fontWeight: 700 }}>🎉 SOMMER-SALE · bis zu 30 % Rabatt auf ausgewählte Produkte</span>
-            <div style={{ fontSize: 6.5, color: "#fff", background: orange, borderRadius: 20, padding: "1px 8px", fontWeight: 700 }}>Jetzt ansehen</div>
+            <span style={{ fontSize: 6.5, color: orange, fontWeight: 700 }}>🎉 SOMMER-SALE · bis zu 30% auf ausgewählte Artikel</span>
+            <div style={{ fontSize: 6, color: "#fff", background: orange, borderRadius: 20, padding: "1px 9px", fontWeight: 700, boxShadow: `0 1px 4px ${orange}50` }}>Jetzt ansehen</div>
           </div>
         )}
 
-        {/* Categories grid */}
-        <div style={{
-          position: "absolute",
-          top: compact ? 20 : 52,
-          left: compact ? 6 : 8, right: compact ? 6 : 8,
-          bottom: compact ? 6 : 8,
-          display: "grid",
-          gridTemplateColumns: compact ? "1fr 1fr" : "1fr 1fr 1fr",
-          gridTemplateRows: compact ? "1fr 1fr" : "1fr 1fr",
-          gap: compact ? 4 : 5,
-        }}>
-          {(compact ? categories.slice(0, 4) : categories).map(({ emoji, name, count, bg, border, hot }) => (
-            <div key={name} style={{
-              background: bg,
-              border: `1.5px solid ${border}28`,
-              borderRadius: compact ? 6 : 7,
-              padding: compact ? "6px 7px" : "8px 10px",
-              display: "flex",
-              flexDirection: compact ? "row" : "column",
-              alignItems: compact ? "center" : "flex-start",
-              gap: compact ? 5 : 4,
-              position: "relative",
-              cursor: "pointer",
-            }}>
-              {hot && (
-                <div style={{
-                  position: "absolute", top: compact ? 3 : 4, right: compact ? 3 : 4,
-                  fontSize: compact ? 4 : 5.5, fontWeight: 800, color: "#fff",
-                  background: orange, borderRadius: 10, padding: compact ? "0px 3px" : "1px 4px",
-                }}>HOT</div>
-              )}
-              <div style={{ fontSize: compact ? 16 : 24 }}>{emoji}</div>
+        {/* Hero headline + categories */}
+        {!compact ? (
+          <div style={{ position: "absolute", top: 52, left: 0, right: 0, bottom: 0, display: "flex", flexDirection: "column" }}>
+            {/* Hero text strip */}
+            <div style={{ padding: "8px 12px 6px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div>
-                <div style={{ fontSize: compact ? 7.5 : 9.5, fontWeight: 800, color: "#1A1A1A" }}>{name}</div>
-                <div style={{ fontSize: compact ? 5 : 6.5, color: "rgba(0,0,0,0.38)", marginTop: 1 }}>{count} {compact ? "" : "Artikel"}</div>
+                <div style={{ fontSize: 11, fontWeight: 900, color: "#1A1A1A", lineHeight: 1.1 }}>Für dein Tier.<br /><span style={{ color: green }}>Mit Liebe.</span></div>
+                <div style={{ fontSize: 5.5, color: "rgba(0,0,0,0.38)", marginTop: 3 }}>Alles für Hund, Katze & Co.</div>
               </div>
+              <div style={{ fontSize: 7, fontWeight: 700, color: "#fff", background: orange, borderRadius: 20, padding: "4px 14px", boxShadow: `0 2px 10px ${orange}50` }}>Zum Shop →</div>
             </div>
-          ))}
-        </div>
+            {/* 3-col category grid */}
+            <div style={{ flex: 1, display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gridTemplateRows: "1fr 1fr", gap: 5, padding: "0 8px 8px" }}>
+              {categories.map(({ emoji, name, count, bg, border, hot }) => (
+                <div key={name} style={{
+                  background: bg, border: `1.5px solid ${border}30`,
+                  borderRadius: 8, padding: "8px 10px",
+                  display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 4,
+                  position: "relative",
+                }}>
+                  {hot && (
+                    <div style={{ position: "absolute", top: 5, right: 5, fontSize: 5, fontWeight: 800, color: "#fff", background: orange, borderRadius: 8, padding: "1px 4px" }}>HOT</div>
+                  )}
+                  <div style={{ fontSize: 22 }}>{emoji}</div>
+                  <div>
+                    <div style={{ fontSize: 8.5, fontWeight: 800, color: "#1A1A1A" }}>{name}</div>
+                    <div style={{ fontSize: 5.5, color: "rgba(0,0,0,0.35)", marginTop: 1 }}>{count} Artikel</div>
+                  </div>
+                  <div style={{ fontSize: 5.5, color: border, fontWeight: 700, marginTop: "auto" }}>→</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          /* ── COMPACT layout ── */
+          <div style={{ position: "absolute", top: 22, left: 0, right: 0, bottom: 0, display: "flex", flexDirection: "column" }}>
+            {/* Compact headline */}
+            <div style={{ padding: "5px 8px 4px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <div style={{ fontSize: 8.5, fontWeight: 900, color: "#1A1A1A", lineHeight: 1.1 }}>Für dein Tier.<br /><span style={{ color: green }}>Mit Liebe.</span></div>
+              <div style={{ fontSize: 5.5, fontWeight: 700, color: "#fff", background: orange, borderRadius: 14, padding: "2px 8px" }}>Shop →</div>
+            </div>
+            {/* 2-col compact grid */}
+            <div style={{ flex: 1, display: "grid", gridTemplateColumns: "1fr 1fr", gridTemplateRows: "1fr 1fr", gap: 4, padding: "0 6px 6px" }}>
+              {categories.slice(0, 4).map(({ emoji, name, count, bg, border, hot }) => (
+                <div key={name} style={{
+                  background: bg, border: `1.5px solid ${border}28`,
+                  borderRadius: 6, padding: "5px 7px",
+                  display: "flex", flexDirection: "row", alignItems: "center", gap: 5,
+                  position: "relative",
+                }}>
+                  {hot && (
+                    <div style={{ position: "absolute", top: 3, right: 3, fontSize: 4, fontWeight: 800, color: "#fff", background: orange, borderRadius: 8, padding: "0px 3px" }}>HOT</div>
+                  )}
+                  <div style={{ fontSize: 16 }}>{emoji}</div>
+                  <div>
+                    <div style={{ fontSize: 7, fontWeight: 800, color: "#1A1A1A" }}>{name}</div>
+                    <div style={{ fontSize: 4.5, color: "rgba(0,0,0,0.35)", marginTop: 1 }}>{count}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </BrowserFrame>
   );
@@ -728,7 +924,12 @@ export default function Work() {
 
   return (
     <>
-      <section id="work" className="py-36 px-6">
+      <section id="work" className="py-36 px-6 relative overflow-hidden">
+        {/* Subtle scan-line stripes */}
+        <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "repeating-linear-gradient(0deg, rgba(107,120,216,0.018) 0px, rgba(107,120,216,0.018) 1px, transparent 1px, transparent 40px)" }} />
+        {/* Corner glow blobs */}
+        <div style={{ position: "absolute", top: "-80px", right: "-80px", width: 320, height: 320, borderRadius: "50%", background: "radial-gradient(circle, rgba(58,69,196,0.09) 0%, transparent 70%)", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", bottom: "-60px", left: "-60px", width: 260, height: 260, borderRadius: "50%", background: "radial-gradient(circle, rgba(155,52,32,0.07) 0%, transparent 70%)", pointerEvents: "none" }} />
         <div className="max-w-6xl mx-auto">
           <div ref={hRef} className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8"
             style={{ opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(24px)", transition: "all 0.7s ease" }}>

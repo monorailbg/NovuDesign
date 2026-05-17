@@ -57,6 +57,14 @@ export default function Manifesto() {
       <div className="absolute bottom-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(107,120,216,0.15), transparent)" }} />
       <div className="absolute inset-0 pointer-events-none"
         style={{ background: "radial-gradient(ellipse 80% 60% at 50% 50%, rgba(40,48,160,0.07) 0%, transparent 70%)" }} />
+      {/* Diamond / chevron pattern */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        backgroundImage: "linear-gradient(45deg, rgba(107,120,216,0.04) 1px, transparent 1px), linear-gradient(-45deg, rgba(107,120,216,0.04) 1px, transparent 1px)",
+        backgroundSize: "52px 52px",
+      }} />
+      {/* Extra glow accents */}
+      <div className="absolute pointer-events-none" style={{ top: "10%", left: "-5%", width: 300, height: 300, borderRadius: "50%", background: "radial-gradient(circle, rgba(155,52,32,0.05) 0%, transparent 65%)" }} />
+      <div className="absolute pointer-events-none" style={{ bottom: "5%", right: "5%", width: 250, height: 250, borderRadius: "50%", background: "radial-gradient(circle, rgba(58,69,196,0.06) 0%, transparent 65%)" }} />
 
       <div className="max-w-6xl mx-auto w-full">
         <div className="flex items-center gap-3 mb-12">
