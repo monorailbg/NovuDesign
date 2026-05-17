@@ -1,176 +1,344 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Atelier Wolke — Hair & Beauty Leipzig</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<title>Atelier Wolke — Hair Salon Leipzig</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-:root{--blush:#F5EDE8;--deep:#1E1410;--rose:#C4826A;--rose-light:#E8A898;--warm:#FAF7F4;--muted:#8A7A72;--border:#E0D4CC;}
-body{font-family:'DM Sans',sans-serif;background:var(--warm);color:var(--deep);}
+:root{--black:#0C0C0C;--white:#FFFFFF;--magenta:#E8196B;}
+body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;}
 img{display:block;width:100%;}
-nav{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 4rem;background:rgba(250,247,244,0.94);backdrop-filter:blur(16px);position:fixed;top:0;width:100%;z-index:100;border-bottom:1px solid var(--border);}
-.logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;font-style:italic;}
-.logo em{color:var(--rose);}
-.nav-links{display:flex;gap:2.5rem;list-style:none;}
-.nav-links a{text-decoration:none;font-size:0.82rem;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;}
-.btn-nav{background:var(--deep);color:var(--warm);padding:0.62rem 1.5rem;font-size:0.82rem;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
-.hero{height:100vh;position:relative;overflow:hidden;}
-.hero img{height:100%;object-fit:cover;object-position:center 20%;}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(30,20,16,0.9) 0%,rgba(30,20,16,0.5) 55%,rgba(30,20,16,0.08) 100%);}
-.hero-content{position:absolute;top:50%;left:4rem;transform:translateY(-50%);max-width:540px;}
-.eyebrow{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(232,168,152,0.85);margin-bottom:1.75rem;}
-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,5.5vw,4.8rem);font-weight:300;line-height:1.0;color:var(--warm);margin-bottom:2rem;letter-spacing:-0.01em;}
-h1 em{font-style:italic;color:var(--rose-light);}
-.hero-p{font-size:0.95rem;color:rgba(250,247,244,0.52);line-height:1.8;max-width:380px;margin-bottom:2.75rem;font-weight:300;}
-.btns{display:flex;gap:1rem;}
-.btn-rose{background:var(--rose);color:var(--warm);padding:0.9rem 2.2rem;font-size:0.88rem;font-weight:400;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
-.btn-ghost{background:transparent;color:var(--warm);border:1px solid rgba(250,247,244,0.22);padding:0.9rem 2.2rem;font-size:0.88rem;cursor:pointer;font-family:'DM Sans',sans-serif;}
-.hero-stats{position:absolute;bottom:3rem;left:4rem;display:flex;gap:3rem;}
-.hs .n{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--rose-light);font-weight:300;}
-.hs .l{font-size:0.7rem;color:rgba(250,247,244,0.38);text-transform:uppercase;letter-spacing:0.08em;}
-.strip{background:var(--blush);padding:1.5rem 4rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);}
-.strip p{font-size:0.85rem;color:var(--muted);}
-.strip strong{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--deep);}
-.sec{padding:6rem 4rem;}
-.sec-label{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose);margin-bottom:0.75rem;opacity:0.85;}
-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3vw,2.6rem);font-weight:300;margin-bottom:0.9rem;}
-h2 em{font-style:italic;}
-.sec-p{font-size:0.9rem;color:var(--muted);line-height:1.8;max-width:480px;margin-bottom:3.5rem;font-weight:300;}
-.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
-.svc{background:var(--warm);padding:2.25rem 2rem;transition:background 0.2s;}
-.svc:hover{background:var(--blush);}
-.svc-tag{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--rose);opacity:0.7;margin-bottom:1rem;}
-.svc h3{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;margin-bottom:0.55rem;}
-.svc p{font-size:0.82rem;color:var(--muted);line-height:1.7;font-weight:300;margin-bottom:1rem;}
-.svc-price{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.9rem;color:var(--deep);}
-.gallery{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;height:380px;gap:4px;}
-.gi{overflow:hidden;}
-.gi img{height:100%;object-fit:cover;transition:transform 0.55s;}
-.gi:hover img{transform:scale(1.05);}
-.split{display:grid;grid-template-columns:1fr 1fr;}
-.split-img{overflow:hidden;min-height:520px;}
-.split-img img{height:100%;object-fit:cover;object-position:center top;}
-.split-text{background:var(--deep);padding:6rem 4rem;display:flex;flex-direction:column;justify-content:center;}
-.split-text .sec-label{color:rgba(196,130,106,0.7);}
-.split-text p{font-size:0.9rem;color:rgba(250,247,244,0.45);line-height:1.8;font-weight:300;margin-bottom:1.25rem;}
-.reviews{padding:5rem 4rem;background:var(--blush);}
-.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3rem;}
-.rcard{background:var(--warm);border:1px solid var(--border);padding:1.75rem;}
-.stars{color:var(--rose);letter-spacing:2px;font-size:0.9rem;margin-bottom:0.75rem;}
-.rcard blockquote{font-size:0.87rem;color:var(--muted);line-height:1.7;font-style:italic;margin-bottom:1.25rem;font-weight:300;}
-.reviewer{font-size:0.8rem;font-weight:500;color:var(--deep);}
-.booking{padding:6rem 4rem;background:var(--warm);display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
-.bl h2{margin-bottom:1rem;}
-.bl h2 em{color:var(--rose);}
-.bl p{font-size:0.9rem;color:var(--muted);line-height:1.8;font-weight:300;margin-bottom:2rem;}
-.bl-info{font-size:0.85rem;color:var(--muted);line-height:2.2;}
-.bform{background:var(--blush);border:1px solid var(--border);padding:2.25rem;}
-.bform h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:300;margin-bottom:1.75rem;color:var(--deep);}
-.fg{display:flex;flex-direction:column;gap:6px;margin-bottom:1rem;}
-.fg label{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);}
-.fg input,.fg select{background:var(--warm);border:1px solid var(--border);padding:0.8rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--deep);outline:none;width:100%;transition:border-color 0.2s;}
-.fg input:focus{border-color:var(--rose);}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.4rem 3rem;background:rgba(12,12,12,0.88);backdrop-filter:blur(10px);}
+.logo-mark{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.14em;color:var(--white);}
+.nav-links{display:flex;gap:2.8rem;list-style:none;align-items:center;}
+.nav-links a{text-decoration:none;font-size:0.73rem;color:rgba(255,255,255,0.5);letter-spacing:0.14em;text-transform:uppercase;transition:color 0.2s;}
+.nav-links a:hover{color:var(--white);}
+.nav-book{text-decoration:underline !important;text-underline-offset:5px;color:var(--magenta) !important;font-weight:500;}
+.nav-book:hover{color:var(--white) !important;}
+
+/* HERO */
+.hero{position:relative;height:100vh;overflow:hidden;}
+.hero-img{width:100%;height:100%;object-fit:cover;object-position:center 30%;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top right,rgba(12,12,12,0.92) 0%,rgba(12,12,12,0.55) 45%,rgba(12,12,12,0.1) 100%);}
+.hero-content{position:absolute;bottom:4.5rem;left:3rem;max-width:720px;}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,10vw,9rem);line-height:0.88;letter-spacing:0.02em;color:var(--white);margin-bottom:1.8rem;}
+.hero h1 span{display:block;}
+.hero h1 .mag{color:var(--magenta);}
+.hero-sub{font-size:0.73rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.38);margin-bottom:2.8rem;}
+.hero-tagline{display:flex;align-items:center;gap:1.2rem;}
+.hero-tagline span{font-size:0.78rem;color:rgba(255,255,255,0.5);letter-spacing:0.08em;}
+.hero-line{width:40px;height:1px;background:var(--magenta);}
+
+/* TICKER */
+.ticker{background:var(--magenta);padding:0.8rem 0;overflow:hidden;white-space:nowrap;}
+.ticker-inner{display:inline-flex;gap:3rem;animation:tick 18s linear infinite;}
+.ticker-inner span{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:0.18em;color:var(--white);}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SERVICES STRIP */
+.services-strip{width:100%;}
+.strip-header{padding:3rem 3rem 1.5rem;display:flex;align-items:baseline;gap:1.5rem;}
+.strip-header h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,4vw,3.5rem);letter-spacing:0.08em;}
+.strip-header span{font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.3);}
+.svc-row{display:flex;align-items:stretch;border-bottom:1px solid #1c1c1c;}
+.svc-row:first-of-type{border-top:1px solid #1c1c1c;}
+.svc-row.alt{background:#0f0f0f;}
+.svc-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,4.5vw,4rem);color:var(--magenta);padding:2rem 2.2rem;min-width:110px;display:flex;align-items:center;border-right:1px solid #1c1c1c;opacity:0.7;}
+.svc-info{flex:1;padding:2rem 2.8rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;}
+.svc-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3vw,2.6rem);letter-spacing:0.05em;}
+.svc-desc{font-size:0.8rem;color:rgba(255,255,255,0.35);max-width:360px;line-height:1.7;font-weight:300;}
+.svc-price{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--magenta);padding:2rem 2.8rem;display:flex;align-items:center;white-space:nowrap;}
+
+/* GALLERY */
+.gallery{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:280px 280px;gap:2px;background:#000;}
+.g1{grid-row:1/3;}
+.gi{overflow:hidden;position:relative;}
+.gi img{width:100%;height:100%;object-fit:cover;transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);}
+.gi:hover img{transform:scale(1.06);}
+.gi::after{content:'';position:absolute;inset:0;background:rgba(12,12,12,0);transition:background 0.4s;}
+.gi:hover::after{background:rgba(12,12,12,0.15);}
+
+/* LABEL ROW */
+.label-row{display:flex;align-items:center;gap:0;border-bottom:1px solid #1c1c1c;}
+.label-row-item{flex:1;padding:2rem 2.5rem;border-right:1px solid #1c1c1c;}
+.label-row-item:last-child{border-right:none;}
+.label-row-item h3{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.14em;color:var(--magenta);margin-bottom:0.5rem;}
+.label-row-item p{font-size:0.8rem;color:rgba(255,255,255,0.45);line-height:1.6;font-weight:300;}
+
+/* TEAM */
+.team{background:#080808;padding:6rem 3rem;}
+.team-inner{max-width:900px;}
+.team-label{font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--magenta);margin-bottom:2rem;}
+.team-quote{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,4vw,3.8rem);line-height:1.1;letter-spacing:0.03em;color:var(--white);margin-bottom:3rem;max-width:740px;}
+.founder-row{display:flex;align-items:center;gap:2rem;}
+.founder-img{width:64px;height:64px;object-fit:cover;filter:grayscale(100%);}
+.founder-name{font-size:0.85rem;font-weight:500;letter-spacing:0.06em;}
+.founder-title{font-size:0.73rem;color:rgba(255,255,255,0.4);letter-spacing:0.08em;text-transform:uppercase;margin-top:0.3rem;}
+
+/* BOOKING */
+.booking{background:var(--black);padding:6rem 3rem;border-top:1px solid #1c1c1c;}
+.booking-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;max-width:1000px;}
+.booking-label{font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--magenta);margin-bottom:1.5rem;}
+.booking h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,5vw,4.5rem);line-height:0.9;letter-spacing:0.03em;margin-bottom:1.5rem;}
+.booking-info{font-size:0.82rem;color:rgba(255,255,255,0.4);line-height:1.8;font-weight:300;}
+.booking-info strong{color:var(--white);font-weight:400;}
+form{display:flex;flex-direction:column;gap:1rem;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-.send-btn{width:100%;background:var(--deep);color:var(--warm);border:none;padding:0.95rem;font-family:'DM Sans',sans-serif;font-size:0.88rem;cursor:pointer;margin-top:0.5rem;}
-footer{background:var(--deep);padding:2rem 4rem;display:flex;justify-content:space-between;align-items:center;}
-.flogo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--warm);}
-.flogo em{color:var(--rose-light);}
-footer p{font-size:0.75rem;color:rgba(250,247,244,0.25);}
-@media(max-width:768px){nav{padding:1rem 1.5rem;}.nav-links{display:none;}.hero-content{left:1.5rem;right:1.5rem;}.hero-stats{left:1.5rem;}.strip,.sec,.reviews,.booking{padding-left:1.5rem;padding-right:1.5rem;}.split,.booking{grid-template-columns:1fr;}.split-text{padding:3rem 1.5rem;}.svc-grid,.rev-grid,.form-row{grid-template-columns:1fr;}.gallery{height:auto;grid-template-columns:1fr 1fr;}.gi{height:180px;}footer{flex-direction:column;gap:1rem;padding:2rem 1.5rem;text-align:center;}}
+input,select,textarea{background:#111;border:1px solid #222;color:var(--white);padding:1rem 1.2rem;font-family:'Inter',sans-serif;font-size:0.82rem;font-weight:300;outline:none;transition:border-color 0.2s;width:100%;}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,0.25);}
+input:focus,select:focus,textarea:focus{border-color:var(--magenta);}
+select option{background:#111;}
+textarea{height:100px;resize:none;}
+.btn-submit{background:var(--magenta);color:var(--white);border:none;padding:1.1rem 2.5rem;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.14em;cursor:pointer;margin-top:0.5rem;transition:background 0.2s;}
+.btn-submit:hover{background:#c4145a;}
+
+/* FOOTER */
+footer{padding:1.5rem 3rem;border-top:1px solid #1c1c1c;display:flex;justify-content:space-between;align-items:center;}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.14em;}
+.footer-copy{font-size:0.72rem;color:rgba(255,255,255,0.28);letter-spacing:0.06em;}
+.footer-novu{font-size:0.72rem;color:rgba(255,255,255,0.28);letter-spacing:0.06em;}
+.footer-novu a{color:var(--magenta);text-decoration:none;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:1.2rem 1.5rem;}
+  .nav-links{gap:1.5rem;}
+  .nav-links li:not(:last-child){display:none;}
+  .hero-content{left:1.5rem;bottom:3rem;}
+  .hero h1{font-size:clamp(3.5rem,12vw,5rem);}
+  .strip-header,.booking{padding-left:1.5rem;padding-right:1.5rem;}
+  .svc-num{padding:1.5rem 1.2rem;min-width:80px;}
+  .svc-info{padding:1.5rem 1.2rem;flex-direction:column;align-items:flex-start;gap:0.5rem;}
+  .svc-price{padding:1.5rem 1.2rem;}
+  .svc-desc{max-width:100%;}
+  .gallery{grid-template-columns:1fr;grid-template-rows:240px 200px 200px 200px 200px;}
+  .g1{grid-row:auto;}
+  .booking-grid{grid-template-columns:1fr;gap:2.5rem;}
+  .form-row{grid-template-columns:1fr;}
+  .team{padding:4rem 1.5rem;}
+  footer{flex-direction:column;gap:0.8rem;text-align:center;padding:1.5rem;}
+  .label-row{flex-direction:column;}
+  .label-row-item{border-right:none;border-bottom:1px solid #1c1c1c;}
+}
 </style>
 </head>
 <body>
+
 <nav>
-  <div class="logo">Atelier <em>Wolke</em></div>
-  <ul class="nav-links"><li><a href="#">Services</a></li><li><a href="#">Gallery</a></li><li><a href="#">Team</a></li><li><a href="#">Contact</a></li></ul>
-  <button class="btn-nav">Book online</button>
+  <div class="logo-mark">ATELIER WOLKE</div>
+  <ul class="nav-links">
+    <li><a href="#">Leistungen</a></li>
+    <li><a href="#">Galerie</a></li>
+    <li><a href="#">Team</a></li>
+    <li><a href="#" class="nav-book">BOOK</a></li>
+  </ul>
 </nav>
+
+<!-- HERO -->
 <section class="hero">
-  <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1600&q=85&auto=format&fit=crop" alt="Atelier Wolke hair salon interior"/>
+  <img class="hero-img" src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1600&q=85&auto=format&fit=crop" alt="Atelier Wolke Salon"/>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <p class="eyebrow">Hair salon · Leipzig</p>
-    <h1>Where hair<br>becomes <em>art.</em></h1>
-    <p class="hero-p">Precision cuts, lived-in colour, and the kind of appointment you actually look forward to. Leipzig's boutique hair studio.</p>
-    <div class="btns"><button class="btn-rose">Book online →</button><button class="btn-ghost">Our services</button></div>
-  </div>
-  <div class="hero-stats">
-    <div class="hs"><div class="n">4.9★</div><div class="l">Google rating</div></div>
-    <div class="hs"><div class="n">8 yrs</div><div class="l">In Leipzig</div></div>
-    <div class="hs"><div class="n">320+</div><div class="l">Reviews</div></div>
-  </div>
-</section>
-<div class="strip">
-  <p><strong>Walk-ins welcome</strong> when we have space</p>
-  <p><strong>Tue – Fri</strong> 9:00 – 19:00</p>
-  <p><strong>Saturday</strong> 9:00 – 17:00</p>
-  <p>Kolonnadenstraße 4, Leipzig</p>
-</div>
-<section class="sec">
-  <p class="sec-label">What we offer</p>
-  <h2>Our <em>services</em></h2>
-  <p class="sec-p">Every service tailored to your hair type, lifestyle, and goals. Nothing off the shelf.</p>
-  <div class="svc-grid">
-    <div class="svc"><div class="svc-tag">Cut</div><h3>Precision Haircut</h3><p>Consultation, wash, cut, and blow-dry. Tailored to your face shape and texture.</p><div class="svc-price">From €55</div></div>
-    <div class="svc"><div class="svc-tag">Colour</div><h3>Balayage & Highlights</h3><p>Hand-painted colour for a natural, sun-kissed look that grows out beautifully.</p><div class="svc-price">From €120</div></div>
-    <div class="svc"><div class="svc-tag">Treatment</div><h3>Keratin Treatment</h3><p>Deep smoothing for frizz control and long-lasting shine. Lasts 3–5 months.</p><div class="svc-price">From €180</div></div>
-    <div class="svc"><div class="svc-tag">Colour</div><h3>Full Colour</h3><p>Root-to-tip colour transformation with premium, low-damage formulas.</p><div class="svc-price">From €90</div></div>
-    <div class="svc"><div class="svc-tag">Style</div><h3>Blowout & Styling</h3><p>Professional blow-dry and styling — perfect for events or a weekly treat.</p><div class="svc-price">From €40</div></div>
-    <div class="svc"><div class="svc-tag">Care</div><h3>Scalp Treatment</h3><p>Deep conditioning for damaged, dry, or colour-treated hair.</p><div class="svc-price">From €35</div></div>
-  </div>
-</section>
-<div class="gallery">
-  <div class="gi"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=80&auto=format&fit=crop" alt="Hair colouring balayage"/></div>
-  <div class="gi"><img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=600&q=80&auto=format&fit=crop" alt="Precision haircut stylist"/></div>
-  <div class="gi"><img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=600&q=80&auto=format&fit=crop" alt="Hair salon wash area"/></div>
-  <div class="gi"><img src="https://images.unsplash.com/photo-1493256338651-d82f7acb2b38?w=600&q=80&auto=format&fit=crop" alt="Finished hair style result"/></div>
-</div>
-<section class="split">
-  <div class="split-img"><img src="https://images.unsplash.com/photo-1595163153849-71ef878ef87b?w=900&q=80&auto=format&fit=crop" alt="Professional hairstylist portrait"/></div>
-  <div class="split-text">
-    <p class="sec-label">Our team</p>
-    <h2 style="color:var(--warm);">Meet the <em style="color:var(--rose-light);">team.</em></h2>
-    <p>Atelier Wolke was founded by Mia Wolke in 2018 after years training in Hamburg and Berlin. The vision: a calm, unhurried salon where the focus is entirely on you — your hair, your lifestyle, your result.</p>
-    <p>Our team of four stylists each specialises in a different area: colour, cuts, extensions, and treatment. Every appointment begins with a proper consultation.</p>
-  </div>
-</section>
-<section class="reviews">
-  <p class="sec-label">Client love</p>
-  <h2>What our clients <em>say</em></h2>
-  <div class="rev-grid">
-    <div class="rcard"><div class="stars">★★★★★</div><blockquote>"I've been coming here for three years and would never go anywhere else. The balayage is always perfect — exactly what I describe, every single time."</blockquote><div class="reviewer">Lena K.</div></div>
-    <div class="rcard"><div class="stars">★★★★★</div><blockquote>"As someone with anxiety about hair appointments, the whole team made me feel so welcome. The result was stunning. First time I've actually loved my haircut."</blockquote><div class="reviewer">Mia S.</div></div>
-    <div class="rcard"><div class="stars">★★★★★</div><blockquote>"Best keratin treatment I've had — not cheap, but worth every cent. My hair is genuinely transformed. Already booked my next appointment."</blockquote><div class="reviewer">Petra W.</div></div>
-  </div>
-</section>
-<section class="booking">
-  <div class="bl">
-    <h2>Book your <em>appointment</em></h2>
-    <p>Walk-ins are welcome when we have space, but booking ahead guarantees your preferred stylist and time. We send a reminder 24 hours before.</p>
-    <div class="bl-info">Kolonnadenstraße 4, 04109 Leipzig<br>+49 341 000 7788<br>Tue – Fri 9:00 – 19:00<br>Saturday 9:00 – 17:00</div>
-  </div>
-  <div class="bform">
-    <h3>Book a slot</h3>
-    <div class="form-row">
-      <div class="fg"><label>First name</label><input type="text" placeholder="Lena"/></div>
-      <div class="fg"><label>Last name</label><input type="text" placeholder="Koch"/></div>
+    <p class="hero-sub">Atelier Wolke · Leipzig · Seit 2016</p>
+    <h1>
+      <span>WHERE HAIR</span>
+      <span>BECOMES</span>
+      <span class="mag">WEAPON.</span>
+    </h1>
+    <div class="hero-tagline">
+      <div class="hero-line"></div>
+      <span>Avantgarde-Schnitt &amp; Colordesign in der Südvorstadt</span>
     </div>
-    <div class="fg"><label>Email</label><input type="email" placeholder="lena@example.com"/></div>
-    <div class="fg"><label>Phone</label><input type="tel" placeholder="+49 ..."/></div>
-    <div class="fg"><label>Service</label><select><option>Precision haircut</option><option>Balayage & highlights</option><option>Full colour</option><option>Keratin treatment</option><option>Blowout & styling</option><option>Consultation only</option></select></div>
-    <div class="form-row">
-      <div class="fg"><label>Preferred date</label><input type="date"/></div>
-      <div class="fg"><label>Preferred time</label><select><option>Morning (9–12)</option><option>Midday (12–15)</option><option>Afternoon (15–19)</option></select></div>
-    </div>
-    <button class="send-btn">Request appointment →</button>
   </div>
 </section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>HAIR DESIGN</span><span>·</span>
+    <span>COLOR ARTISTRY</span><span>·</span>
+    <span>EXTENSIONS</span><span>·</span>
+    <span>BRIDAL STYLING</span><span>·</span>
+    <span>TREATMENTS</span><span>·</span>
+    <span>HAIR DESIGN</span><span>·</span>
+    <span>COLOR ARTISTRY</span><span>·</span>
+    <span>EXTENSIONS</span><span>·</span>
+    <span>BRIDAL STYLING</span><span>·</span>
+    <span>TREATMENTS</span><span>·</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section>
+  <div class="strip-header">
+    <h2>LEISTUNGEN</h2>
+    <span>Was wir tun</span>
+  </div>
+  <div class="services-strip">
+    <div class="svc-row">
+      <div class="svc-num">01</div>
+      <div class="svc-info">
+        <div>
+          <div class="svc-name">PRECISION CUT</div>
+          <div class="svc-desc">Architektonischer Schnitt, individuell auf Gesichtsform und Haarstruktur abgestimmt. Dauer: 60 Min.</div>
+        </div>
+      </div>
+      <div class="svc-price">ab 68 €</div>
+    </div>
+    <div class="svc-row alt">
+      <div class="svc-num">02</div>
+      <div class="svc-info">
+        <div>
+          <div class="svc-name">COLORDESIGN</div>
+          <div class="svc-desc">Balayage, Highlights, Vollcoloration — mit Wella Professionals und Olaplex-Treatment. Beratung inklusive.</div>
+        </div>
+      </div>
+      <div class="svc-price">ab 95 €</div>
+    </div>
+    <div class="svc-row">
+      <div class="svc-num">03</div>
+      <div class="svc-info">
+        <div>
+          <div class="svc-name">GLOSSING &amp; CARE</div>
+          <div class="svc-desc">Tiefenpflege und Glanzbehandlung mit Kerastase-Ritualen für nachhaltigen Haarglanz.</div>
+        </div>
+      </div>
+      <div class="svc-price">ab 45 €</div>
+    </div>
+    <div class="svc-row alt">
+      <div class="svc-num">04</div>
+      <div class="svc-info">
+        <div>
+          <div class="svc-name">EXTENSIONS</div>
+          <div class="svc-desc">Great Lengths Echthaar-Extensions für mehr Länge und Fülle. Individuelle Beratung erforderlich.</div>
+        </div>
+      </div>
+      <div class="svc-price">ab 280 €</div>
+    </div>
+    <div class="svc-row">
+      <div class="svc-num">05</div>
+      <div class="svc-info">
+        <div>
+          <div class="svc-name">BRIDAL STYLING</div>
+          <div class="svc-desc">Brautstyling inkl. Probetermin, Hochsteckfrisur oder offene romantische Wellen — unvergesslich.</div>
+        </div>
+      </div>
+      <div class="svc-price">ab 155 €</div>
+    </div>
+    <div class="svc-row alt">
+      <div class="svc-num">06</div>
+      <div class="svc-info">
+        <div>
+          <div class="svc-name">KIDS CUT</div>
+          <div class="svc-desc">Kinderhaarschnitt bis 12 Jahre. In entspannter Atmosphäre, ohne Stress und Tränen.</div>
+        </div>
+      </div>
+      <div class="svc-price">28 €</div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery">
+  <div class="gi g1">
+    <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1600&q=85&auto=format&fit=crop" alt="Salon Galerie"/>
+  </div>
+  <div class="gi">
+    <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&q=85&auto=format&fit=crop" alt="Friseur Kunst"/>
+  </div>
+  <div class="gi">
+    <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=800&q=85&auto=format&fit=crop" alt="Hair Color"/>
+  </div>
+  <div class="gi">
+    <img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=800&q=85&auto=format&fit=crop" alt="Friseur Leipzig"/>
+  </div>
+  <div class="gi">
+    <img src="https://images.unsplash.com/photo-1493256338651-d82f7acb2b38?w=800&q=85&auto=format&fit=crop" alt="Styling"/>
+  </div>
+</section>
+
+<!-- INFO ROW -->
+<div class="label-row">
+  <div class="label-row-item">
+    <h3>ÖFFNUNGSZEITEN</h3>
+    <p>Mo–Fr: 10:00 – 20:00<br/>Sa: 09:00 – 18:00<br/>So: geschlossen</p>
+  </div>
+  <div class="label-row-item">
+    <h3>ADRESSE</h3>
+    <p>Karl-Liebknecht-Str. 72<br/>04275 Leipzig · Südvorstadt<br/>Tram: Linie 9, Haltestelle Connewitz</p>
+  </div>
+  <div class="label-row-item">
+    <h3>KONTAKT</h3>
+    <p>Tel: +49 341 2238 4417<br/>info@atelier-wolke.de<br/>Instagram: @atelier.wolke</p>
+  </div>
+  <div class="label-row-item">
+    <h3>TERMIN</h3>
+    <p>Online buchbar 24/7<br/>Kurzfristige Termine auf Anfrage<br/>Walk-ins willkommen, wenn verfügbar</p>
+  </div>
+</div>
+
+<!-- TEAM / FOUNDER -->
+<section class="team">
+  <div class="team-inner">
+    <p class="team-label">Der Geist hinter dem Salon</p>
+    <p class="team-quote">"Hair is architecture. Every cut is a decision. Every decision is a statement. We don't do nice — we do remarkable."</p>
+    <div class="founder-row">
+      <img class="founder-img" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&q=85&auto=format&fit=crop" alt="Gründerin"/>
+      <div>
+        <div class="founder-name">Jana Wolkenstein</div>
+        <div class="founder-title">Gründerin &amp; Creative Director</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking" id="booking">
+  <div class="booking-grid">
+    <div>
+      <p class="booking-label">Termin vereinbaren</p>
+      <h2>LET'S CREATE SOMETHING BOLD.</h2>
+      <p class="booking-info">
+        <strong>Atelier Wolke</strong><br/>
+        Karl-Liebknecht-Str. 72, 04275 Leipzig<br/><br/>
+        Tel: +49 341 2238 4417<br/>
+        info@atelier-wolke.de<br/><br/>
+        Mo–Fr: 10–20 Uhr<br/>
+        Sa: 09–18 Uhr
+      </p>
+    </div>
+    <form>
+      <div class="form-row">
+        <input type="text" placeholder="Vorname"/>
+        <input type="text" placeholder="Nachname"/>
+      </div>
+      <input type="email" placeholder="E-Mail-Adresse"/>
+      <input type="tel" placeholder="Telefon (optional)"/>
+      <select>
+        <option value="" disabled selected>Leistung auswählen</option>
+        <option>Precision Cut</option>
+        <option>Colordesign</option>
+        <option>Glossing &amp; Care</option>
+        <option>Extensions</option>
+        <option>Bridal Styling</option>
+        <option>Kids Cut</option>
+      </select>
+      <textarea placeholder="Wünsche oder Anmerkungen..."></textarea>
+      <button class="btn-submit" type="submit">JETZT BUCHEN →</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-  <div class="flogo">Atelier <em>Wolke</em></div>
-  <p>© 2026 Atelier Wolke Leipzig. All rights reserved.</p>
-  <p>Built by Novu Design</p>
+  <div class="footer-logo">ATELIER WOLKE</div>
+  <div class="footer-novu">Built by <a href="https://novudesign.de">Novu Design</a></div>
+  <div class="footer-copy">© 2026 Atelier Wolke. Alle Rechte vorbehalten.</div>
 </footer>
+
 </body>
 </html>

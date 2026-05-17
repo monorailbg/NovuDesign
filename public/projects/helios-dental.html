@@ -1,203 +1,349 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Helios Dental — Modern Dentistry Leipzig</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<title>Helios Dental — Zahnarztpraxis Leipzig</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-:root{--navy:#0F2240;--sky:#E8F2FF;--white:#FDFCFA;--gold:#C4974A;--muted:#6B7A8D;--border:#D8E4F0;}
-body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--navy);}
-img{display:block;width:100%;}
-nav{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 4rem;background:rgba(253,252,250,0.94);backdrop-filter:blur(16px);position:fixed;top:0;width:100%;z-index:100;border-bottom:1px solid var(--border);}
-.logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;letter-spacing:0.04em;}
-.logo span{color:var(--gold);}
+:root{
+  --white:#FFFFFF;
+  --blue:#005CE6;
+  --navy:#0A1628;
+  --light-blue:#E8F0FF;
+  --green:#00B894;
+  --gray:#6B7A99;
+  --border:#E2E8F0;
+}
+body{font-family:'Outfit',sans-serif;background:var(--white);color:var(--navy);overflow-x:hidden;}
+img{display:block;}
+
+/* NAV */
+nav{display:flex;align-items:center;justify-content:space-between;padding:0 3rem;height:68px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--white);z-index:100;border-left:4px solid var(--blue);}
+.nav-logo{font-weight:700;font-size:1.2rem;color:var(--navy);letter-spacing:-0.01em;}
+.nav-logo span{color:var(--blue);}
 .nav-links{display:flex;gap:2.5rem;list-style:none;}
-.nav-links a{text-decoration:none;font-size:0.83rem;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;}
-.btn-nav{background:var(--navy);color:var(--white);padding:0.65rem 1.5rem;font-size:0.83rem;font-weight:500;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;border-radius:4px;}
+.nav-links a{text-decoration:none;font-size:0.75rem;color:var(--gray);letter-spacing:0.08em;text-transform:uppercase;font-weight:500;transition:color 0.2s;}
+.nav-links a:hover{color:var(--navy);}
+.btn-nav{background:var(--blue);color:var(--white);padding:0.6rem 1.4rem;text-decoration:none;font-size:0.82rem;font-weight:600;border-radius:4px;transition:background 0.2s;}
+.btn-nav:hover{background:#0049cc;}
 
 /* HERO */
-.hero{height:100vh;position:relative;overflow:hidden;}
-.hero img{height:100%;object-fit:cover;object-position:center 30%;}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(15,34,64,0.92) 0%,rgba(15,34,64,0.55) 55%,rgba(15,34,64,0.15) 100%);}
-.hero-content{position:absolute;top:50%;left:4rem;transform:translateY(-50%);max-width:580px;}
-.eyebrow{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(196,151,74,0.9);margin-bottom:1.5rem;}
-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,4.8vw,4.2rem);font-weight:300;line-height:1.06;color:var(--white);margin-bottom:1.75rem;}
-h1 em{font-style:italic;color:#D4AE6E;}
-.hero-p{font-size:0.95rem;color:rgba(253,252,250,0.55);line-height:1.8;max-width:400px;margin-bottom:2.75rem;font-weight:300;}
-.btns{display:flex;gap:1rem;}
-.btn-gold{background:var(--gold);color:var(--navy);padding:0.9rem 2.2rem;font-size:0.88rem;font-weight:500;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
-.btn-ghost{background:transparent;color:var(--white);border:1px solid rgba(253,252,250,0.22);padding:0.9rem 2.2rem;font-size:0.88rem;cursor:pointer;font-family:'DM Sans',sans-serif;}
-.hero-stats{position:absolute;bottom:3rem;left:4rem;display:flex;gap:3rem;}
-.hs .n{font-family:'Cormorant Garamond',serif;font-size:2rem;color:#D4AE6E;font-weight:300;}
-.hs .l{font-size:0.7rem;color:rgba(253,252,250,0.38);text-transform:uppercase;letter-spacing:0.08em;}
-.booking-card{position:absolute;bottom:3rem;right:3rem;background:var(--white);padding:1.75rem 2rem;border-left:3px solid var(--gold);box-shadow:0 12px 40px rgba(15,34,64,0.18);}
-.booking-card h4{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;margin-bottom:0.4rem;color:var(--navy);}
-.booking-card p{font-size:0.8rem;color:var(--muted);line-height:1.55;margin-bottom:1rem;}
-.booking-card button{background:var(--navy);color:var(--white);border:none;padding:0.6rem 1.4rem;font-size:0.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;}
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:90vh;align-items:center;}
+.hero-left{padding:5rem 4rem 5rem 5rem;}
+.hero-eyebrow{font-size:0.73rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:1.5rem;}
+.hero h1{font-size:clamp(2.4rem,3.8vw,4rem);font-weight:700;line-height:1.1;color:var(--navy);margin-bottom:2rem;}
+.hero h1 .underline{text-decoration:underline;text-decoration-color:var(--blue);text-underline-offset:6px;}
+.trust-badges{display:flex;flex-direction:column;gap:0.6rem;margin-bottom:2.5rem;}
+.badge{display:flex;align-items:center;gap:0.7rem;font-size:0.85rem;color:var(--gray);font-weight:400;}
+.badge-icon{color:var(--green);font-size:1rem;font-weight:700;}
+.hero-ctas{display:flex;gap:1rem;align-items:center;}
+.btn-primary{background:var(--blue);color:var(--white);padding:0.85rem 2rem;text-decoration:none;font-size:0.88rem;font-weight:600;border-radius:4px;transition:background 0.2s;}
+.btn-primary:hover{background:#0049cc;}
+.btn-secondary{color:var(--blue);text-decoration:none;font-size:0.88rem;font-weight:500;display:flex;align-items:center;gap:0.4rem;}
+.hero-right{position:relative;height:100%;min-height:90vh;overflow:hidden;}
+.hero-right img{width:100%;height:100%;object-fit:cover;object-position:center;}
+.hero-frame{position:absolute;inset:20px;border:2px solid rgba(0,92,230,0.3);pointer-events:none;}
 
-/* TRUST STRIP */
-.trust-strip{background:var(--navy);padding:2rem 4rem;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;}
-.ts-item{text-align:center;}
-.ts-num{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold);font-weight:300;}
-.ts-lbl{font-size:0.72rem;color:rgba(253,252,250,0.45);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.2rem;}
+/* STATS STRIP */
+.stats-strip{background:var(--blue);padding:2.5rem 5rem;display:grid;grid-template-columns:repeat(4,1fr);}
+.stat-item{text-align:center;padding:0 2rem;border-right:1px solid rgba(255,255,255,0.15);}
+.stat-item:last-child{border-right:none;}
+.stat-num{font-size:clamp(2rem,3vw,2.8rem);font-weight:700;color:var(--white);line-height:1;}
+.stat-label{font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-top:0.5rem;font-weight:500;}
 
 /* SERVICES */
-.sec{padding:6rem 4rem;}
-.sec-label{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem;opacity:0.9;}
-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3vw,2.6rem);font-weight:300;margin-bottom:0.9rem;}
-h2 em{font-style:italic;}
-.sec-p{font-size:0.9rem;color:var(--muted);line-height:1.8;max-width:480px;margin-bottom:3.5rem;font-weight:300;}
-.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
-.svc{background:var(--white);padding:2.25rem 2rem;transition:background 0.2s;}
-.svc:hover{background:var(--sky);}
-.svc-icon{width:44px;height:44px;background:var(--navy);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;font-size:1.1rem;}
-.svc h3{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;margin-bottom:0.55rem;}
-.svc p{font-size:0.83rem;color:var(--muted);line-height:1.7;font-weight:300;}
+.services{padding:5rem;}
+.section-header{margin-bottom:3rem;}
+.section-label{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:0.8rem;}
+.section-header h2{font-size:clamp(1.8rem,2.8vw,2.6rem);font-weight:700;color:var(--navy);}
+.section-header p{color:var(--gray);font-size:0.9rem;margin-top:0.6rem;font-weight:300;max-width:50ch;}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.service-card{background:var(--white);border:1px solid var(--border);padding:2rem;border-left:4px solid var(--blue);transition:box-shadow 0.3s;}
+.service-card:hover{box-shadow:0 4px 24px rgba(0,92,230,0.1);}
+.svc-icon{width:40px;height:40px;background:var(--light-blue);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;}
+.svc-icon span{font-size:1.1rem;}
+.svc-name{font-size:1rem;font-weight:600;color:var(--navy);margin-bottom:0.6rem;}
+.svc-desc{font-size:0.82rem;color:var(--gray);line-height:1.65;font-weight:300;}
 
-/* SPLIT — doctor photo + text */
-.split{display:grid;grid-template-columns:1fr 1fr;}
-.split-img{overflow:hidden;min-height:520px;}
-.split-img img{height:100%;object-fit:cover;object-position:center top;}
-.split-content{background:var(--sky);padding:5rem 4rem;display:flex;flex-direction:column;justify-content:center;}
-.split-content h2{margin-bottom:1rem;}
-.split-content p{font-size:0.9rem;color:var(--muted);line-height:1.8;font-weight:300;margin-bottom:1.25rem;}
-.credential{display:flex;align-items:center;gap:0.75rem;margin-bottom:0.85rem;font-size:0.85rem;color:var(--muted);}
-.cred-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+/* DOCTOR SECTION */
+.doctor{background:var(--light-blue);padding:5rem;}
+.doctor-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;max-width:1000px;margin:0 auto;}
+.doctor-text .section-label{color:var(--blue);}
+.doctor-text h2{font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;color:var(--navy);margin-bottom:0.6rem;}
+.doctor-text .subtitle{color:var(--gray);font-size:0.88rem;margin-bottom:2rem;font-weight:300;}
+.credentials{display:flex;flex-direction:column;gap:0.9rem;margin-bottom:2.5rem;}
+.cred-item{display:flex;align-items:flex-start;gap:0.8rem;font-size:0.88rem;color:var(--navy);}
+.cred-check{color:var(--green);font-weight:700;font-size:1rem;flex-shrink:0;margin-top:0.05em;}
+.doctor-contact{font-size:0.82rem;color:var(--gray);}
+.doctor-contact strong{color:var(--navy);}
+.doctor-photo{height:480px;overflow:hidden;border-radius:2px;}
+.doctor-photo img{width:100%;height:100%;object-fit:cover;object-position:top center;}
 
 /* REVIEWS */
-.reviews{padding:6rem 4rem;background:var(--white);}
-.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3rem;}
-.rcard{background:var(--sky);border:1px solid var(--border);padding:1.75rem;}
-.stars{color:var(--gold);letter-spacing:2px;font-size:0.9rem;margin-bottom:0.75rem;}
-.rcard blockquote{font-size:0.87rem;color:var(--muted);line-height:1.7;font-style:italic;margin-bottom:1.25rem;font-weight:300;}
-.reviewer{font-size:0.8rem;font-weight:500;color:var(--navy);}
-.reviewer span{color:var(--muted);font-weight:300;}
+.reviews{padding:5rem;background:var(--white);}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;}
+.review-card{border:1px solid var(--border);padding:2rem;border-top:4px solid var(--blue);}
+.review-stars{color:var(--blue);font-size:0.9rem;margin-bottom:1rem;letter-spacing:0.1em;}
+.review-text{font-size:0.88rem;color:var(--gray);line-height:1.7;font-weight:300;margin-bottom:1.2rem;}
+.reviewer{font-size:0.82rem;font-weight:700;color:var(--navy);}
+.reviewer-meta{font-size:0.75rem;color:var(--gray);font-weight:400;}
 
-/* BOOKING SECTION */
-.booking-sec{background:var(--navy);padding:6rem 4rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
-.bl h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3vw,2.6rem);font-weight:300;color:var(--white);margin-bottom:1rem;}
-.bl h2 em{font-style:italic;color:var(--gold);}
-.bl p{font-size:0.9rem;color:rgba(253,252,250,0.48);line-height:1.8;font-weight:300;margin-bottom:2rem;}
-.info-row{display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;font-size:0.85rem;color:rgba(253,252,250,0.55);}
-.iicon{width:32px;height:32px;border:1px solid rgba(196,151,74,0.3);display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;}
-.bform{background:var(--white);padding:2.25rem;}
-.bform h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;margin-bottom:1.75rem;color:var(--navy);}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
-.fg{display:flex;flex-direction:column;gap:6px;margin-bottom:1rem;}
-.fg label{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);}
-.fg input,.fg select{border:1px solid var(--border);padding:0.78rem 0.9rem;font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--navy);background:var(--sky);outline:none;transition:border-color 0.2s;width:100%;}
-.fg input:focus,.fg select:focus{border-color:var(--navy);}
-.submit-btn{width:100%;background:var(--navy);color:var(--white);border:none;padding:1rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:500;cursor:pointer;margin-top:0.5rem;}
+/* BOOKING */
+.booking{background:var(--navy);padding:5rem;}
+.booking-inner{display:grid;grid-template-columns:1fr 1.5fr;gap:5rem;align-items:start;max-width:1000px;margin:0 auto;}
+.booking-left h2{font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;color:var(--white);margin-bottom:1rem;}
+.booking-left p{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:2rem;font-weight:300;}
+.contact-items{display:flex;flex-direction:column;gap:1rem;}
+.contact-item{font-size:0.85rem;color:rgba(255,255,255,0.6);}
+.contact-item strong{color:var(--white);font-weight:500;display:block;margin-bottom:0.2rem;}
+.booking-form{display:flex;flex-direction:column;gap:1rem;}
+.booking-form input,.booking-form select,.booking-form textarea{background:var(--white);border:none;color:var(--navy);padding:1rem 1.2rem;font-family:'Outfit',sans-serif;font-size:0.88rem;font-weight:400;outline:none;width:100%;border-radius:2px;}
+.booking-form select option{background:var(--white);}
+.booking-form textarea{height:90px;resize:none;}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.btn-book{background:var(--blue);color:var(--white);border:none;padding:1rem 2rem;font-family:'Outfit',sans-serif;font-size:0.9rem;font-weight:600;cursor:pointer;width:100%;margin-top:0.5rem;border-radius:4px;transition:background 0.2s;}
+.btn-book:hover{background:#0049cc;}
+.form-note{font-size:0.72rem;color:rgba(255,255,255,0.3);text-align:center;margin-top:0.5rem;}
 
-footer{background:#070F1C;padding:2rem 4rem;display:flex;justify-content:space-between;align-items:center;}
-.flogo{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--white);}
-.flogo span{color:var(--gold);}
-footer p{font-size:0.78rem;color:rgba(253,252,250,0.25);}
-@media(max-width:768px){nav{padding:1rem 1.5rem;}.nav-links{display:none;}.hero-content{left:1.5rem;right:1.5rem;}.hero-stats{left:1.5rem;display:none;}.booking-card{display:none;}.trust-strip{grid-template-columns:repeat(2,1fr);padding:2rem 1.5rem;}.sec,.reviews,.booking-sec,.split-content{padding-left:1.5rem;padding-right:1.5rem;}.split,.booking-sec{grid-template-columns:1fr;}.svc-grid,.reviews-grid,.form-row{grid-template-columns:1fr;}footer{flex-direction:column;gap:1rem;padding:2rem 1.5rem;text-align:center;}}
+/* FOOTER */
+footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.08);padding:1.5rem 5rem;display:flex;align-items:center;justify-content:space-between;}
+.footer-logo{font-weight:700;font-size:1rem;color:rgba(255,255,255,0.5);}
+.footer-logo span{color:var(--blue);}
+.footer-copy{font-size:0.72rem;color:rgba(255,255,255,0.25);}
+.footer-novu{font-size:0.72rem;color:rgba(255,255,255,0.25);}
+.footer-novu a{color:var(--blue);text-decoration:none;}
+
+@media(max-width:768px){
+  nav{padding:0 1.5rem;border-left-width:3px;}
+  .nav-links{display:none;}
+  .hero{grid-template-columns:1fr;min-height:auto;}
+  .hero-left{padding:3rem 1.5rem;}
+  .hero-right{min-height:320px;height:320px;}
+  .stats-strip{padding:2rem 1.5rem;grid-template-columns:repeat(2,1fr);gap:1.5rem;}
+  .stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:1.5rem;}
+  .services,.reviews,.doctor,.booking{padding:3rem 1.5rem;}
+  .services-grid,.reviews-grid{grid-template-columns:1fr;}
+  .doctor-inner{grid-template-columns:1fr;gap:2.5rem;}
+  .doctor-photo{height:300px;}
+  .booking-inner{grid-template-columns:1fr;gap:2rem;}
+  .form-row-2{grid-template-columns:1fr;}
+  footer{flex-direction:column;gap:0.8rem;text-align:center;padding:1.5rem;}
+}
 </style>
 </head>
 <body>
+
 <nav>
-  <div class="logo">Helios<span>.</span>Dental</div>
-  <ul class="nav-links"><li><a href="#">Services</a></li><li><a href="#">Team</a></li><li><a href="#">Patients</a></li><li><a href="#">Contact</a></li></ul>
-  <button class="btn-nav">Book appointment</button>
+  <div class="nav-logo">Helios<span>Dental</span></div>
+  <ul class="nav-links">
+    <li><a href="#">Leistungen</a></li>
+    <li><a href="#">Team</a></li>
+    <li><a href="#">Technologie</a></li>
+    <li><a href="#">Notfall</a></li>
+  </ul>
+  <a href="#booking" class="btn-nav">Termin buchen →</a>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
-  <img src="https://images.unsplash.com/photo-1629909615184-74f495363b67?w=1600&q=85&auto=format&fit=crop" alt="Modern dental clinic bright clean interior"/>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <p class="eyebrow">Modern dentistry · Leipzig</p>
-    <h1>A smile you'll be<br><em>proud</em> to share.</h1>
-    <p class="hero-p">Gentle, precise, and patient-first. From routine care to complete smile transformations — every patient treated like a long-term partner.</p>
-    <div class="btns"><button class="btn-gold">Book online →</button><button class="btn-ghost">Our services</button></div>
+  <div class="hero-left">
+    <p class="hero-eyebrow">Zahnarztpraxis Leipzig</p>
+    <h1>Precision care.<br/><span class="underline">Zero anxiety.</span></h1>
+    <div class="trust-badges">
+      <div class="badge"><span class="badge-icon">✓</span> Modernste 3D-Diagnostik &amp; digitaler Abdruck</div>
+      <div class="badge"><span class="badge-icon">✓</span> Angstpatient-freundliche Behandlungen</div>
+      <div class="badge"><span class="badge-icon">✓</span> Gleiche-Woche-Termine verfügbar</div>
+      <div class="badge"><span class="badge-icon">✓</span> Alle Kassen- und Privatpatienten willkommen</div>
+    </div>
+    <div class="hero-ctas">
+      <a href="#booking" class="btn-primary">Jetzt Termin buchen</a>
+      <a href="tel:+493412241890" class="btn-secondary">+49 341 2241 890 →</a>
+    </div>
   </div>
-  <div class="hero-stats">
-    <div class="hs"><div class="n">1,800+</div><div class="l">Patients treated</div></div>
-    <div class="hs"><div class="n">4.9★</div><div class="l">Google rating</div></div>
-    <div class="hs"><div class="n">12 yrs</div><div class="l">Experience</div></div>
-  </div>
-  <div class="booking-card">
-    <h4>New patients welcome</h4>
-    <p>Same-week appointments available.<br>Insurance accepted.</p>
-    <button>Book now →</button>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1629909615184-74f495363b67?w=1200&q=85&auto=format&fit=crop" alt="Helios Dental Praxis"/>
+    <div class="hero-frame"></div>
   </div>
 </section>
 
-<div class="trust-strip">
-  <div class="ts-item"><div class="ts-num">1,800+</div><div class="ts-lbl">Happy patients</div></div>
-  <div class="ts-item"><div class="ts-num">4.9★</div><div class="ts-lbl">Google rating</div></div>
-  <div class="ts-item"><div class="ts-num">12 yrs</div><div class="ts-lbl">Experience</div></div>
-  <div class="ts-item"><div class="ts-num">100%</div><div class="ts-lbl">Satisfaction</div></div>
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stat-item">
+    <div class="stat-num">1.800+</div>
+    <div class="stat-label">Zufriedene Patienten</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">4.9★</div>
+    <div class="stat-label">Google-Bewertung</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">12 J.</div>
+    <div class="stat-label">Erfahrung</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Digital &amp; papierlos</div>
+  </div>
 </div>
 
-<section class="sec">
-  <p class="sec-label">What we offer</p>
-  <h2>Complete dental <em>care</em></h2>
-  <p class="sec-p">Every treatment planned around you — your health, your comfort, your timeline. No unnecessary procedures, no surprises.</p>
-  <div class="svc-grid">
-    <div class="svc"><div class="svc-icon">🔍</div><h3>General Dentistry</h3><p>Check-ups, cleanings, fillings, and preventive care for long-term oral health.</p></div>
-    <div class="svc"><div class="svc-icon">✨</div><h3>Teeth Whitening</h3><p>Professional in-office whitening with visible results in a single session.</p></div>
-    <div class="svc"><div class="svc-icon">🦷</div><h3>Dental Implants</h3><p>Permanent tooth replacement that looks and feels completely natural.</p></div>
-    <div class="svc"><div class="svc-icon">😊</div><h3>Invisalign®</h3><p>Discreet clear aligners to straighten teeth without traditional braces.</p></div>
-    <div class="svc"><div class="svc-icon">🛡</div><h3>Root Canal</h3><p>Pain-free endodontic treatment to save and restore damaged teeth.</p></div>
-    <div class="svc"><div class="svc-icon">👶</div><h3>Children's Care</h3><p>Gentle, friendly treatments designed to build confidence in young patients.</p></div>
+<!-- SERVICES -->
+<section class="services">
+  <div class="section-header">
+    <p class="section-label">Unsere Leistungen</p>
+    <h2>Vollständige Zahnmedizin<br/>unter einem Dach</h2>
+    <p>Von der Prophylaxe bis zur ästhetischen Zahnheilkunde — wir begleiten Sie durch alle Behandlungsstufen.</p>
   </div>
-</section>
-
-<section class="split">
-  <div class="split-img">
-    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=900&q=80&auto=format&fit=crop" alt="Dentist consulting with patient"/>
-  </div>
-  <div class="split-content">
-    <p class="sec-label">Our team</p>
-    <h2>Meet Dr. <em>Helios</em></h2>
-    <p>With over 12 years of experience in restorative and cosmetic dentistry, Dr. Helios has treated more than 1,800 patients across Leipzig. Known for a calm, unhurried approach that puts even anxious patients at ease.</p>
-    <p>Board-certified in implantology and Invisalign® treatment. Continuing education in Zurich, Berlin, and London.</p>
-    <div class="credential"><div class="cred-dot"></div><span>Certified Invisalign® Provider</span></div>
-    <div class="credential"><div class="cred-dot"></div><span>Implantology — German Society of Oral Implantology</span></div>
-    <div class="credential"><div class="cred-dot"></div><span>Member, German Dental Association</span></div>
-  </div>
-</section>
-
-<section class="reviews">
-  <p class="sec-label">Patient reviews</p>
-  <h2>What our patients <em>say</em></h2>
-  <div class="reviews-grid">
-    <div class="rcard"><div class="stars">★★★★★</div><blockquote>"I've been coming here for years and wouldn't go anywhere else. Dr. Helios is genuinely gentle — the whole team makes you feel at ease from the moment you walk in."</blockquote><div class="reviewer">Maria K. <span>· Patient since 2019</span></div></div>
-    <div class="rcard"><div class="stars">★★★★★</div><blockquote>"As someone with real dental anxiety, I was amazed at how calm I felt. They explained every step. My Invisalign result is incredible."</blockquote><div class="reviewer">Jonas F. <span>· Invisalign patient</span></div></div>
-    <div class="rcard"><div class="stars">★★★★★</div><blockquote>"Brought the whole family here after seeing the reviews. Everyone, including my 7-year-old, loved it. They actually look forward to appointments now."</blockquote><div class="reviewer">Sandra M. <span>· Family patient</span></div></div>
-  </div>
-</section>
-
-<section class="booking-sec">
-  <div class="bl">
-    <h2>Book your <em>appointment</em></h2>
-    <p>Flexible scheduling including early mornings and Saturdays. New patients always welcome — same-week slots usually available.</p>
-    <div class="info-row"><div class="iicon">📍</div><span>Augustusplatz 10, 04109 Leipzig</span></div>
-    <div class="info-row"><div class="iicon">📞</div><span>+49 341 000 5678</span></div>
-    <div class="info-row"><div class="iicon">🕐</div><span>Mon–Fri 8:00–19:00 · Sat 9:00–14:00</span></div>
-  </div>
-  <div class="bform">
-    <h3>Request an appointment</h3>
-    <div class="form-row">
-      <div class="fg"><label>First name</label><input type="text" placeholder="Maria"/></div>
-      <div class="fg"><label>Last name</label><input type="text" placeholder="Köhler"/></div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="svc-icon"><span>🦷</span></div>
+      <div class="svc-name">Prophylaxe &amp; Reinigung</div>
+      <div class="svc-desc">Professionelle Zahnreinigung, Kariesfrüherkennng und individuelle Mundhygieneberatung für langanhaltende Zahngesundheit.</div>
     </div>
-    <div class="fg"><label>Email</label><input type="email" placeholder="maria@example.com"/></div>
-    <div class="fg"><label>Phone</label><input type="tel" placeholder="+49 341 ..."/></div>
-    <div class="fg"><label>Service needed</label><select><option>Check-up & cleaning</option><option>Teeth whitening</option><option>Invisalign consultation</option><option>Implant consultation</option><option>Emergency</option></select></div>
-    <div class="fg"><label>Preferred date</label><input type="date"/></div>
-    <button class="submit-btn">Request appointment →</button>
+    <div class="service-card">
+      <div class="svc-icon"><span>✨</span></div>
+      <div class="svc-name">Ästhetische Zahnheilkunde</div>
+      <div class="svc-desc">Bleaching, Veneers und Composite-Restaurationen — für ein Lächeln, das Ihre Persönlichkeit widerspiegelt.</div>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon"><span>📐</span></div>
+      <div class="svc-name">Unsichtbare Aligner</div>
+      <div class="svc-desc">Schiene-basierte Zahnkorrektur mit 3D-gedruckten Alignern. Kein Draht, keine Brackets — diskret und effektiv.</div>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon"><span>🔩</span></div>
+      <div class="svc-name">Implantologie</div>
+      <div class="svc-desc">Titanbasierte Zahnimplantate mit geführter Chirurgie und sofortigem Provisorium. Präzise, planbar, dauerhaft.</div>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon"><span>🔍</span></div>
+      <div class="svc-name">3D-Röntgen &amp; Diagnostik</div>
+      <div class="svc-desc">Digitales DVT-Röntgen mit 80% weniger Strahlung als konventionelle Methoden. Vollständige Befundtransparenz.</div>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon"><span>💉</span></div>
+      <div class="svc-name">Behandlung unter Sedierung</div>
+      <div class="svc-desc">Für Angstpatienten und komplexe Eingriffe: Lachgas-Sedierung oder Vollnarkose mit anästhesiologischer Begleitung.</div>
+    </div>
   </div>
 </section>
 
+<!-- DOCTOR -->
+<section class="doctor">
+  <div class="doctor-inner">
+    <div class="doctor-text">
+      <p class="section-label">Ihr Behandler</p>
+      <h2>Dr. med. dent.<br/>Simon Heller</h2>
+      <p class="subtitle">Fachzahnarzt für orale Chirurgie und Implantologie</p>
+      <div class="credentials">
+        <div class="cred-item"><span class="cred-check">✓</span> Studium an der Universität Leipzig, Abschluss mit Auszeichnung</div>
+        <div class="cred-item"><span class="cred-check">✓</span> Zertifizierter Implantologe (DGOI) seit 2016</div>
+        <div class="cred-item"><span class="cred-check">✓</span> Fortbildung in ästhetischer Zahnheilkunde, New York &amp; Mailand</div>
+        <div class="cred-item"><span class="cred-check">✓</span> Mitglied der Deutschen Gesellschaft für Ästhetische Zahnmedizin</div>
+        <div class="cred-item"><span class="cred-check">✓</span> Über 800 Implantate erfolgreich gesetzt</div>
+      </div>
+      <div class="doctor-contact">
+        <strong>Persönliche Beratung:</strong> Mo–Do 9–18 Uhr, Fr 9–15 Uhr<br/>
+        +49 341 2241 890 · praxis@helios-dental.de
+      </div>
+    </div>
+    <div class="doctor-photo">
+      <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=800&q=85&auto=format&fit=crop" alt="Dr. Simon Heller"/>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews">
+  <div class="section-header">
+    <p class="section-label">Patientenstimmen</p>
+    <h2>Was unsere Patienten sagen</h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Hatte riesige Angst vor Zahnarztbesuchen. Dr. Heller hat sich so viel Zeit genommen, alles zu erklären. Die Behandlung war völlig schmerzfrei. Endlich ein Zahnarzt, dem ich vertraue."</p>
+      <div class="reviewer">Markus W.</div>
+      <div class="reviewer-meta">Patient seit 2023 · Implantologie</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Die Praxis ist hochmodern, das Team unglaublich freundlich. Meine Veneers sehen perfekt natürlich aus — genau das, was ich mir vorgestellt hatte. Absolute Empfehlung!"</p>
+      <div class="reviewer">Sarah K.</div>
+      <div class="reviewer-meta">Patientin seit 2022 · Veneers</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Digitaler Abdruck statt Abdruckzement — das allein war schon ein Gamechanger. Termin war in 3 Tagen, Wartezeit keine 5 Minuten. So sollte moderne Zahnmedizin aussehen."</p>
+      <div class="reviewer">Thomas &amp; Jana B.</div>
+      <div class="reviewer-meta">Patienten seit 2021 · Prophylaxe</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking" id="booking">
+  <div class="booking-inner">
+    <div class="booking-left">
+      <h2>Termin vereinbaren</h2>
+      <p>Füllen Sie das Formular aus — wir melden uns innerhalb von 24 Stunden. Für dringende Anliegen erreichen Sie uns telefonisch.</p>
+      <div class="contact-items">
+        <div class="contact-item">
+          <strong>Telefon</strong>
+          +49 341 2241 890
+        </div>
+        <div class="contact-item">
+          <strong>E-Mail</strong>
+          praxis@helios-dental.de
+        </div>
+        <div class="contact-item">
+          <strong>Adresse</strong>
+          Beethovenstraße 14, 04107 Leipzig
+        </div>
+        <div class="contact-item">
+          <strong>Öffnungszeiten</strong>
+          Mo–Do: 8–19 Uhr · Fr: 8–15 Uhr
+        </div>
+      </div>
+    </div>
+    <form class="booking-form">
+      <div class="form-row-2">
+        <input type="text" placeholder="Vorname"/>
+        <input type="text" placeholder="Nachname"/>
+      </div>
+      <input type="email" placeholder="E-Mail-Adresse"/>
+      <input type="tel" placeholder="Telefonnummer"/>
+      <select>
+        <option value="" disabled selected>Behandlung auswählen</option>
+        <option>Prophylaxe &amp; Reinigung</option>
+        <option>Ästhetische Zahnheilkunde</option>
+        <option>Unsichtbare Aligner</option>
+        <option>Implantologie</option>
+        <option>3D-Diagnostik</option>
+        <option>Behandlung unter Sedierung</option>
+        <option>Erstuntersuchung</option>
+      </select>
+      <select>
+        <option value="" disabled selected>Bevorzugte Uhrzeit</option>
+        <option>Morgens (8–11 Uhr)</option>
+        <option>Mittags (11–14 Uhr)</option>
+        <option>Nachmittags (14–18 Uhr)</option>
+        <option>Spättermin (ab 18 Uhr)</option>
+      </select>
+      <textarea placeholder="Beschreiben Sie kurz Ihr Anliegen oder Ihre Beschwerden..."></textarea>
+      <button class="btn-book" type="submit">Termin anfragen →</button>
+      <p class="form-note">Ihre Daten werden gemäß DSGVO verarbeitet und nicht weitergegeben.</p>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-  <div class="flogo">Helios<span>.</span>Dental</div>
-  <p>© 2026 Helios Dental Leipzig. All rights reserved.</p>
-  <p>Built by Novu Design</p>
+  <div class="footer-logo">Helios<span>Dental</span></div>
+  <div class="footer-copy">© 2026 Helios Dental · Beethovenstraße 14, 04107 Leipzig</div>
+  <div class="footer-novu">Built by <a href="https://novudesign.de">Novu Design</a></div>
 </footer>
+
 </body>
 </html>
