@@ -82,8 +82,8 @@ export default function ProjectModal({ project, onClose }: { project: Project; o
         </div>
 
         {/* Mockup full view */}
-        <div className="w-full flex-shrink-0 overflow-hidden"
-          style={{ background: `${project.color}06`, minHeight: "340px" }}>
+        <div className="w-full flex-shrink-0 overflow-hidden relative"
+          style={{ background: `${project.color}06`, height: "480px" }}>
           {project.mockup}
         </div>
 
