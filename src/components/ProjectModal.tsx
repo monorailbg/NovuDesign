@@ -11,7 +11,7 @@ export type Project = {
   accent: string;
   description: string;
   tags: string[];
-  mockup: React.ReactNode;
+  url: string;
 };
 
 function CloseIcon() {
@@ -50,7 +50,7 @@ export default function ProjectModal({ project, onClose }: { project: Project; o
 
       {/* Panel */}
       <div
-        className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl border flex flex-col"
+        className="relative w-full max-w-5xl max-h-[92vh] overflow-y-auto rounded-3xl border flex flex-col"
         data-lenis-prevent
         style={{
           background: "rgba(12,15,30,0.98)",
@@ -70,21 +70,41 @@ export default function ProjectModal({ project, onClose }: { project: Project; o
             </span>
             <span className="text-xs font-mono" style={{ color: "rgba(160,170,235,0.3)" }}>{project.year}</span>
           </div>
-          <button
-            onClick={close}
-            className="w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-all duration-200"
-            style={{ background: "rgba(160,170,235,0.07)", color: "rgba(160,170,235,0.5)" }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = `${project.color}20`; e.currentTarget.style.color = project.color; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(160,170,235,0.07)"; e.currentTarget.style.color = "rgba(160,170,235,0.5)"; }}
-          >
-            <CloseIcon />
-          </button>
+          <div className="flex items-center gap-3">
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-xs font-bold px-4 py-2 rounded-full transition-all duration-200"
+              style={{ background: `${project.color}18`, color: project.color, border: `1px solid ${project.color}30` }}
+              onMouseEnter={e => { e.currentTarget.style.background = project.color; e.currentTarget.style.color = "#fff"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = `${project.color}18`; e.currentTarget.style.color = project.color; }}
+            >
+              Open in new tab
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+              </svg>
+            </a>
+            <button
+              onClick={close}
+              className="w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-all duration-200"
+              style={{ background: "rgba(160,170,235,0.07)", color: "rgba(160,170,235,0.5)" }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = `${project.color}20`; e.currentTarget.style.color = project.color; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(160,170,235,0.07)"; e.currentTarget.style.color = "rgba(160,170,235,0.5)"; }}
+            >
+              <CloseIcon />
+            </button>
+          </div>
         </div>
 
-        {/* Mockup full view */}
-        <div className="w-full flex-shrink-0 overflow-hidden relative"
-          style={{ background: `${project.color}06`, height: "480px" }}>
-          {project.mockup}
+        {/* Live site iframe */}
+        <div className="w-full flex-shrink-0 overflow-hidden relative" style={{ height: "560px" }}>
+          <iframe
+            src={project.url}
+            title={project.title}
+            style={{ width: "100%", height: "100%", border: "none", display: "block" }}
+            loading="lazy"
+          />
         </div>
 
         {/* Content */}

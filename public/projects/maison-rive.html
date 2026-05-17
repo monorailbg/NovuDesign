@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Maison Rive — Fine Dining Leipzig</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--black:#080603;--charcoal:#181410;--warm:#F5F0E8;--gold:#B8924A;--muted:#8A7F72;--border:#2A2520;}
+body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--warm);}
+img{display:block;width:100%;}
+nav{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 4rem;position:fixed;top:0;width:100%;z-index:100;background:rgba(8,6,3,0.88);backdrop-filter:blur(20px);border-bottom:1px solid rgba(184,146,74,0.1);}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;letter-spacing:0.1em;text-transform:uppercase;}
+.logo em{font-style:italic;color:var(--gold);}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{text-decoration:none;font-size:0.78rem;color:rgba(245,240,232,0.48);letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s;}
+.nav-links a:hover{color:var(--warm);}
+.btn-res{border:1px solid rgba(184,146,74,0.4);color:var(--gold);padding:0.6rem 1.5rem;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;background:transparent;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.btn-res:hover{background:var(--gold);color:var(--black);}
+
+/* HERO — full height with real photo */
+.hero{height:100vh;position:relative;overflow:hidden;}
+.hero img{height:100%;object-fit:cover;object-position:center 40%;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,6,3,0.97) 0%,rgba(8,6,3,0.6) 40%,rgba(8,6,3,0.2) 100%);}
+.hero-content{position:absolute;bottom:5rem;left:4rem;max-width:680px;}
+.eyebrow{font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(184,146,74,0.85);margin-bottom:1.75rem;}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3.5rem,6.5vw,5.5rem);font-weight:300;line-height:0.96;letter-spacing:-0.02em;margin-bottom:2rem;}
+h1 em{font-style:italic;color:#D4AE6E;}
+.hero-p{font-size:1rem;color:rgba(245,240,232,0.5);line-height:1.8;max-width:440px;margin-bottom:2.5rem;font-weight:300;}
+.hero-row{display:flex;align-items:center;gap:2rem;}
+.btn-primary{background:var(--gold);color:var(--black);padding:1rem 2.5rem;font-size:0.88rem;font-weight:500;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:0.04em;}
+.hero-sub-info{font-size:0.8rem;color:rgba(245,240,232,0.35);line-height:1.7;letter-spacing:0.04em;}
+
+/* GOLD DIVIDER */
+.divider{display:flex;align-items:center;gap:1.5rem;padding:2rem 4rem;border-top:1px solid rgba(184,146,74,0.12);border-bottom:1px solid rgba(184,146,74,0.12);}
+.div-item{font-size:0.78rem;color:rgba(245,240,232,0.38);letter-spacing:0.1em;text-transform:uppercase;}
+.div-dot{width:3px;height:3px;border-radius:50%;background:var(--gold);opacity:0.35;}
+
+/* MENU */
+.menu-sec{padding:7rem 4rem;background:var(--charcoal);}
+.sec-label{font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(184,146,74,0.85);margin-bottom:1rem;}
+h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:300;margin-bottom:1rem;letter-spacing:-0.01em;}
+h2 em{font-style:italic;}
+.sec-p{font-size:0.9rem;color:rgba(245,240,232,0.42);line-height:1.8;max-width:480px;margin-bottom:4rem;font-weight:300;}
+.menu-cols{display:grid;grid-template-columns:1fr 1fr;gap:4rem;}
+.menu-col h4{font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(184,146,74,0.65);margin-bottom:2rem;padding-bottom:0.75rem;border-bottom:1px solid rgba(184,146,74,0.12);}
+.dish{display:flex;justify-content:space-between;align-items:baseline;padding:1.1rem 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.dish-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;margin-bottom:0.22rem;}
+.dish-desc{font-size:0.78rem;color:rgba(245,240,232,0.38);font-weight:300;}
+.dish-price{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--gold);font-style:italic;flex-shrink:0;margin-left:1.5rem;}
+
+/* GALLERY — 3 real food photos */
+.gallery{display:grid;grid-template-columns:1fr 1fr 1fr;height:420px;gap:4px;}
+.gi{overflow:hidden;}
+.gi img{height:100%;object-fit:cover;transition:transform 0.6s;}
+.gi:hover img{transform:scale(1.04);}
+
+/* SPLIT — interior photo + story */
+.split{display:grid;grid-template-columns:1fr 1fr;}
+.split-img{overflow:hidden;min-height:520px;}
+.split-img img{height:100%;object-fit:cover;}
+.split-text{background:var(--black);padding:6rem 4rem;display:flex;flex-direction:column;justify-content:center;}
+.split-text .sec-label{color:rgba(184,146,74,0.8);}
+.split-text p{font-size:0.9rem;color:rgba(245,240,232,0.45);line-height:1.8;font-weight:300;margin-bottom:1.25rem;}
+
+/* RESERVATION */
+.reservation{padding:7rem 4rem;background:var(--charcoal);display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+.rl h2{font-size:clamp(2rem,3.5vw,2.8rem);margin-bottom:1.5rem;}
+.rl h2 em{color:var(--gold);}
+.rl p{font-size:0.9rem;color:rgba(245,240,232,0.42);line-height:1.8;font-weight:300;margin-bottom:2rem;}
+.rl-info{font-size:0.85rem;color:rgba(245,240,232,0.45);line-height:2.1;}
+.rform{background:var(--black);border:1px solid rgba(184,146,74,0.1);padding:2.5rem;}
+.rform h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;margin-bottom:2rem;letter-spacing:0.02em;}
+.fg{display:flex;flex-direction:column;gap:6px;margin-bottom:1rem;}
+.fg label{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:rgba(245,240,232,0.32);}
+.fg input,.fg select{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);padding:0.8rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--warm);outline:none;transition:border-color 0.2s;width:100%;}
+.fg input::placeholder{color:rgba(245,240,232,0.18);}
+.fg input:focus,.fg select:focus{border-color:rgba(184,146,74,0.4);}
+.fg select option{background:var(--charcoal);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.res-btn{width:100%;background:var(--gold);color:var(--black);border:none;padding:1rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:500;cursor:pointer;margin-top:0.5rem;}
+
+footer{background:var(--charcoal);border-top:1px solid rgba(184,146,74,0.08);padding:2.5rem 4rem;display:flex;justify-content:space-between;align-items:center;}
+.flogo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;letter-spacing:0.1em;text-transform:uppercase;}
+.flogo em{font-style:italic;color:var(--gold);}
+footer p{font-size:0.75rem;color:rgba(245,240,232,0.22);}
+@media(max-width:768px){nav{padding:1rem 1.5rem;}.nav-links{display:none;}.hero-content{left:1.5rem;right:1.5rem;bottom:3rem;}.divider,.menu-sec,.reservation,.split-text{padding-left:1.5rem;padding-right:1.5rem;}.split,.reservation{grid-template-columns:1fr;}.menu-cols,.form-row{grid-template-columns:1fr;}.gallery{height:auto;grid-template-columns:1fr;}.gallery .gi{height:220px;}footer{flex-direction:column;gap:1rem;padding:2rem 1.5rem;text-align:center;}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo"><em>Maison</em> Rive</div>
+  <ul class="nav-links"><li><a href="#">Menu</a></li><li><a href="#">Story</a></li><li><a href="#">Wine</a></li><li><a href="#">Events</a></li></ul>
+  <button class="btn-res">Reserve a table</button>
+</nav>
+
+<section class="hero">
+  <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=85&auto=format&fit=crop" alt="Maison Rive fine dining restaurant atmosphere"/>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="eyebrow">Fine dining · Leipzig</p>
+    <h1>Where flavour<br>meets <em>intention.</em></h1>
+    <p class="hero-p">Seasonal menus shaped by what's perfect today. A curated wine list. A room that makes time disappear.</p>
+    <div class="hero-row">
+      <button class="btn-primary">Reserve a table →</button>
+      <div class="hero-sub-info">Tuesday – Saturday<br>18:00 – 22:30</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider">
+  <span class="div-item">Seasonal menu</span><div class="div-dot"></div>
+  <span class="div-item">Natural wines</span><div class="div-dot"></div>
+  <span class="div-item">Private dining</span><div class="div-dot"></div>
+  <span class="div-item">Leipzig Zentrum</span>
+</div>
+
+<section class="menu-sec">
+  <p class="sec-label">Current menu</p>
+  <h2>Spring <em>selection</em></h2>
+  <p class="sec-p">Our menu changes with the season. Every ingredient chosen at its peak — nothing more, nothing less.</p>
+  <div class="menu-cols">
+    <div>
+      <h4>To begin</h4>
+      <div class="dish"><div><div class="dish-name">Burrata & White Peach</div><div class="dish-desc">Pistachio oil, wild fennel, smoked salt</div></div><div class="dish-price">€18</div></div>
+      <div class="dish"><div><div class="dish-name">Beef Tartare</div><div class="dish-desc">Aged yolk, capers, sourdough crisp</div></div><div class="dish-price">€22</div></div>
+      <div class="dish"><div><div class="dish-name">Asparagus Velouté</div><div class="dish-desc">Saxony cream, chervil, brioche crouton</div></div><div class="dish-price">€16</div></div>
+      <div class="dish"><div><div class="dish-name">Seared Scallops</div><div class="dish-desc">Cauliflower purée, hazelnut beurre noisette</div></div><div class="dish-price">€26</div></div>
+    </div>
+    <div>
+      <h4>Main course</h4>
+      <div class="dish"><div><div class="dish-name">Dry-Aged Duck Breast</div><div class="dish-desc">Cherries, turnip, Sichuan jus</div></div><div class="dish-price">€38</div></div>
+      <div class="dish"><div><div class="dish-name">Wild Halibut</div><div class="dish-desc">Green pea, miso beurre blanc, samphire</div></div><div class="dish-price">€42</div></div>
+      <div class="dish"><div><div class="dish-name">Roasted Lamb Saddle</div><div class="dish-desc">Artichoke, tapenade, rosemary jus</div></div><div class="dish-price">€45</div></div>
+      <div class="dish"><div><div class="dish-name">Mushroom Risotto</div><div class="dish-desc">Truffle, aged parmesan, chive oil</div></div><div class="dish-price">€32</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="gallery">
+  <div class="gi"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=700&q=80&auto=format&fit=crop" alt="Fine dining plated dish"/></div>
+  <div class="gi"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=700&q=80&auto=format&fit=crop" alt="Restaurant interior candlelight"/></div>
+  <div class="gi"><img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=700&q=80&auto=format&fit=crop" alt="Gourmet food presentation"/></div>
+</div>
+
+<section class="split">
+  <div class="split-img">
+    <img src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=900&q=80&auto=format&fit=crop" alt="Restaurant chef in kitchen"/>
+  </div>
+  <div class="split-text">
+    <p class="sec-label">Our story</p>
+    <h2>Born from a love of <em>real food.</em></h2>
+    <p>Maison Rive opened in 2019 with one conviction: that a great meal is less about the number of courses and more about the honesty of each one. Chef Elias Brandt spent six years in kitchens across Lyon, Copenhagen, and Berlin before returning to Leipzig to open something of his own.</p>
+    <p>Every dish starts with a question: what's extraordinary right now? The answer changes weekly.</p>
+  </div>
+</section>
+
+<section class="reservation">
+  <div class="rl">
+    <h2>Make a <em>reservation</em></h2>
+    <p>We welcome guests Tuesday through Saturday from 18:00. For groups of 6 or more, please contact us directly. Private dining available on request.</p>
+    <div class="rl-info">
+      Karlstraße 22, 04105 Leipzig<br>
+      +49 341 000 9900<br>
+      reservations@maisonrive.de
+    </div>
+  </div>
+  <div class="rform">
+    <h3>Reserve your table</h3>
+    <div class="form-row" style="margin-bottom:0;">
+      <div class="fg"><label>First name</label><input type="text" placeholder="Anna"/></div>
+      <div class="fg"><label>Last name</label><input type="text" placeholder="Richter"/></div>
+    </div>
+    <div class="fg"><label>Email</label><input type="email" placeholder="anna@example.com"/></div>
+    <div class="fg"><label>Phone</label><input type="tel" placeholder="+49 ..."/></div>
+    <div class="form-row" style="margin-bottom:0;">
+      <div class="fg"><label>Date</label><input type="date"/></div>
+      <div class="fg"><label>Guests</label><select><option>2 people</option><option>3 people</option><option>4 people</option><option>5 people</option><option>6+ people</option></select></div>
+    </div>
+    <div class="fg"><label>Time preference</label><select><option>18:00</option><option>18:30</option><option>19:00</option><option>19:30</option><option>20:00</option><option>20:30</option><option>21:00</option></select></div>
+    <button class="res-btn">Confirm reservation →</button>
+  </div>
+</section>
+
+<footer>
+  <div class="flogo"><em>Maison</em> Rive</div>
+  <p>© 2026 Maison Rive GmbH. All rights reserved.</p>
+  <p>Built by Novu Design</p>
+</footer>
+</body>
+</html>

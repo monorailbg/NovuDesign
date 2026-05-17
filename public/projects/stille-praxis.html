@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Stille Praxis — Psychotherapy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--sage:#E8EDE6;--deep:#1C2B1E;--mid:#2D4A30;--warm:#F7F5F0;--muted:#6B7A6D;--accent:#4A7C52;--border:#D0DBC8;--text:#1C2B1E;}
+body{font-family:'DM Sans',sans-serif;background:var(--warm);color:var(--text);overflow-x:hidden;}
+nav{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 4rem;border-bottom:1px solid var(--border);background:var(--warm);position:sticky;top:0;z-index:100;}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;font-style:italic;letter-spacing:0.04em;color:var(--deep);}
+.logo span{color:var(--accent);}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{text-decoration:none;font-size:0.82rem;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;transition:color 0.2s;}
+.nav-links a:hover{color:var(--deep);}
+.btn-contact{background:var(--deep);color:var(--warm);padding:0.62rem 1.4rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:400;border:none;cursor:pointer;border-radius:2px;}
+
+/* HERO */
+.hero{display:grid;grid-template-columns:1.1fr 0.9fr;min-height:88vh;}
+.hero-left{padding:5rem 4rem;display:flex;flex-direction:column;justify-content:center;background:var(--warm);}
+.hero-eyebrow{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:2rem;opacity:0.85;}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,4.5vw,4rem);font-weight:300;line-height:1.12;color:var(--deep);margin-bottom:2rem;letter-spacing:-0.01em;}
+.hero-h1 em{font-style:italic;color:var(--accent);}
+.hero-p{font-size:0.95rem;color:var(--muted);line-height:1.85;max-width:420px;margin-bottom:3rem;font-weight:300;}
+.hero-cta{display:flex;gap:1rem;align-items:center;}
+.btn-primary{background:var(--deep);color:var(--warm);padding:0.9rem 2.2rem;font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:400;border:none;cursor:pointer;}
+.btn-outline{background:transparent;color:var(--deep);border:1px solid var(--border);padding:0.9rem 2.2rem;font-family:'DM Sans',sans-serif;font-size:0.88rem;cursor:pointer;}
+.hero-note{margin-top:2.5rem;font-size:0.8rem;color:var(--muted);line-height:1.7;padding-top:2rem;border-top:1px solid var(--border);}
+.hero-right{background:var(--sage);position:relative;overflow:hidden;}
+.hero-right-inner{width:100%;height:100%;min-height:500px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;}
+.hero-circle{width:200px;height:200px;border-radius:50%;background:rgba(74,124,82,0.08);border:1px solid rgba(74,124,82,0.15);display:flex;align-items:center;justify-content:center;}
+.hero-circle-inner{width:120px;height:120px;border-radius:50%;background:rgba(74,124,82,0.12);}
+.hero-quote{position:absolute;bottom:3rem;left:2.5rem;right:2.5rem;background:var(--warm);padding:1.5rem;border-left:3px solid var(--accent);}
+.hero-quote p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--deep);line-height:1.6;font-weight:300;}
+.hero-quote cite{font-size:0.75rem;color:var(--muted);margin-top:0.5rem;display:block;}
+
+/* APPROACH */
+.approach{padding:6rem 4rem;background:var(--deep);}
+.approach .sec-eyebrow{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(232,237,230,0.5);margin-bottom:0.75rem;}
+.approach .sec-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3vw,2.6rem);font-weight:300;color:var(--sage);margin-bottom:1rem;}
+.approach .sec-h2 em{font-style:italic;color:rgba(74,124,52,0.8);}
+.approach .sec-p{font-size:0.9rem;color:rgba(232,237,230,0.45);line-height:1.8;max-width:520px;margin-bottom:4rem;font-weight:300;}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.pillar{border:1px solid rgba(255,255,255,0.06);padding:2rem;}
+.pillar-n{font-family:'Cormorant Garamond',serif;font-size:2rem;font-style:italic;color:rgba(74,124,82,0.3);margin-bottom:1rem;}
+.pillar h3{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--sage);margin-bottom:0.6rem;font-weight:400;}
+.pillar p{font-size:0.83rem;color:rgba(232,237,230,0.4);line-height:1.7;font-weight:300;}
+
+/* AREAS */
+.areas{padding:6rem 4rem;background:var(--sage);}
+.areas .sec-eyebrow{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem;opacity:0.85;}
+.areas .sec-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3vw,2.6rem);font-weight:300;color:var(--deep);margin-bottom:1rem;}
+.areas .sec-h2 em{font-style:italic;}
+.areas .sec-p{font-size:0.9rem;color:var(--muted);line-height:1.8;max-width:480px;margin-bottom:3.5rem;font-weight:300;}
+.areas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);}
+.area-item{background:var(--sage);padding:1.75rem 2rem;display:flex;align-items:flex-start;gap:1rem;}
+.area-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:6px;opacity:0.6;}
+.area-text h4{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;margin-bottom:0.4rem;color:var(--deep);}
+.area-text p{font-size:0.82rem;color:var(--muted);line-height:1.65;font-weight:300;}
+
+/* CONTACT */
+.contact-section{padding:6rem 4rem;background:var(--warm);display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+.contact-left h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3vw,2.6rem);font-weight:300;color:var(--deep);margin-bottom:1rem;}
+.contact-left h2 em{font-style:italic;color:var(--accent);}
+.contact-left p{font-size:0.9rem;color:var(--muted);line-height:1.8;font-weight:300;margin-bottom:2rem;}
+.info-item{display:flex;gap:0.75rem;margin-bottom:1rem;font-size:0.88rem;color:var(--muted);}
+.info-icon{color:var(--accent);flex-shrink:0;margin-top:2px;}
+.cform{background:var(--sage);border:1px solid var(--border);padding:2.25rem;}
+.cform h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:300;color:var(--deep);margin-bottom:1.75rem;}
+.fg{display:flex;flex-direction:column;gap:6px;margin-bottom:1rem;}
+.fg label{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);}
+.fg input,.fg select,.fg textarea{background:var(--warm);border:1px solid var(--border);padding:0.8rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--deep);outline:none;transition:border-color 0.2s;width:100%;}
+.fg textarea{min-height:110px;resize:vertical;}
+.fg input:focus,.fg textarea:focus{border-color:var(--accent);}
+.send-btn{width:100%;background:var(--deep);color:var(--warm);border:none;padding:0.95rem;font-family:'DM Sans',sans-serif;font-size:0.88rem;cursor:pointer;margin-top:0.5rem;}
+.privacy-note{font-size:0.75rem;color:var(--muted);line-height:1.6;margin-top:1rem;}
+
+footer{background:var(--deep);padding:2rem 4rem;display:flex;justify-content:space-between;align-items:center;}
+.flogo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--sage);}
+.flogo span{color:rgba(74,124,82,0.7);}
+footer p{font-size:0.75rem;color:rgba(232,237,230,0.25);}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem;}
+  .nav-links{display:none;}
+  .hero,.contact-section{grid-template-columns:1fr;}
+  nav,.hero-left,.approach,.areas,.contact-section{padding-left:1.5rem;padding-right:1.5rem;}
+  .pillars,.areas-grid{grid-template-columns:1fr;}
+  footer{flex-direction:column;gap:1rem;padding:2rem 1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Stille<span> Praxis</span></div>
+  <ul class="nav-links">
+    <li><a href="#">Approach</a></li>
+    <li><a href="#">Areas</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <button class="btn-contact">Book a session</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Psychotherapy · Leipzig</p>
+    <h1 class="hero-h1">A space to think.<br>A space to <em>heal.</em></h1>
+    <p class="hero-p">Individual psychotherapy for adults navigating anxiety, burnout, life transitions, and the quieter struggles that are hardest to name. Sessions available in German and English.</p>
+    <div class="hero-cta">
+      <button class="btn-primary">Book a first session</button>
+      <button class="btn-outline">Learn more</button>
+    </div>
+    <p class="hero-note">First sessions are 60 minutes and focus entirely on getting to know you — no pressure, no agenda. Sessions available in person and online.</p>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-inner">
+      <div class="hero-circle"><div class="hero-circle-inner"></div></div>
+    </div>
+    <div class="hero-quote">
+      <p>"The quieter you become, the more you can hear."</p>
+      <cite>— Ram Dass</cite>
+    </div>
+  </div>
+</section>
+
+<section class="approach">
+  <p class="sec-eyebrow">How I work</p>
+  <h2 class="sec-h2">A <em>grounded</em> approach</h2>
+  <p class="sec-p">My practice draws from cognitive behavioural therapy, acceptance and commitment therapy, and depth psychology — used flexibly, depending on what you need.</p>
+  <div class="pillars">
+    <div class="pillar"><div class="pillar-n">01</div><h3>Evidence-based</h3><p>Rooted in methods with strong research support. We work with what's proven, not trends.</p></div>
+    <div class="pillar"><div class="pillar-n">02</div><h3>Person-centred</h3><p>No two people are the same. Your therapy is built around your life, values, and pace.</p></div>
+    <div class="pillar"><div class="pillar-n">03</div><h3>Long-term focus</h3><p>We're not here to patch symptoms. We work toward lasting change and self-understanding.</p></div>
+  </div>
+</section>
+
+<section class="areas">
+  <p class="sec-eyebrow">Areas of support</p>
+  <h2 class="sec-h2">What we <em>work on</em></h2>
+  <p class="sec-p">You don't need a diagnosis to seek support. If something is weighing on you, that's enough.</p>
+  <div class="areas-grid">
+    <div class="area-item"><div class="area-dot"></div><div class="area-text"><h4>Anxiety & worry</h4><p>Generalised anxiety, social anxiety, panic attacks, health anxiety.</p></div></div>
+    <div class="area-item"><div class="area-dot"></div><div class="area-text"><h4>Burnout & exhaustion</h4><p>Work-related stress, emotional depletion, loss of motivation and meaning.</p></div></div>
+    <div class="area-item"><div class="area-dot"></div><div class="area-text"><h4>Depression & low mood</h4><p>Persistent sadness, emptiness, difficulty experiencing joy or connection.</p></div></div>
+    <div class="area-item"><div class="area-dot"></div><div class="area-text"><h4>Life transitions</h4><p>Relocation, career change, relationship endings, identity shifts.</p></div></div>
+    <div class="area-item"><div class="area-dot"></div><div class="area-text"><h4>Relationship difficulties</h4><p>Communication, conflict, attachment patterns, and trust issues.</p></div></div>
+    <div class="area-item"><div class="area-dot"></div><div class="area-text"><h4>Self-esteem & identity</h4><p>Inner criticism, people-pleasing, perfectionism, and self-worth.</p></div></div>
+  </div>
+</section>
+
+<section class="contact-section">
+  <div class="contact-left">
+    <h2>Get in <em>touch</em></h2>
+    <p>Reaching out is the hardest step. A short message is all it takes — no pressure, no commitment. I respond to all enquiries within 48 hours.</p>
+    <div class="info-item"><div class="info-icon">✉</div><span>hallo@stillepraxis.de</span></div>
+    <div class="info-item"><div class="info-icon">📍</div><span>Schillerstraße 8, 04109 Leipzig</span></div>
+    <div class="info-item"><div class="info-icon">📞</div><span>+49 341 000 3344</span></div>
+    <div class="info-item"><div class="info-icon">🕐</div><span>Mon, Wed, Fri 09:00 – 18:00<br>Tue, Thu 12:00 – 20:00</span></div>
+  </div>
+  <div class="cform">
+    <h3>Send a message</h3>
+    <div class="fg"><label>Your name</label><input type="text" placeholder="Anna Richter"/></div>
+    <div class="fg"><label>Email address</label><input type="email" placeholder="anna@example.com"/></div>
+    <div class="fg"><label>What brings you here?</label><select><option value="" disabled selected>Select a topic</option><option>Anxiety</option><option>Burnout</option><option>Depression</option><option>Life transition</option><option>Relationship difficulties</option><option>Something else</option></select></div>
+    <div class="fg"><label>Anything you'd like to add</label><textarea placeholder="A few sentences is enough. There's no wrong way to start."></textarea></div>
+    <button class="send-btn">Send message →</button>
+    <p class="privacy-note">All information shared here is strictly confidential and used only to respond to your enquiry.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="flogo">Stille<span> Praxis</span></div>
+  <p>© 2026 Stille Praxis Leipzig. All rights reserved.</p>
+  <p>Built by Novu Design</p>
+</footer>
+
+</body>
+</html>
