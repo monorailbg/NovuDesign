@@ -138,17 +138,17 @@ function ProjectCard({ p, viewCase, i, onOpen }: { p: FullProject; viewCase: str
 
       {/* Fade gradient */}
       <div className="absolute inset-0 pointer-events-none"
-        style={{ background: `linear-gradient(to top, #080A12 0%, ${p.color}12 40%, transparent 60%)` }} />
+        style={{ background: `linear-gradient(to top, rgba(8,10,18,0.97) 0%, rgba(8,10,18,0.8) 30%, rgba(8,10,18,0.3) 55%, transparent 80%)` }} />
 
       {/* Text overlay */}
       <div className="absolute inset-0 p-7 flex flex-col justify-end pointer-events-none">
         <div className="flex items-start justify-between mb-2">
           <span className="text-xs font-bold tracking-widest uppercase px-2.5 py-1 rounded-full"
             style={{ background: `${p.color}22`, color: p.color }}>{p.category}</span>
-          <span className="text-xs font-mono" style={{ color: "rgba(160,170,235,0.25)" }}>{p.year}</span>
+          <span className="text-xs font-mono" style={{ color: "rgba(160,170,235,0.35)" }}>{p.year}</span>
         </div>
         <p className="text-sm mb-2 transition-all duration-300"
-          style={{ color: "rgba(160,170,235,0.45)", opacity: hov ? 1 : 0, transform: hov ? "translateY(0)" : "translateY(8px)" }}>
+          style={{ color: "rgba(220,225,255,0.8)", opacity: hov ? 1 : 0.65, transform: hov ? "translateY(0)" : "translateY(4px)" }}>
           {p.description.split(" ").slice(0, 11).join(" ")}…
         </p>
         <h3 className="font-heading font-black text-[clamp(26px,3.5vw,48px)] text-white tracking-tighter leading-none">{p.title}</h3>
