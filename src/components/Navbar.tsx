@@ -46,7 +46,7 @@ export default function Navbar() {
       }}
     >
       <div
-        className="mx-auto flex items-center justify-between transition-all duration-500"
+        className="mx-auto grid grid-cols-3 items-center transition-all duration-500"
         style={{
           maxWidth: "100%",
           padding: scrolled ? "0 2rem" : "0 2.5rem",
@@ -69,7 +69,7 @@ export default function Navbar() {
         </Link>
 
         {/* Center nav */}
-        <nav className="hidden md:block" aria-label="Primary">
+        <nav className="hidden md:flex justify-center" aria-label="Primary">
           <ul ref={navRef} className="relative flex items-center gap-1" onMouseLeave={clearInk}>
             <div
               className="absolute bottom-0 h-px pointer-events-none transition-all duration-200"
@@ -97,7 +97,7 @@ export default function Navbar() {
         </nav>
 
         {/* Right side */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 justify-end">
           {/* Lang toggle */}
           <div className="hidden sm:flex items-center gap-1 text-xs font-bold tracking-widest">
             {(["en", "de"] as const).map((l, i) => (
