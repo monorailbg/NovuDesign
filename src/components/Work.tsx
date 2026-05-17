@@ -7,8 +7,24 @@ import { useLang } from "@/context/LanguageContext";
 // ─── Iframe preview ───────────────────────────────────────────────────────────
 
 function IframePreview({ src }: { src: string }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(0.5);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const update = () => {
+      const { width, height } = el.getBoundingClientRect();
+      setScale(Math.max(width / 1280, height / 900));
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   return (
-    <div style={{ position: "absolute", inset: 0, overflow: "hidden", background: "#fff" }}>
+    <div ref={containerRef} style={{ position: "absolute", inset: 0, overflow: "hidden", background: "#fff" }}>
       <iframe
         src={src}
         scrolling="no"
@@ -17,7 +33,7 @@ function IframePreview({ src }: { src: string }) {
           width: "1280px",
           height: "900px",
           border: "none",
-          transform: "scale(0.29)",
+          transform: `scale(${scale})`,
           transformOrigin: "top left",
           pointerEvents: "none",
         }}
