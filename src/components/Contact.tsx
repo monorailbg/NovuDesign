@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
+import { useForm, ValidationError } from "@formspree/react";
 import { useLang } from "@/context/LanguageContext";
 
 const INPUT_BASE: React.CSSProperties = {
@@ -31,10 +32,8 @@ export default function Contact() {
   const ref = useRef<HTMLDivElement>(null);
   const [vis, setVis] = useState(false);
   const [hov, setHov] = useState(false);
-  const [sent, setSent] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", type: "", budget: "", message: "" });
   const [focused, setFocused] = useState<string | null>(null);
+  const [state, handleSubmit] = useForm("xredgqaw");
 
   useEffect(() => {
     const el = ref.current;
@@ -44,12 +43,6 @@ export default function Contact() {
     return () => obs.disconnect();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setTimeout(() => { setLoading(false); setSent(true); }, 1200);
-  };
-
   const inputStyle = (name: string): React.CSSProperties => ({
     ...INPUT_BASE,
     padding: "12px 16px",
@@ -57,7 +50,7 @@ export default function Contact() {
     background: focused === name ? "rgba(107,120,216,0.1)" : "rgba(107,120,216,0.06)",
   });
 
-  const selectStyle = (name: string): React.CSSProperties => ({
+  const selectStyle = (name: string, hasValue: boolean): React.CSSProperties => ({
     ...inputStyle(name),
     appearance: "none" as const,
     cursor: "pointer",
@@ -65,7 +58,7 @@ export default function Contact() {
     backgroundRepeat: "no-repeat",
     backgroundPosition: "right 14px center",
     paddingRight: 40,
-    color: form.type || form.budget ? "#fff" : "rgba(160,170,235,0.3)",
+    color: hasValue ? "#fff" : "rgba(160,170,235,0.3)",
   });
 
   return (
@@ -133,7 +126,7 @@ export default function Contact() {
 
             {/* Right — form */}
             <div className="flex-1 w-full">
-              {sent ? (
+              {state.succeeded ? (
                 <div className="flex flex-col items-center justify-center h-full gap-6 py-16 text-center">
                   <div className="w-16 h-16 rounded-full flex items-center justify-center"
                     style={{ background: "linear-gradient(135deg,#3A45C4,#9B3420)", boxShadow: "0 0 40px rgba(58,69,196,0.4)" }}>
@@ -148,41 +141,45 @@ export default function Contact() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <Field label={f.name}>
                       <input
-                        required value={form.name}
-                        onChange={e => setForm(p => ({ ...p, name: e.target.value }))}
+                        name="name"
+                        required
                         onFocus={() => setFocused("name")} onBlur={() => setFocused(null)}
                         style={inputStyle("name")}
                         placeholder={f.name}
                       />
+                      <ValidationError field="name" errors={state.errors}
+                        className="text-xs mt-1" style={{ color: "#f87171" }} />
                     </Field>
                     <Field label={f.email}>
                       <input
-                        required type="email" value={form.email}
-                        onChange={e => setForm(p => ({ ...p, email: e.target.value }))}
+                        name="email"
+                        required type="email"
                         onFocus={() => setFocused("email")} onBlur={() => setFocused(null)}
                         style={inputStyle("email")}
                         placeholder="you@company.com"
                       />
+                      <ValidationError field="email" errors={state.errors}
+                        className="text-xs mt-1" style={{ color: "#f87171" }} />
                     </Field>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <Field label={f.type}>
                       <select
-                        value={form.type}
-                        onChange={e => setForm(p => ({ ...p, type: e.target.value }))}
-                        onFocus={() => setFocused("type")} onBlur={() => setFocused(null)}
-                        style={selectStyle("type")}>
+                        name="project_type"
+                        onFocus={() => setFocused("type")} onBlur={(e) => { setFocused(null); e.currentTarget.style.color = e.currentTarget.value ? "#fff" : "rgba(160,170,235,0.3)"; }}
+                        defaultValue=""
+                        style={selectStyle("type", false)}>
                         <option value="" disabled>{f.type}</option>
                         {f.types.map(opt => <option key={opt} value={opt} style={{ background: "#0A0C16", color: "#fff" }}>{opt}</option>)}
                       </select>
                     </Field>
                     <Field label={f.budget}>
                       <select
-                        value={form.budget}
-                        onChange={e => setForm(p => ({ ...p, budget: e.target.value }))}
-                        onFocus={() => setFocused("budget")} onBlur={() => setFocused(null)}
-                        style={selectStyle("budget")}>
+                        name="budget"
+                        onFocus={() => setFocused("budget")} onBlur={(e) => { setFocused(null); e.currentTarget.style.color = e.currentTarget.value ? "#fff" : "rgba(160,170,235,0.3)"; }}
+                        defaultValue=""
+                        style={selectStyle("budget", false)}>
                         <option value="" disabled>{f.budget}</option>
                         {f.budgets.map(opt => <option key={opt} value={opt} style={{ background: "#0A0C16", color: "#fff" }}>{opt}</option>)}
                       </select>
@@ -191,27 +188,33 @@ export default function Contact() {
 
                   <Field label={f.message}>
                     <textarea
-                      required value={form.message}
-                      onChange={e => setForm(p => ({ ...p, message: e.target.value }))}
+                      name="message"
+                      required
                       onFocus={() => setFocused("message")} onBlur={() => setFocused(null)}
                       rows={5}
                       style={{ ...inputStyle("message"), padding: "12px 16px", resize: "vertical" as const, minHeight: 120 }}
                       placeholder={f.message}
                     />
+                    <ValidationError field="message" errors={state.errors}
+                      className="text-xs mt-1" style={{ color: "#f87171" }} />
                   </Field>
 
+                  {/* Top-level form error (e.g. network failure) */}
+                  <ValidationError errors={state.errors}
+                    className="text-xs" style={{ color: "#f87171" }} />
+
                   <button
-                    type="submit" disabled={loading}
+                    type="submit" disabled={state.submitting}
                     className="self-start flex items-center gap-3 px-8 py-4 rounded-full font-black text-base text-white transition-all duration-300"
                     style={{
                       background: "linear-gradient(135deg,#9B3420,#3A45C4)",
                       boxShadow: "0 0 30px rgba(58,69,196,0.35)",
-                      opacity: loading ? 0.7 : 1,
-                      cursor: loading ? "wait" : "pointer",
+                      opacity: state.submitting ? 0.7 : 1,
+                      cursor: state.submitting ? "wait" : "pointer",
                     }}
-                    onMouseEnter={e => { if (!loading) e.currentTarget.style.boxShadow = "0 0 50px rgba(58,69,196,0.55)"; }}
+                    onMouseEnter={e => { if (!state.submitting) e.currentTarget.style.boxShadow = "0 0 50px rgba(58,69,196,0.55)"; }}
                     onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 30px rgba(58,69,196,0.35)"; }}>
-                    {loading ? (
+                    {state.submitting ? (
                       <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -232,3 +235,4 @@ export default function Contact() {
     </section>
   );
 }
+
