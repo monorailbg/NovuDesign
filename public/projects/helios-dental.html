@@ -1,349 +1,1298 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Helios Dental — Zahnarztpraxis Leipzig</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<title>Helios Dental — Precision Care, Human Warmth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-:root{
-  --white:#FFFFFF;
-  --blue:#005CE6;
-  --navy:#0A1628;
-  --light-blue:#E8F0FF;
-  --green:#00B894;
-  --gray:#6B7A99;
-  --border:#E2E8F0;
-}
-body{font-family:'Outfit',sans-serif;background:var(--white);color:var(--navy);overflow-x:hidden;}
-img{display:block;}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* NAV */
-nav{display:flex;align-items:center;justify-content:space-between;padding:0 3rem;height:68px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--white);z-index:100;border-left:4px solid var(--blue);}
-.nav-logo{font-weight:700;font-size:1.2rem;color:var(--navy);letter-spacing:-0.01em;}
-.nav-logo span{color:var(--blue);}
-.nav-links{display:flex;gap:2.5rem;list-style:none;}
-.nav-links a{text-decoration:none;font-size:0.75rem;color:var(--gray);letter-spacing:0.08em;text-transform:uppercase;font-weight:500;transition:color 0.2s;}
-.nav-links a:hover{color:var(--navy);}
-.btn-nav{background:var(--blue);color:var(--white);padding:0.6rem 1.4rem;text-decoration:none;font-size:0.82rem;font-weight:600;border-radius:4px;transition:background 0.2s;}
-.btn-nav:hover{background:#0049cc;}
+  :root {
+    --white: #FFFFFF;
+    --navy: #0A1E3C;
+    --warm: #F8F5F0;
+    --teal: #00856F;
+    --teal-light: #E6F4F1;
+    --border: #E8EDF5;
+    --text-body: #3D4A5C;
+    --text-muted: #7A8899;
+  }
 
-/* HERO */
-.hero{display:grid;grid-template-columns:1fr 1fr;min-height:90vh;align-items:center;}
-.hero-left{padding:5rem 4rem 5rem 5rem;}
-.hero-eyebrow{font-size:0.73rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:1.5rem;}
-.hero h1{font-size:clamp(2.4rem,3.8vw,4rem);font-weight:700;line-height:1.1;color:var(--navy);margin-bottom:2rem;}
-.hero h1 .underline{text-decoration:underline;text-decoration-color:var(--blue);text-underline-offset:6px;}
-.trust-badges{display:flex;flex-direction:column;gap:0.6rem;margin-bottom:2.5rem;}
-.badge{display:flex;align-items:center;gap:0.7rem;font-size:0.85rem;color:var(--gray);font-weight:400;}
-.badge-icon{color:var(--green);font-size:1rem;font-weight:700;}
-.hero-ctas{display:flex;gap:1rem;align-items:center;}
-.btn-primary{background:var(--blue);color:var(--white);padding:0.85rem 2rem;text-decoration:none;font-size:0.88rem;font-weight:600;border-radius:4px;transition:background 0.2s;}
-.btn-primary:hover{background:#0049cc;}
-.btn-secondary{color:var(--blue);text-decoration:none;font-size:0.88rem;font-weight:500;display:flex;align-items:center;gap:0.4rem;}
-.hero-right{position:relative;height:100%;min-height:90vh;overflow:hidden;}
-.hero-right img{width:100%;height:100%;object-fit:cover;object-position:center;}
-.hero-frame{position:absolute;inset:20px;border:2px solid rgba(0,92,230,0.3);pointer-events:none;}
+  html { scroll-behavior: smooth; }
 
-/* STATS STRIP */
-.stats-strip{background:var(--blue);padding:2.5rem 5rem;display:grid;grid-template-columns:repeat(4,1fr);}
-.stat-item{text-align:center;padding:0 2rem;border-right:1px solid rgba(255,255,255,0.15);}
-.stat-item:last-child{border-right:none;}
-.stat-num{font-size:clamp(2rem,3vw,2.8rem);font-weight:700;color:var(--white);line-height:1;}
-.stat-label{font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-top:0.5rem;font-weight:500;}
+  body {
+    background: var(--white);
+    color: var(--navy);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
 
-/* SERVICES */
-.services{padding:5rem;}
-.section-header{margin-bottom:3rem;}
-.section-label{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:0.8rem;}
-.section-header h2{font-size:clamp(1.8rem,2.8vw,2.6rem);font-weight:700;color:var(--navy);}
-.section-header p{color:var(--gray);font-size:0.9rem;margin-top:0.6rem;font-weight:300;max-width:50ch;}
-.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
-.service-card{background:var(--white);border:1px solid var(--border);padding:2rem;border-left:4px solid var(--blue);transition:box-shadow 0.3s;}
-.service-card:hover{box-shadow:0 4px 24px rgba(0,92,230,0.1);}
-.svc-icon{width:40px;height:40px;background:var(--light-blue);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;}
-.svc-icon span{font-size:1.1rem;}
-.svc-name{font-size:1rem;font-weight:600;color:var(--navy);margin-bottom:0.6rem;}
-.svc-desc{font-size:0.82rem;color:var(--gray);line-height:1.65;font-weight:300;}
+  /* ─── NAV ─── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+  }
 
-/* DOCTOR SECTION */
-.doctor{background:var(--light-blue);padding:5rem;}
-.doctor-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;max-width:1000px;margin:0 auto;}
-.doctor-text .section-label{color:var(--blue);}
-.doctor-text h2{font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;color:var(--navy);margin-bottom:0.6rem;}
-.doctor-text .subtitle{color:var(--gray);font-size:0.88rem;margin-bottom:2rem;font-weight:300;}
-.credentials{display:flex;flex-direction:column;gap:0.9rem;margin-bottom:2.5rem;}
-.cred-item{display:flex;align-items:flex-start;gap:0.8rem;font-size:0.88rem;color:var(--navy);}
-.cred-check{color:var(--green);font-weight:700;font-size:1rem;flex-shrink:0;margin-top:0.05em;}
-.doctor-contact{font-size:0.82rem;color:var(--gray);}
-.doctor-contact strong{color:var(--navy);}
-.doctor-photo{height:480px;overflow:hidden;border-radius:2px;}
-.doctor-photo img{width:100%;height:100%;object-fit:cover;object-position:top center;}
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    text-decoration: none;
+  }
 
-/* REVIEWS */
-.reviews{padding:5rem;background:var(--white);}
-.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;}
-.review-card{border:1px solid var(--border);padding:2rem;border-top:4px solid var(--blue);}
-.review-stars{color:var(--blue);font-size:0.9rem;margin-bottom:1rem;letter-spacing:0.1em;}
-.review-text{font-size:0.88rem;color:var(--gray);line-height:1.7;font-weight:300;margin-bottom:1.2rem;}
-.reviewer{font-size:0.82rem;font-weight:700;color:var(--navy);}
-.reviewer-meta{font-size:0.75rem;color:var(--gray);font-weight:400;}
+  .nav-logo-mark {
+    width: 32px;
+    height: 32px;
+    background: var(--teal);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
 
-/* BOOKING */
-.booking{background:var(--navy);padding:5rem;}
-.booking-inner{display:grid;grid-template-columns:1fr 1.5fr;gap:5rem;align-items:start;max-width:1000px;margin:0 auto;}
-.booking-left h2{font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;color:var(--white);margin-bottom:1rem;}
-.booking-left p{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:2rem;font-weight:300;}
-.contact-items{display:flex;flex-direction:column;gap:1rem;}
-.contact-item{font-size:0.85rem;color:rgba(255,255,255,0.6);}
-.contact-item strong{color:var(--white);font-weight:500;display:block;margin-bottom:0.2rem;}
-.booking-form{display:flex;flex-direction:column;gap:1rem;}
-.booking-form input,.booking-form select,.booking-form textarea{background:var(--white);border:none;color:var(--navy);padding:1rem 1.2rem;font-family:'Outfit',sans-serif;font-size:0.88rem;font-weight:400;outline:none;width:100%;border-radius:2px;}
-.booking-form select option{background:var(--white);}
-.booking-form textarea{height:90px;resize:none;}
-.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-.btn-book{background:var(--blue);color:var(--white);border:none;padding:1rem 2rem;font-family:'Outfit',sans-serif;font-size:0.9rem;font-weight:600;cursor:pointer;width:100%;margin-top:0.5rem;border-radius:4px;transition:background 0.2s;}
-.btn-book:hover{background:#0049cc;}
-.form-note{font-size:0.72rem;color:rgba(255,255,255,0.3);text-align:center;margin-top:0.5rem;}
+  .nav-logo-mark svg {
+    width: 14px;
+    height: 14px;
+    fill: white;
+  }
 
-/* FOOTER */
-footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.08);padding:1.5rem 5rem;display:flex;align-items:center;justify-content:space-between;}
-.footer-logo{font-weight:700;font-size:1rem;color:rgba(255,255,255,0.5);}
-.footer-logo span{color:var(--blue);}
-.footer-copy{font-size:0.72rem;color:rgba(255,255,255,0.25);}
-.footer-novu{font-size:0.72rem;color:rgba(255,255,255,0.25);}
-.footer-novu a{color:var(--blue);text-decoration:none;}
+  .nav-logo-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--navy);
+    letter-spacing: 0.01em;
+  }
 
-@media(max-width:768px){
-  nav{padding:0 1.5rem;border-left-width:3px;}
-  .nav-links{display:none;}
-  .hero{grid-template-columns:1fr;min-height:auto;}
-  .hero-left{padding:3rem 1.5rem;}
-  .hero-right{min-height:320px;height:320px;}
-  .stats-strip{padding:2rem 1.5rem;grid-template-columns:repeat(2,1fr);gap:1.5rem;}
-  .stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:1.5rem;}
-  .services,.reviews,.doctor,.booking{padding:3rem 1.5rem;}
-  .services-grid,.reviews-grid{grid-template-columns:1fr;}
-  .doctor-inner{grid-template-columns:1fr;gap:2.5rem;}
-  .doctor-photo{height:300px;}
-  .booking-inner{grid-template-columns:1fr;gap:2rem;}
-  .form-row-2{grid-template-columns:1fr;}
-  footer{flex-direction:column;gap:0.8rem;text-align:center;padding:1.5rem;}
-}
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.88rem;
+    font-weight: 400;
+    color: var(--text-body);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: color 0.22s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .nav-links a:hover { color: var(--teal); }
+
+  .nav-cta {
+    background: var(--teal);
+    color: white !important;
+    padding: 0.55rem 1.4rem;
+    border-radius: 6px;
+    font-weight: 500 !important;
+    transition: background 0.22s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  }
+
+  .nav-cta:hover {
+    background: #006b59 !important;
+    transform: translateY(-1px);
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100dvh;
+    display: grid;
+    grid-template-columns: 55fr 45fr;
+    align-items: center;
+    padding: 6rem 0 4rem 3rem;
+    gap: 0;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    padding-right: 4rem;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--teal-light);
+    color: var(--teal);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    border-radius: 100px;
+    margin-bottom: 1.8rem;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: staggerIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+  }
+
+  .hero-eyebrow-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--teal);
+    border-radius: 50%;
+    animation: pulse 2.2s ease infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+
+  .hero-headline {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.4rem, 4.5vw, 4.2rem);
+    line-height: 1.12;
+    color: var(--navy);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    transform: translateY(24px);
+    animation: staggerIn 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+  }
+
+  .hero-headline em {
+    font-style: italic;
+    color: var(--teal);
+  }
+
+  .hero-subtext {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--text-body);
+    line-height: 1.7;
+    max-width: 44ch;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: staggerIn 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    transform: translateY(18px);
+    animation: staggerIn 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards;
+  }
+
+  @keyframes staggerIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--teal);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 500;
+    padding: 0.85rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    border: 2px solid var(--teal);
+    transition:
+      background 0.24s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .btn-primary:hover {
+    background: #006b59;
+    border-color: #006b59;
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: var(--navy);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 400;
+    padding: 0.85rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    border: 2px solid var(--border);
+    transition:
+      border-color 0.24s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      color 0.24s,
+      transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--teal);
+    color: var(--teal);
+    transform: translateY(-2px);
+  }
+
+  /* ─── HERO RIGHT: STAT BLOCK ─── */
+  .hero-right {
+    background: var(--warm);
+    height: 100%;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem 3.5rem 5rem 4rem;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: staggerIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
+  }
+
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    top: -4rem; right: -4rem;
+    width: 20rem;
+    height: 20rem;
+    border-radius: 50%;
+    border: 40px solid rgba(0,133,111,0.07);
+  }
+
+  .hero-right::after {
+    content: '';
+    position: absolute;
+    bottom: 3rem; left: -3rem;
+    width: 12rem;
+    height: 12rem;
+    border-radius: 50%;
+    border: 25px solid rgba(0,133,111,0.05);
+  }
+
+  .stat-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 0.5rem 1rem 0.5rem 0.6rem;
+    width: fit-content;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 2px 12px rgba(10,30,60,0.06);
+  }
+
+  .stat-badge-stars {
+    display: flex;
+    gap: 2px;
+  }
+
+  .stat-badge-star {
+    width: 14px;
+    height: 14px;
+    background: #F59E0B;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  }
+
+  .stat-badge-text {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--navy);
+  }
+
+  .stat-block-main {
+    margin-bottom: 2.5rem;
+  }
+
+  .stat-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .stat-number span {
+    color: var(--teal);
+  }
+
+  .stat-label {
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+  }
+
+  .stat-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .stat-bar-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .stat-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  .stat-bar-label strong {
+    font-weight: 500;
+    color: var(--navy);
+  }
+
+  .stat-bar-track {
+    height: 4px;
+    background: var(--border);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+
+  .stat-bar-fill {
+    height: 100%;
+    background: var(--teal);
+    border-radius: 100px;
+    width: 0%;
+    transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .stat-bar-fill.animated { }
+
+  /* ─── SECTION SHARED ─── */
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--text-body);
+    line-height: 1.7;
+    max-width: 50ch;
+  }
+
+  /* ─── SERVICES ─── */
+  .services {
+    padding: 7rem 3rem;
+    background: var(--white);
+  }
+
+  .services-header {
+    margin-bottom: 4rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1.45fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .service-featured {
+    background: var(--warm);
+    border-radius: 16px;
+    padding: 3rem;
+    border-left: 4px solid var(--teal);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(32px);
+    transition:
+      opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .service-featured.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .service-featured::after {
+    content: '';
+    position: absolute;
+    top: -2rem; right: -2rem;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,133,111,0.08) 0%, transparent 70%);
+  }
+
+  .featured-stat {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    color: var(--teal);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .featured-stat-label {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    margin-bottom: 1.8rem;
+  }
+
+  .featured-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    color: var(--navy);
+    margin-bottom: 0.75rem;
+    line-height: 1.25;
+  }
+
+  .featured-desc {
+    font-size: 0.92rem;
+    font-weight: 300;
+    color: var(--text-body);
+    line-height: 1.7;
+    margin-bottom: 1.8rem;
+    max-width: 38ch;
+  }
+
+  .featured-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--teal);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 0.1em;
+    transition: border-color 0.2s, gap 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .featured-link:hover {
+    border-color: var(--teal);
+    gap: 0.7rem;
+  }
+
+  .services-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .service-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.6rem 1.8rem;
+    cursor: default;
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 0.24s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      box-shadow 0.24s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .service-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .service-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 4px 20px rgba(0,133,111,0.1);
+  }
+
+  .service-card-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--teal-light);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.9rem;
+  }
+
+  .service-card-icon svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--teal);
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .service-card-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    color: var(--navy);
+    margin-bottom: 0.35rem;
+    line-height: 1.25;
+  }
+
+  .service-card-desc {
+    font-size: 0.82rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ─── TEAM ─── */
+  .team {
+    padding: 7rem 3rem;
+    background: var(--warm);
+  }
+
+  .team-header {
+    margin-bottom: 3.5rem;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .team-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem 1.6rem 1.6rem;
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 0.26s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .team-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .team-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--teal);
+  }
+
+  .team-card.visible:hover {
+    transform: translateY(-4px);
+  }
+
+  .team-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    margin-bottom: 1.2rem;
+    background: var(--warm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    color: var(--teal);
+    border: 2px solid var(--border);
+  }
+
+  .team-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.05rem;
+    color: var(--navy);
+    margin-bottom: 0.2rem;
+  }
+
+  .team-role {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--teal);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+
+  .team-bio {
+    font-size: 0.82rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ─── TESTIMONIAL ─── */
+  .testimonial {
+    padding: 8rem 3rem;
+    background: var(--warm);
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .testimonial-quote-mark {
+    font-family: 'DM Serif Display', serif;
+    font-size: 8rem;
+    line-height: 0.7;
+    color: var(--teal);
+    opacity: 0.25;
+    display: block;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .testimonial-quote-mark.visible {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+
+  .testimonial-text {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+    color: var(--navy);
+    line-height: 1.5;
+    max-width: 780px;
+    margin: 0 auto 2rem;
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s,
+      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+  }
+
+  .testimonial-text.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .testimonial-attribution {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s,
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+  }
+
+  .testimonial-attribution.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .attribution-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--navy);
+  }
+
+  .attribution-detail {
+    font-size: 0.78rem;
+    font-weight: 300;
+    color: var(--text-muted);
+  }
+
+  .attribution-divider {
+    width: 32px;
+    height: 2px;
+    background: var(--teal);
+    border-radius: 2px;
+    margin: 0.8rem auto;
+  }
+
+  /* ─── CTA BAND ─── */
+  .cta-band {
+    background: var(--navy);
+    padding: 6rem 3rem;
+    text-align: center;
+  }
+
+  .cta-band-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 1rem;
+  }
+
+  .cta-band-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    color: white;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .cta-band-sub {
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 2.5rem;
+    max-width: 42ch;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.65;
+  }
+
+  .btn-teal {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--teal);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.95rem 2.2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    border: 2px solid var(--teal);
+    transition:
+      background 0.24s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .btn-teal:hover {
+    background: #006b59;
+    transform: translateY(-2px);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    padding: 4rem 3rem 2.5rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .footer-logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 1rem;
+    text-decoration: none;
+  }
+
+  .footer-logo-mark {
+    width: 28px;
+    height: 28px;
+    background: var(--teal);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footer-logo-mark svg {
+    width: 12px;
+    height: 12px;
+    fill: white;
+  }
+
+  .footer-logo-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem;
+    color: var(--navy);
+  }
+
+  .footer-desc {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 34ch;
+  }
+
+  .footer-col-title {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 1.2rem;
+  }
+
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .footer-links a {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--teal); }
+
+  .footer-contact-line {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 0.6rem;
+  }
+
+  .footer-contact-icon {
+    color: var(--teal);
+    flex-shrink: 0;
+    margin-top: 0.05em;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-copy {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  .footer-accreditations {
+    display: flex;
+    gap: 1.2rem;
+  }
+
+  .footer-badge {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: var(--warm);
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+
+    .hero {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
+      padding: 5rem 1.5rem 0;
+      min-height: auto;
+    }
+
+    .hero-left { padding-right: 0; padding-bottom: 2.5rem; }
+
+    .hero-right {
+      min-height: 360px;
+      padding: 3rem 2rem;
+      margin: 0 -1.5rem;
+    }
+
+    .services { padding: 5rem 1.5rem; }
+
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .team { padding: 5rem 1.5rem; }
+
+    .team-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .testimonial { padding: 5rem 1.5rem; }
+
+    .cta-band { padding: 5rem 1.5rem; }
+
+    footer { padding: 3rem 1.5rem 2rem; }
+
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .team-grid { grid-template-columns: 1fr; }
+    .hero-actions { flex-direction: column; align-items: flex-start; }
+  }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <div class="nav-logo">Helios<span>Dental</span></div>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7zm0 9a2 2 0 110-4 2 2 0 010 4z"/></svg>
+    </div>
+    <span class="nav-logo-text">Helios Dental</span>
+  </a>
   <ul class="nav-links">
-    <li><a href="#">Leistungen</a></li>
-    <li><a href="#">Team</a></li>
-    <li><a href="#">Technologie</a></li>
-    <li><a href="#">Notfall</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#team">Our Team</a></li>
+    <li><a href="#testimonial">Reviews</a></li>
+    <li><a href="#booking" class="nav-cta">Book Appointment</a></li>
   </ul>
-  <a href="#booking" class="btn-nav">Termin buchen →</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-left">
-    <p class="hero-eyebrow">Zahnarztpraxis Leipzig</p>
-    <h1>Precision care.<br/><span class="underline">Zero anxiety.</span></h1>
-    <div class="trust-badges">
-      <div class="badge"><span class="badge-icon">✓</span> Modernste 3D-Diagnostik &amp; digitaler Abdruck</div>
-      <div class="badge"><span class="badge-icon">✓</span> Angstpatient-freundliche Behandlungen</div>
-      <div class="badge"><span class="badge-icon">✓</span> Gleiche-Woche-Termine verfügbar</div>
-      <div class="badge"><span class="badge-icon">✓</span> Alle Kassen- und Privatpatienten willkommen</div>
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-dot"></span>
+      Now accepting new patients
     </div>
-    <div class="hero-ctas">
-      <a href="#booking" class="btn-primary">Jetzt Termin buchen</a>
-      <a href="tel:+493412241890" class="btn-secondary">+49 341 2241 890 →</a>
+    <h1 class="hero-headline">
+      Every smile deserves<br/><em>precision care.</em>
+    </h1>
+    <p class="hero-subtext">
+      We combine cutting-edge dental technology with a patient-first approach — so your experience is as comfortable as your results are lasting.
+    </p>
+    <div class="hero-actions">
+      <a href="#booking" class="btn-primary">Book a Consultation →</a>
+      <a href="#services" class="btn-outline">Explore Services</a>
     </div>
   </div>
+
   <div class="hero-right">
-    <img src="https://images.unsplash.com/photo-1629909615184-74f495363b67?w=1200&q=85&auto=format&fit=crop" alt="Helios Dental Praxis"/>
-    <div class="hero-frame"></div>
+    <div class="stat-badge">
+      <div class="stat-badge-stars">
+        <div class="stat-badge-star"></div>
+        <div class="stat-badge-star"></div>
+        <div class="stat-badge-star"></div>
+        <div class="stat-badge-star"></div>
+        <div class="stat-badge-star"></div>
+      </div>
+      <span class="stat-badge-text">4.9 / 5.0 — 340 reviews</span>
+    </div>
+
+    <div class="stat-block-main">
+      <div class="stat-number">12<span>k+</span></div>
+      <div class="stat-label">Patients treated since 2011</div>
+    </div>
+
+    <div class="stat-bars">
+      <div class="stat-bar-row">
+        <div class="stat-bar-label">
+          <span>Patient Satisfaction</span>
+          <strong>98%</strong>
+        </div>
+        <div class="stat-bar-track">
+          <div class="stat-bar-fill" data-width="98"></div>
+        </div>
+      </div>
+      <div class="stat-bar-row">
+        <div class="stat-bar-label">
+          <span>Would Recommend Us</span>
+          <strong>96%</strong>
+        </div>
+        <div class="stat-bar-track">
+          <div class="stat-bar-fill" data-width="96"></div>
+        </div>
+      </div>
+      <div class="stat-bar-row">
+        <div class="stat-bar-label">
+          <span>Same-Day Appointments</span>
+          <strong>87%</strong>
+        </div>
+        <div class="stat-bar-track">
+          <div class="stat-bar-fill" data-width="87"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
-
-<!-- STATS STRIP -->
-<div class="stats-strip">
-  <div class="stat-item">
-    <div class="stat-num">1.800+</div>
-    <div class="stat-label">Zufriedene Patienten</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num">4.9★</div>
-    <div class="stat-label">Google-Bewertung</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num">12 J.</div>
-    <div class="stat-label">Erfahrung</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num">100%</div>
-    <div class="stat-label">Digital &amp; papierlos</div>
-  </div>
-</div>
 
 <!-- SERVICES -->
-<section class="services">
-  <div class="section-header">
-    <p class="section-label">Unsere Leistungen</p>
-    <h2>Vollständige Zahnmedizin<br/>unter einem Dach</h2>
-    <p>Von der Prophylaxe bis zur ästhetischen Zahnheilkunde — wir begleiten Sie durch alle Behandlungsstufen.</p>
+<section class="services" id="services">
+  <div class="services-header">
+    <div class="section-label">What We Offer</div>
+    <h2 class="section-title">Comprehensive care,<br/>precisely delivered.</h2>
+    <p class="section-subtitle">From routine check-ups to full smile transformations — our team handles every aspect of your dental health.</p>
   </div>
+
   <div class="services-grid">
-    <div class="service-card">
-      <div class="svc-icon"><span>🦷</span></div>
-      <div class="svc-name">Prophylaxe &amp; Reinigung</div>
-      <div class="svc-desc">Professionelle Zahnreinigung, Kariesfrüherkennng und individuelle Mundhygieneberatung für langanhaltende Zahngesundheit.</div>
+    <div class="service-featured">
+      <div class="featured-stat">98%</div>
+      <div class="featured-stat-label">Patient Satisfaction Rate</div>
+      <h3 class="featured-title">Cosmetic & Smile Design</h3>
+      <p class="featured-desc">
+        Our signature approach to cosmetic dentistry combines digital smile previews, porcelain veneers, and professional whitening for results that feel entirely natural — and uniquely yours.
+      </p>
+      <a href="#" class="featured-link">Learn more →</a>
     </div>
-    <div class="service-card">
-      <div class="svc-icon"><span>✨</span></div>
-      <div class="svc-name">Ästhetische Zahnheilkunde</div>
-      <div class="svc-desc">Bleaching, Veneers und Composite-Restaurationen — für ein Lächeln, das Ihre Persönlichkeit widerspiegelt.</div>
-    </div>
-    <div class="service-card">
-      <div class="svc-icon"><span>📐</span></div>
-      <div class="svc-name">Unsichtbare Aligner</div>
-      <div class="svc-desc">Schiene-basierte Zahnkorrektur mit 3D-gedruckten Alignern. Kein Draht, keine Brackets — diskret und effektiv.</div>
-    </div>
-    <div class="service-card">
-      <div class="svc-icon"><span>🔩</span></div>
-      <div class="svc-name">Implantologie</div>
-      <div class="svc-desc">Titanbasierte Zahnimplantate mit geführter Chirurgie und sofortigem Provisorium. Präzise, planbar, dauerhaft.</div>
-    </div>
-    <div class="service-card">
-      <div class="svc-icon"><span>🔍</span></div>
-      <div class="svc-name">3D-Röntgen &amp; Diagnostik</div>
-      <div class="svc-desc">Digitales DVT-Röntgen mit 80% weniger Strahlung als konventionelle Methoden. Vollständige Befundtransparenz.</div>
-    </div>
-    <div class="service-card">
-      <div class="svc-icon"><span>💉</span></div>
-      <div class="svc-name">Behandlung unter Sedierung</div>
-      <div class="svc-desc">Für Angstpatienten und komplexe Eingriffe: Lachgas-Sedierung oder Vollnarkose mit anästhesiologischer Begleitung.</div>
+
+    <div class="services-stack">
+      <div class="service-card">
+        <div class="service-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="service-card-name">Preventive Care</div>
+        <p class="service-card-desc">Regular cleanings, digital X-rays, and personalised oral hygiene plans to keep problems from forming.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <div class="service-card-name">Dental Implants</div>
+        <p class="service-card-desc">Permanent, natural-looking tooth replacement with a 10-year structural guarantee.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div class="service-card-name">Orthodontics</div>
+        <p class="service-card-desc">Clear aligner therapy and traditional braces — discreet treatment plans for all ages.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- DOCTOR -->
-<section class="doctor">
-  <div class="doctor-inner">
-    <div class="doctor-text">
-      <p class="section-label">Ihr Behandler</p>
-      <h2>Dr. med. dent.<br/>Simon Heller</h2>
-      <p class="subtitle">Fachzahnarzt für orale Chirurgie und Implantologie</p>
-      <div class="credentials">
-        <div class="cred-item"><span class="cred-check">✓</span> Studium an der Universität Leipzig, Abschluss mit Auszeichnung</div>
-        <div class="cred-item"><span class="cred-check">✓</span> Zertifizierter Implantologe (DGOI) seit 2016</div>
-        <div class="cred-item"><span class="cred-check">✓</span> Fortbildung in ästhetischer Zahnheilkunde, New York &amp; Mailand</div>
-        <div class="cred-item"><span class="cred-check">✓</span> Mitglied der Deutschen Gesellschaft für Ästhetische Zahnmedizin</div>
-        <div class="cred-item"><span class="cred-check">✓</span> Über 800 Implantate erfolgreich gesetzt</div>
-      </div>
-      <div class="doctor-contact">
-        <strong>Persönliche Beratung:</strong> Mo–Do 9–18 Uhr, Fr 9–15 Uhr<br/>
-        +49 341 2241 890 · praxis@helios-dental.de
-      </div>
+<!-- TEAM -->
+<section class="team" id="team">
+  <div class="team-header">
+    <div class="section-label">Meet the Specialists</div>
+    <h2 class="section-title">Exceptional people,<br/>exceptional care.</h2>
+  </div>
+
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-avatar">ES</div>
+      <div class="team-name">Dr. Elena Sommer</div>
+      <div class="team-role">Principal Dentist</div>
+      <p class="team-bio">15 years restoring confidence one smile at a time. Trained at Charité Berlin and NYU College of Dentistry.</p>
     </div>
-    <div class="doctor-photo">
-      <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=800&q=85&auto=format&fit=crop" alt="Dr. Simon Heller"/>
+    <div class="team-card">
+      <div class="team-avatar">MK</div>
+      <div class="team-name">Dr. Marcus Klein</div>
+      <div class="team-role">Oral Surgeon</div>
+      <p class="team-bio">Specialist in implantology and complex extractions. Known for his calm, reassuring chair-side manner.</p>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">PO</div>
+      <div class="team-name">Dr. Priya Ohri</div>
+      <div class="team-role">Orthodontist</div>
+      <p class="team-bio">Certified Invisalign provider with a talent for transforming smiles while keeping treatment barely visible.</p>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">LB</div>
+      <div class="team-name">Lena Brandt</div>
+      <div class="team-role">Head Hygienist</div>
+      <p class="team-bio">Your first line of defence against gum disease. Gentle, thorough, and genuinely passionate about prevention.</p>
     </div>
   </div>
 </section>
 
-<!-- REVIEWS -->
-<section class="reviews">
-  <div class="section-header">
-    <p class="section-label">Patientenstimmen</p>
-    <h2>Was unsere Patienten sagen</h2>
-  </div>
-  <div class="reviews-grid">
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-text">"Hatte riesige Angst vor Zahnarztbesuchen. Dr. Heller hat sich so viel Zeit genommen, alles zu erklären. Die Behandlung war völlig schmerzfrei. Endlich ein Zahnarzt, dem ich vertraue."</p>
-      <div class="reviewer">Markus W.</div>
-      <div class="reviewer-meta">Patient seit 2023 · Implantologie</div>
-    </div>
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-text">"Die Praxis ist hochmodern, das Team unglaublich freundlich. Meine Veneers sehen perfekt natürlich aus — genau das, was ich mir vorgestellt hatte. Absolute Empfehlung!"</p>
-      <div class="reviewer">Sarah K.</div>
-      <div class="reviewer-meta">Patientin seit 2022 · Veneers</div>
-    </div>
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-text">"Digitaler Abdruck statt Abdruckzement — das allein war schon ein Gamechanger. Termin war in 3 Tagen, Wartezeit keine 5 Minuten. So sollte moderne Zahnmedizin aussehen."</p>
-      <div class="reviewer">Thomas &amp; Jana B.</div>
-      <div class="reviewer-meta">Patienten seit 2021 · Prophylaxe</div>
-    </div>
+<!-- TESTIMONIAL -->
+<section class="testimonial" id="testimonial">
+  <span class="testimonial-quote-mark">"</span>
+  <blockquote class="testimonial-text">
+    I'd avoided the dentist for six years out of pure anxiety. From the moment I walked into Helios, I felt genuinely looked after — not processed. The treatment was flawless, but it's the care that keeps me coming back.
+  </blockquote>
+  <div class="testimonial-attribution">
+    <div class="attribution-divider"></div>
+    <span class="attribution-name">Sabine Richter</span>
+    <span class="attribution-detail">Patient since 2019 — Smile Design & Implant</span>
   </div>
 </section>
 
-<!-- BOOKING -->
-<section class="booking" id="booking">
-  <div class="booking-inner">
-    <div class="booking-left">
-      <h2>Termin vereinbaren</h2>
-      <p>Füllen Sie das Formular aus — wir melden uns innerhalb von 24 Stunden. Für dringende Anliegen erreichen Sie uns telefonisch.</p>
-      <div class="contact-items">
-        <div class="contact-item">
-          <strong>Telefon</strong>
-          +49 341 2241 890
-        </div>
-        <div class="contact-item">
-          <strong>E-Mail</strong>
-          praxis@helios-dental.de
-        </div>
-        <div class="contact-item">
-          <strong>Adresse</strong>
-          Beethovenstraße 14, 04107 Leipzig
-        </div>
-        <div class="contact-item">
-          <strong>Öffnungszeiten</strong>
-          Mo–Do: 8–19 Uhr · Fr: 8–15 Uhr
-        </div>
-      </div>
-    </div>
-    <form class="booking-form">
-      <div class="form-row-2">
-        <input type="text" placeholder="Vorname"/>
-        <input type="text" placeholder="Nachname"/>
-      </div>
-      <input type="email" placeholder="E-Mail-Adresse"/>
-      <input type="tel" placeholder="Telefonnummer"/>
-      <select>
-        <option value="" disabled selected>Behandlung auswählen</option>
-        <option>Prophylaxe &amp; Reinigung</option>
-        <option>Ästhetische Zahnheilkunde</option>
-        <option>Unsichtbare Aligner</option>
-        <option>Implantologie</option>
-        <option>3D-Diagnostik</option>
-        <option>Behandlung unter Sedierung</option>
-        <option>Erstuntersuchung</option>
-      </select>
-      <select>
-        <option value="" disabled selected>Bevorzugte Uhrzeit</option>
-        <option>Morgens (8–11 Uhr)</option>
-        <option>Mittags (11–14 Uhr)</option>
-        <option>Nachmittags (14–18 Uhr)</option>
-        <option>Spättermin (ab 18 Uhr)</option>
-      </select>
-      <textarea placeholder="Beschreiben Sie kurz Ihr Anliegen oder Ihre Beschwerden..."></textarea>
-      <button class="btn-book" type="submit">Termin anfragen →</button>
-      <p class="form-note">Ihre Daten werden gemäß DSGVO verarbeitet und nicht weitergegeben.</p>
-    </form>
-  </div>
+<!-- CTA BAND -->
+<section class="cta-band" id="booking">
+  <div class="cta-band-eyebrow">Take the first step</div>
+  <h2 class="cta-band-title">Ready for your first visit?</h2>
+  <p class="cta-band-sub">New patient appointments available within 48 hours. We'll handle the paperwork — you just bring your smile.</p>
+  <a href="#" class="btn-teal">Book Your Consultation →</a>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Helios<span>Dental</span></div>
-  <div class="footer-copy">© 2026 Helios Dental · Beethovenstraße 14, 04107 Leipzig</div>
-  <div class="footer-novu">Built by <a href="https://novudesign.de">Novu Design</a></div>
+  <div class="footer-grid">
+    <div>
+      <a href="#" class="footer-logo-wrap">
+        <div class="footer-logo-mark">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7zm0 9a2 2 0 110-4 2 2 0 010 4z"/></svg>
+        </div>
+        <span class="footer-logo-text">Helios Dental</span>
+      </a>
+      <p class="footer-desc">Precision dental care in the heart of Mitte, Berlin. We believe every patient deserves both expertise and empathy.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Navigation</div>
+      <ul class="footer-links">
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Meet the Team</a></li>
+        <li><a href="#">Patient Reviews</a></li>
+        <li><a href="#">Insurance & Fees</a></li>
+        <li><a href="#">Book Appointment</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <div class="footer-contact-line">
+        <span class="footer-contact-icon">📍</span>
+        <span>Rosenthaler Str. 40, 10178 Berlin-Mitte</span>
+      </div>
+      <div class="footer-contact-line">
+        <span class="footer-contact-icon">📞</span>
+        <span>+49 30 987 654</span>
+      </div>
+      <div class="footer-contact-line">
+        <span class="footer-contact-icon">✉</span>
+        <span>hallo@helios-dental.de</span>
+      </div>
+      <div class="footer-contact-line">
+        <span class="footer-contact-icon">🕐</span>
+        <span>Mon–Fri 8:00–19:00<br/>Sat 9:00–14:00</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Helios Dental GmbH. All rights reserved.</span>
+    <div class="footer-accreditations">
+      <span class="footer-badge">KZBV Member</span>
+      <span class="footer-badge">DGZ Certified</span>
+      <span class="footer-badge">DGZMK</span>
+    </div>
+  </div>
 </footer>
 
+<script>
+  // ─── Animate stat bars on load
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelectorAll('.stat-bar-fill').forEach((bar) => {
+        const target = bar.dataset.width;
+        bar.style.width = target + '%';
+      });
+    }, 700);
+  });
+
+  // ─── IntersectionObserver: services
+  const servicesObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const featured = document.querySelector('.service-featured');
+        const cards = document.querySelectorAll('.service-card');
+
+        if (featured) featured.classList.add('visible');
+
+        cards.forEach((card, i) => {
+          setTimeout(() => card.classList.add('visible'), 120 + i * 100);
+        });
+
+        servicesObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.12 });
+
+  const servicesSection = document.querySelector('.services');
+  if (servicesSection) servicesObserver.observe(servicesSection);
+
+  // ─── IntersectionObserver: team cards stagger
+  const teamObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const cards = document.querySelectorAll('.team-card');
+        cards.forEach((card, i) => {
+          setTimeout(() => card.classList.add('visible'), i * 110);
+        });
+        teamObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.15 });
+
+  const teamSection = document.querySelector('.team');
+  if (teamSection) teamObserver.observe(teamSection);
+
+  // ─── IntersectionObserver: testimonial
+  const testimonialObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const mark = document.querySelector('.testimonial-quote-mark');
+        const text = document.querySelector('.testimonial-text');
+        const attr = document.querySelector('.testimonial-attribution');
+        if (mark) mark.classList.add('visible');
+        setTimeout(() => { if (text) text.classList.add('visible'); }, 100);
+        setTimeout(() => { if (attr) attr.classList.add('visible'); }, 200);
+        testimonialObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+
+  const testimonialSection = document.querySelector('.testimonial');
+  if (testimonialSection) testimonialObserver.observe(testimonialSection);
+
+  // ─── Team card: ensure hover works after animation
+  document.querySelectorAll('.team-card').forEach((card) => {
+    card.addEventListener('mouseenter', () => {
+      if (card.classList.contains('visible')) {
+        card.style.transform = 'translateY(-4px)';
+      }
+    });
+    card.addEventListener('mouseleave', () => {
+      if (card.classList.contains('visible')) {
+        card.style.transform = 'translateY(0)';
+      }
+    });
+  });
+</script>
 </body>
 </html>

@@ -3,293 +3,386 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Stille Praxis — Psychotherapie Leipzig</title>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<title>Stille Praxis — Psychotherapie München</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
-  --linen:#F7F3EE;
-  --earth:#2C2016;
-  --terra:#C4633A;
-  --sage:#7A9B7C;
-  --blush:#EDD4C8;
-  --muted:#8A7B72;
+  --stone:#F2EFE9;
+  --deep:#1C1B1A;
+  --sage:#7A8C78;
+  --warm:#B5A08A;
+  --pale:#E8E3DA;
+  --ink:#2C2B29;
 }
-body{font-family:'Nunito',sans-serif;background:var(--linen);color:var(--earth);overflow-x:hidden;}
-img{display:block;}
+html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--stone);color:var(--ink);overflow-x:hidden;}
 
 /* NAV */
-nav{background:var(--linen);padding:1.2rem 3rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(44,32,22,0.08);position:sticky;top:0;z-index:100;}
-.nav-logo{font-family:'Lora',serif;font-style:italic;font-size:1.3rem;color:var(--earth);}
-.nav-links{display:flex;gap:2.5rem;list-style:none;align-items:center;}
-.nav-links a{text-decoration:none;font-size:0.82rem;color:var(--muted);font-weight:400;transition:color 0.2s;}
-.nav-links a:hover{color:var(--earth);}
-.nav-cta{color:var(--terra) !important;font-weight:500 !important;}
-.nav-cta:hover{color:var(--earth) !important;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 3rem;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-family:'EB Garamond',serif;font-size:1.05rem;letter-spacing:.04em;color:var(--deep);text-decoration:none;}
+.nav-logo em{font-style:italic;color:var(--sage);}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(44,43,41,.45);text-decoration:none;transition:color .3s;}
+.nav-links a:hover{color:var(--deep);}
+.nav-cta{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:.5rem 1.25rem;background:var(--sage);color:#fff;text-decoration:none;transition:background .3s;}
+.nav-cta:hover{background:var(--deep);}
 
 /* HERO */
-.hero{display:grid;grid-template-columns:1fr 1fr;min-height:92vh;}
-.hero-left{background:var(--linen);padding:5rem 4rem 5rem 5rem;display:flex;flex-direction:column;justify-content:center;}
-.hero-eyebrow{font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--terra);font-weight:500;margin-bottom:2rem;}
-.hero h1{font-family:'Lora',serif;font-size:clamp(2.2rem,3.2vw,3.4rem);line-height:1.25;color:var(--earth);font-weight:400;margin-bottom:1.8rem;}
-.hero-intro{font-size:0.92rem;color:var(--muted);line-height:1.8;font-weight:300;max-width:42ch;margin-bottom:2.5rem;}
-.hero-ctas{display:flex;gap:1.2rem;flex-wrap:wrap;}
-.btn-terra{display:inline-block;background:var(--terra);color:#fff;padding:0.8rem 1.8rem;text-decoration:none;font-size:0.85rem;font-weight:500;border-radius:4px;transition:background 0.2s;}
-.btn-terra:hover{background:#a84e2a;}
-.btn-outline{display:inline-block;border:1.5px solid rgba(44,32,22,0.25);color:var(--earth);padding:0.8rem 1.8rem;text-decoration:none;font-size:0.85rem;font-weight:400;border-radius:4px;transition:all 0.2s;}
-.btn-outline:hover{border-color:var(--earth);}
-.hero-right{overflow:hidden;position:relative;}
-.hero-right img{width:100%;height:100%;object-fit:cover;object-position:center;}
-
-/* QUOTE SECTION */
-.quote-section{background:var(--blush);padding:5rem 3rem;text-align:center;}
-.quote-text{font-family:'Lora',serif;font-style:italic;font-size:clamp(1.2rem,2vw,1.7rem);color:var(--earth);line-height:1.5;max-width:72ch;margin:0 auto 1.5rem;}
-.quote-attr{font-size:0.78rem;color:var(--muted);letter-spacing:0.08em;}
+.hero{min-height:100dvh;display:grid;grid-template-columns:1fr 1fr;position:relative;}
+.hero-left{background:var(--stone);display:flex;flex-direction:column;justify-content:flex-end;padding:10rem 4rem 6rem 3rem;position:relative;}
+.hero-left::after{content:'';position:absolute;right:0;top:10%;bottom:10%;width:1px;background:var(--pale);}
+.hero-eyebrow{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);margin-bottom:2.5rem;opacity:0;transform:translateY(20px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.hero-eyebrow.vis{opacity:1;transform:translateY(0);}
+.hero-title{font-family:'EB Garamond',serif;font-size:clamp(3rem,6vw,6rem);line-height:.95;letter-spacing:-.01em;margin-bottom:3rem;}
+.hero-title .line{display:block;overflow:hidden;}
+.hero-title .word{display:inline-block;opacity:0;transform:translateY(100%);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.hero-title .word.vis{opacity:1;transform:translateY(0);}
+.hero-title em{font-style:italic;color:var(--sage);}
+.hero-ctas{display:flex;align-items:center;gap:2rem;opacity:0;transform:translateY(20px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .5s,transform .9s cubic-bezier(.16,1,.3,1) .5s;}
+.hero-ctas.vis{opacity:1;transform:translateY(0);}
+.btn-book{display:inline-block;padding:.8rem 2.2rem;background:var(--sage);color:#fff;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;font-weight:400;transition:background .3s;}
+.btn-book:hover{background:var(--deep);}
+.btn-learn{font-size:.72rem;letter-spacing:.08em;color:rgba(44,43,41,.45);text-decoration:none;border-bottom:1px solid var(--pale);padding-bottom:.1rem;transition:color .3s,border-color .3s;}
+.btn-learn:hover{color:var(--deep);border-color:var(--warm);}
+.hero-right{background:var(--pale);display:flex;flex-direction:column;justify-content:center;padding:10rem 3rem 6rem 4rem;position:relative;overflow:hidden;}
+.hero-right::before{content:'Stille';font-family:'EB Garamond',serif;position:absolute;bottom:-2rem;right:-3rem;font-size:14rem;color:rgba(44,43,41,.03);line-height:1;pointer-events:none;}
+.hero-quote{font-family:'EB Garamond',serif;font-size:1.65rem;font-style:italic;line-height:1.5;color:var(--deep);max-width:340px;margin-bottom:2.5rem;opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .3s,transform .9s cubic-bezier(.16,1,.3,1) .3s;}
+.hero-quote.vis{opacity:1;transform:translateY(0);}
+.hero-quote cite{display:block;font-family:'Jost',sans-serif;font-style:normal;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);margin-top:1rem;}
+.hero-desc{font-size:.9rem;line-height:1.85;color:rgba(44,43,41,.6);max-width:340px;opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .45s,transform .9s cubic-bezier(.16,1,.3,1) .45s;}
+.hero-desc.vis{opacity:1;transform:translateY(0);}
+.hero-number{position:absolute;bottom:6rem;left:3rem;font-size:.65rem;letter-spacing:.16em;color:rgba(44,43,41,.25);}
 
 /* APPROACH */
-.approach{background:var(--linen);padding:5rem 5rem;}
-.section-label{font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--terra);font-weight:500;margin-bottom:0.8rem;}
-.section-header h2{font-family:'Lora',serif;font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:400;color:var(--earth);margin-bottom:2.5rem;}
-.approach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
-.approach-card{background:var(--linen);border:1px solid rgba(44,32,22,0.1);border-left:3px solid var(--sage);border-radius:6px;padding:2rem 1.8rem;}
-.approach-card h3{font-family:'Lora',serif;font-style:italic;font-size:1.05rem;color:var(--earth);margin-bottom:0.8rem;font-weight:400;}
-.approach-card p{font-size:0.85rem;color:var(--muted);line-height:1.75;font-weight:300;}
+.approach{padding:8rem 3rem;max-width:1400px;margin:0 auto;}
+.approach-header{display:grid;grid-template-columns:1fr 2fr;gap:4rem;align-items:start;margin-bottom:5rem;}
+.section-label{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sage);padding-top:.35rem;}
+.approach-intro h2{font-family:'EB Garamond',serif;font-size:clamp(2rem,3.5vw,3rem);line-height:1.15;margin-bottom:1.5rem;}
+.approach-intro h2 em{font-style:italic;color:var(--warm);}
+.approach-intro p{font-size:.9rem;line-height:1.85;color:rgba(44,43,41,.6);}
+.approach-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--pale);}
+.method-item{background:var(--stone);padding:2.5rem 2rem;transition:background .4s cubic-bezier(.4,0,.2,1);}
+.method-item:hover{background:var(--pale);}
+.method-number{font-size:3rem;font-family:'EB Garamond',serif;color:var(--pale);line-height:1;margin-bottom:1.5rem;transition:color .4s;}
+.method-item:hover .method-number{color:var(--warm);}
+.method-title{font-family:'EB Garamond',serif;font-size:1.25rem;margin-bottom:.75rem;color:var(--deep);}
+.method-desc{font-size:.8rem;line-height:1.8;color:rgba(44,43,41,.55);}
 
-/* AREAS */
-.areas{background:var(--blush);padding:5rem;}
-.areas-header{margin-bottom:2.5rem;}
-.areas-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
-.area-item{display:flex;gap:1rem;align-items:flex-start;}
-.area-dot{width:8px;height:8px;background:var(--terra);border-radius:50%;flex-shrink:0;margin-top:0.45rem;}
-.area-content h4{font-family:'Lora',serif;font-size:0.98rem;color:var(--earth);margin-bottom:0.3rem;font-weight:500;}
-.area-content p{font-size:0.82rem;color:var(--muted);line-height:1.65;font-weight:300;}
+/* ABOUT */
+.about{background:var(--deep);color:var(--stone);padding:8rem 3rem;}
+.about-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr;gap:8rem;align-items:start;}
+.about-label{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sage);margin-bottom:2rem;display:block;}
+.about-name{font-family:'EB Garamond',serif;font-size:clamp(2.5rem,5vw,4.5rem);line-height:.95;margin-bottom:.5rem;}
+.about-name em{font-style:italic;color:var(--warm);}
+.about-title{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(242,239,233,.3);margin-bottom:3rem;}
+.about-bio{font-size:.95rem;line-height:1.9;color:rgba(242,239,233,.65);margin-bottom:1.5rem;}
+.about-credentials{margin-top:3rem;display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+.credential{border-top:1px solid rgba(242,239,233,.08);padding-top:1.25rem;}
+.cred-label{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,239,233,.3);margin-bottom:.5rem;}
+.cred-value{font-size:.85rem;color:rgba(242,239,233,.7);line-height:1.5;}
+.about-portrait{}
+.portrait-frame{aspect-ratio:3/4;background:linear-gradient(145deg,rgba(122,140,120,.2) 0%,rgba(28,27,26,.6) 100%);border:1px solid rgba(242,239,233,.06);display:flex;align-items:flex-end;padding:2rem;overflow:hidden;position:relative;}
+.portrait-frame::before{content:'Dr.\AK. Berger';white-space:pre;font-family:'EB Garamond',serif;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:1.2rem;color:rgba(242,239,233,.15);text-align:center;line-height:1.8;}
+.portrait-quote{font-family:'EB Garamond',serif;font-style:italic;font-size:1.1rem;color:rgba(242,239,233,.5);line-height:1.5;}
 
-/* CONTACT / FORM */
-.contact{background:var(--linen);padding:5rem;}
-.contact-inner{display:grid;grid-template-columns:1fr 1.2fr;gap:5rem;align-items:start;}
-.contact-left h2{font-family:'Lora',serif;font-size:clamp(1.6rem,2.5vw,2rem);font-weight:400;color:var(--earth);margin-bottom:1rem;}
-.contact-left p{font-size:0.88rem;color:var(--muted);line-height:1.8;font-weight:300;margin-bottom:2rem;}
-.contact-details{display:flex;flex-direction:column;gap:1rem;}
-.contact-item{display:flex;gap:0.8rem;align-items:flex-start;font-size:0.85rem;}
-.contact-icon{color:var(--sage);width:18px;flex-shrink:0;margin-top:0.1em;font-size:0.9rem;}
-.contact-text{color:var(--earth);line-height:1.6;}
-.contact-text span{color:var(--muted);font-weight:300;display:block;font-size:0.78rem;}
-.contact-form{background:var(--blush);padding:2.5rem;border-radius:8px;}
-.contact-form h3{font-family:'Lora',serif;font-style:italic;font-size:1.1rem;color:var(--earth);margin-bottom:1.5rem;font-weight:400;}
-.form-group{margin-bottom:1rem;}
-.form-group label{display:block;font-size:0.75rem;color:var(--muted);letter-spacing:0.06em;margin-bottom:0.4rem;font-weight:500;}
-.form-group input,.form-group select,.form-group textarea{width:100%;background:#fff;border:1px solid rgba(44,32,22,0.15);color:var(--earth);padding:0.85rem 1rem;font-family:'Nunito',sans-serif;font-size:0.85rem;font-weight:400;border-radius:8px;outline:none;transition:border-color 0.2s;}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--terra);}
-.form-group textarea{height:100px;resize:none;}
-.form-group select option{background:#fff;}
-.btn-form{background:var(--terra);color:#fff;border:none;width:100%;padding:0.9rem;font-family:'Nunito',sans-serif;font-size:0.88rem;font-weight:600;border-radius:8px;cursor:pointer;margin-top:0.5rem;transition:background 0.2s;}
-.btn-form:hover{background:#a84e2a;}
-.form-note{font-size:0.72rem;color:var(--muted);text-align:center;margin-top:0.8rem;line-height:1.6;font-weight:300;}
+/* THERAPY AREAS */
+.areas{padding:8rem 3rem;}
+.areas-inner{max-width:1400px;margin:0 auto;}
+.areas-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:4rem;}
+.areas-heading{font-family:'EB Garamond',serif;font-size:clamp(2rem,3.5vw,3rem);line-height:1;}
+.areas-heading em{font-style:italic;color:var(--sage);}
+.area-row{display:flex;align-items:center;justify-content:space-between;padding:1.75rem 0;border-bottom:1px solid var(--pale);cursor:default;transition:padding .4s cubic-bezier(.4,0,.2,1);}
+.area-row:hover{padding:1.75rem 1.5rem;}
+.area-left{display:flex;align-items:center;gap:2rem;}
+.area-num{font-size:.65rem;letter-spacing:.14em;color:var(--warm);width:2rem;}
+.area-name{font-family:'EB Garamond',serif;font-size:1.35rem;color:var(--deep);}
+.area-sub{font-size:.75rem;color:rgba(44,43,41,.4);margin-left:auto;margin-right:2rem;max-width:320px;line-height:1.5;}
+.area-arrow{font-size:1.2rem;color:var(--pale);transition:color .3s,transform .3s;}
+.area-row:hover .area-arrow{color:var(--sage);transform:translateX(4px);}
+
+/* CONTACT */
+.contact{background:var(--pale);padding:8rem 3rem;}
+.contact-inner{max-width:900px;margin:0 auto;text-align:center;}
+.contact-eyebrow{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);margin-bottom:1.5rem;display:block;}
+.contact-heading{font-family:'EB Garamond',serif;font-size:clamp(2.5rem,5vw,4.5rem);line-height:1;margin-bottom:2rem;}
+.contact-heading em{font-style:italic;}
+.contact-text{font-size:.9rem;line-height:1.85;color:rgba(44,43,41,.6);margin-bottom:3.5rem;max-width:500px;margin-left:auto;margin-right:auto;}
+.contact-form{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--stone);text-align:left;}
+.form-group{background:var(--pale);padding:2rem 1.75rem;display:flex;flex-direction:column;}
+.form-group.full{grid-column:1/-1;}
+.form-label{font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(44,43,41,.4);margin-bottom:.75rem;}
+.form-input,.form-textarea{background:transparent;border:none;border-bottom:1px solid rgba(44,43,41,.15);font-family:'Jost',sans-serif;font-size:.9rem;color:var(--deep);padding:.5rem 0;outline:none;width:100%;transition:border-color .3s;}
+.form-input:focus,.form-textarea:focus{border-color:var(--sage);}
+.form-textarea{resize:none;height:100px;}
+.contact-submit{background:var(--stone);padding:2rem;text-align:center;grid-column:1/-1;}
+.btn-submit{padding:.9rem 3rem;background:var(--sage);color:#fff;border:none;font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:background .3s;}
+.btn-submit:hover{background:var(--deep);}
+.contact-note{font-size:.72rem;color:rgba(44,43,41,.4);margin-top:1.5rem;line-height:1.6;}
 
 /* FOOTER */
-footer{background:var(--earth);padding:2rem 5rem;display:flex;align-items:center;justify-content:space-between;}
-.footer-logo{font-family:'Lora',serif;font-style:italic;font-size:1.2rem;color:var(--blush);opacity:0.7;}
-.footer-copy{font-size:0.72rem;color:rgba(237,212,200,0.35);}
-.footer-novu{font-size:0.72rem;color:rgba(237,212,200,0.35);}
-.footer-novu a{color:var(--terra);text-decoration:none;}
+footer{padding:3rem;border-top:1px solid var(--pale);display:flex;justify-content:space-between;align-items:center;}
+.footer-logo{font-family:'EB Garamond',serif;font-size:1rem;color:rgba(44,43,41,.5);}
+.footer-logo em{font-style:italic;color:var(--sage);}
+.footer-info{font-size:.7rem;color:rgba(44,43,41,.3);letter-spacing:.04em;text-align:right;line-height:1.8;}
 
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.reveal.d1{transition-delay:.1s;}
+.reveal.d2{transition-delay:.2s;}
+.reveal.d3{transition-delay:.3s;}
+.reveal.vis{opacity:1;transform:translateY(0);}
+
+/* MOBILE */
 @media(max-width:768px){
-  nav{padding:1rem 1.5rem;}
-  .nav-links li:not(:last-child){display:none;}
-  .hero{grid-template-columns:1fr;min-height:auto;}
-  .hero-left{padding:3.5rem 1.5rem;}
-  .hero-right{height:380px;}
-  .hero-right img{width:100%;height:100%;}
-  .quote-section,.approach,.areas,.contact{padding:3.5rem 1.5rem;}
-  .approach-grid{grid-template-columns:1fr;}
-  .areas-grid{grid-template-columns:1fr;}
-  .contact-inner{grid-template-columns:1fr;gap:2.5rem;}
-  footer{flex-direction:column;gap:0.8rem;text-align:center;padding:1.5rem;}
+  nav{padding:1.25rem 1.5rem;}
+  .nav-links{display:none;}
+  .hero{grid-template-columns:1fr;}
+  .hero-left{padding:8rem 1.5rem 4rem;}
+  .hero-left::after{display:none;}
+  .hero-right{padding:4rem 1.5rem;}
+  .hero-right::before{display:none;}
+  .approach{padding:5rem 1.5rem;}
+  .approach-header{grid-template-columns:1fr;}
+  .approach-methods{grid-template-columns:1fr;}
+  .about{padding:5rem 1.5rem;}
+  .about-inner{grid-template-columns:1fr;gap:3rem;}
+  .areas{padding:5rem 1.5rem;}
+  .areas-header{flex-direction:column;align-items:flex-start;gap:1rem;}
+  .area-sub{display:none;}
+  .contact{padding:5rem 1.5rem;}
+  .contact-form{grid-template-columns:1fr;}
+  footer{flex-direction:column;gap:1rem;text-align:center;padding:2rem 1.5rem;}
+  .footer-info{text-align:center;}
 }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-logo">Stille Praxis</div>
+  <a href="#" class="nav-logo">Stille <em>Praxis</em></a>
   <ul class="nav-links">
-    <li><a href="#">Angebot</a></li>
-    <li><a href="#">Über mich</a></li>
-    <li><a href="#">FAQ</a></li>
-    <li><a href="#contact" class="nav-cta">Erstes Gespräch →</a></li>
+    <li><a href="#approach">Ansatz</a></li>
+    <li><a href="#about">Dr. Berger</a></li>
+    <li><a href="#areas">Themen</a></li>
+    <li><a href="#contact">Kontakt</a></li>
   </ul>
+  <a href="#contact" class="nav-cta">Erstgespräch</a>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
+<section class="hero" id="top">
   <div class="hero-left">
-    <p class="hero-eyebrow">Psychotherapie · Leipzig</p>
-    <h1>Raum für das,<br/>was zählt.</h1>
-    <p class="hero-intro">Ich begleite Sie durch schwierige Lebensphasen — achtsam, vertraulich und auf Augenhöhe. In meiner Praxis darf alles sein, was ist.</p>
-    <div class="hero-ctas">
-      <a href="#contact" class="btn-terra">Erstes Gespräch anfragen</a>
-      <a href="#angebot" class="btn-outline">Mehr erfahren</a>
+    <p class="hero-eyebrow" id="ey">Psychotherapeutische Praxis · München-Schwabing</p>
+    <h1 class="hero-title">
+      <span class="line"><span class="word" id="w1" style="transition-delay:.08s">Ein Raum</span></span>
+      <span class="line"><span class="word" id="w2" style="transition-delay:.18s">für <em>Stille</em></span></span>
+      <span class="line"><span class="word" id="w3" style="transition-delay:.28s">und Klarheit</span></span>
+    </h1>
+    <div class="hero-ctas" id="hc">
+      <a href="#contact" class="btn-book">Erstgespräch anfragen</a>
+      <a href="#approach" class="btn-learn">Mein Ansatz</a>
     </div>
+    <div class="hero-number">48°08′N 11°34′E</div>
   </div>
   <div class="hero-right">
-    <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=1200&q=85&auto=format&fit=crop" alt="Stille Praxis Leipzig"/>
+    <blockquote class="hero-quote" id="hq">
+      „Die Stille ist kein Fehlen von Lärm — sie ist der Boden, aus dem Erkenntnis wächst."
+      <cite>— Dr. Katharina Berger</cite>
+    </blockquote>
+    <p class="hero-desc" id="hd">
+      Tiefenpsychologisch fundierte Psychotherapie für Erwachsene. Ich begleite Sie durch Lebenskrisen, Burnout, Angststörungen und Beziehungsthemen — mit Geduld, Fachwissen und echter Präsenz.
+    </p>
   </div>
 </section>
 
-<!-- QUOTE -->
-<section class="quote-section">
-  <p class="quote-text">„Manchmal ist Hilfe holen das Tapferste, was man tun kann."</p>
-  <p class="quote-attr">— Brené Brown</p>
+<section class="approach" id="approach">
+  <div class="approach-header">
+    <span class="section-label reveal">Mein Ansatz</span>
+    <div class="approach-intro">
+      <h2 class="reveal d1">Therapie, die <em>wirklich</em><br>versteht</h2>
+      <p class="reveal d2">Keine Floskeln, keine vorgestanzten Lösungen. Ich arbeite tiefenpsychologisch und integrativ — das bedeutet: Ihr Leben, Ihre Geschichte, Ihre Sprache.</p>
+    </div>
+  </div>
+  <div class="approach-methods">
+    <div class="method-item reveal">
+      <div class="method-number">01</div>
+      <div class="method-title">Tiefenpsychologie</div>
+      <div class="method-desc">Unbewusste Muster sichtbar machen. Was uns antreibt, ängstigt oder blockiert — oft hat es Wurzeln, die wir noch nicht kennen.</div>
+    </div>
+    <div class="method-item reveal d1">
+      <div class="method-number">02</div>
+      <div class="method-title">Kognitive Verhaltenstherapie</div>
+      <div class="method-desc">Gedanken, die uns feststecken. Verhaltensweisen, die uns schaden. Wir arbeiten gemeinsam an konkreten Veränderungen im Alltag.</div>
+    </div>
+    <div class="method-item reveal d2">
+      <div class="method-number">03</div>
+      <div class="method-title">Körperorientierung</div>
+      <div class="method-desc">Der Körper vergisst nicht. Über Körperwahrnehmung und Atemarbeit erreichen wir Ebenen, die Worte allein oft nicht berühren.</div>
+    </div>
+  </div>
 </section>
 
-<!-- APPROACH -->
-<section class="approach" id="angebot">
-  <div class="section-label">Mein Ansatz</div>
-  <div class="section-header">
-    <h2>Wie ich arbeite</h2>
-  </div>
-  <div class="approach-grid">
-    <div class="approach-card">
-      <h3>Tiefenpsychologisch fundiert</h3>
-      <p>Ich arbeite auf der Grundlage tiefenpsychologisch fundierter Psychotherapie (TP) — eine Methode, die unbewusste Muster behutsam ans Licht bringt und nachhaltig verändert.</p>
-    </div>
-    <div class="approach-card">
-      <h3>Achtsam &amp; körperorientiert</h3>
-      <p>Gedanken und Körper stehen in ständigem Dialog. Ich integriere achtsamkeitsbasierte Elemente, um diesen Dialog bewusst zu machen und zu nutzen.</p>
-    </div>
-    <div class="approach-card">
-      <h3>Offen &amp; ohne Urteil</h3>
-      <p>Kein Thema ist zu groß, zu klein oder zu merkwürdig. In unserem Gespräch gilt: Ihre Erfahrung ist real. Ich bin da, um zuzuhören — nicht zu werten.</p>
-    </div>
-  </div>
-</section>
-
-<!-- AREAS -->
-<section class="areas">
-  <div class="areas-header">
-    <p class="section-label">Schwerpunkte</p>
-    <h2 style="font-family:'Lora',serif;font-weight:400;font-size:clamp(1.6rem,2.5vw,2.2rem);color:var(--earth);">Womit ich Sie unterstützen kann</h2>
-  </div>
-  <div class="areas-grid">
-    <div class="area-item">
-      <div class="area-dot"></div>
-      <div class="area-content">
-        <h4>Depressionen &amp; Erschöpfung</h4>
-        <p>Schwere innere Leere, anhaltende Traurigkeit, Burnout — gemeinsam finden wir einen Weg zurück zu sich selbst.</p>
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-text">
+      <span class="about-label reveal">Über mich</span>
+      <h2 class="about-name reveal d1">Dr. Katharina<br><em>Berger</em></h2>
+      <div class="about-title reveal d2">Psychologische Psychotherapeutin · Approbiert</div>
+      <p class="about-bio reveal d2">Ich habe Psychologie in München und Wien studiert und am Max-Planck-Institut für Psychiatrie promoviert. Seit über zwölf Jahren begleite ich Menschen durch Krisen, Wandel und das leise Suchen nach dem, was wirklich zählt.</p>
+      <p class="about-bio reveal d3">Meine Praxis ist ein Ort ohne Eile. Hier ist Raum für das, was nicht in Worte passt — für Tränen, für Schweigen, für den zögernden ersten Schritt.</p>
+      <div class="about-credentials reveal d3">
+        <div class="credential">
+          <div class="cred-label">Ausbildung</div>
+          <div class="cred-value">LMU München,<br>Universität Wien</div>
+        </div>
+        <div class="credential">
+          <div class="cred-label">Promotion</div>
+          <div class="cred-value">Max-Planck-Institut<br>für Psychiatrie</div>
+        </div>
+        <div class="credential">
+          <div class="cred-label">Kassenzulassung</div>
+          <div class="cred-value">GKV und PKV<br>zugelassen</div>
+        </div>
+        <div class="credential">
+          <div class="cred-label">Praxis seit</div>
+          <div class="cred-value">2012 · München-<br>Schwabing</div>
+        </div>
       </div>
     </div>
-    <div class="area-item">
-      <div class="area-dot"></div>
-      <div class="area-content">
-        <h4>Angststörungen</h4>
-        <p>Panikattacken, soziale Angst, Phobien und generalisierte Sorgen — ich helfe Ihnen, Angst zu verstehen und neu zu begegnen.</p>
-      </div>
-    </div>
-    <div class="area-item">
-      <div class="area-dot"></div>
-      <div class="area-content">
-        <h4>Trauma &amp; Belastung</h4>
-        <p>Vergangene Erlebnisse, die bis heute wirken. Traumafokussierte Arbeit in einem sicheren, geschützten Rahmen.</p>
-      </div>
-    </div>
-    <div class="area-item">
-      <div class="area-dot"></div>
-      <div class="area-content">
-        <h4>Beziehungen &amp; Grenzen</h4>
-        <p>Schwierigkeiten im Umgang mit anderen, Bindungsthemen oder das Gefühl, sich selbst zu verlieren — wir schauen gemeinsam hin.</p>
-      </div>
-    </div>
-    <div class="area-item">
-      <div class="area-dot"></div>
-      <div class="area-content">
-        <h4>Lebenskrisen &amp; Übergänge</h4>
-        <p>Trauer, Trennung, berufliche Umbrüche, Sinnfragen — in Zeiten des Wandels braucht es manchmal einen ruhigen Anker.</p>
-      </div>
-    </div>
-    <div class="area-item">
-      <div class="area-dot"></div>
-      <div class="area-content">
-        <h4>Selbstwert &amp; Identität</h4>
-        <p>Das Gefühl, nicht zu genügen, oder nicht zu wissen, wer man eigentlich ist. Ich begleite Sie auf dem Weg zu mehr Selbstmitgefühl.</p>
+    <div class="about-portrait reveal d2">
+      <div class="portrait-frame">
+        <p class="portrait-quote">„Jeder Mensch trägt in sich eine stille Weisheit."</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
+<section class="areas" id="areas">
+  <div class="areas-inner">
+    <div class="areas-header">
+      <h2 class="areas-heading reveal">Womit ich<br><em>begleite</em></h2>
+    </div>
+    <div class="areas-list">
+      <div class="area-row reveal">
+        <div class="area-left">
+          <span class="area-num">01</span>
+          <span class="area-name">Burnout &amp; Erschöpfung</span>
+        </div>
+        <span class="area-sub">Wenn der Tank leer ist und Regeneration allein nicht reicht.</span>
+        <span class="area-arrow">→</span>
+      </div>
+      <div class="area-row reveal d1">
+        <div class="area-left">
+          <span class="area-num">02</span>
+          <span class="area-name">Angststörungen</span>
+        </div>
+        <span class="area-sub">Panikattacken, soziale Angst, generalisierte Angst — verstehen statt bekämpfen.</span>
+        <span class="area-arrow">→</span>
+      </div>
+      <div class="area-row reveal d2">
+        <div class="area-left">
+          <span class="area-num">03</span>
+          <span class="area-name">Depression &amp; Leere</span>
+        </div>
+        <span class="area-sub">Langsam wieder zu sich finden. Ohne Druck, ohne falsche Fröhlichkeit.</span>
+        <span class="area-arrow">→</span>
+      </div>
+      <div class="area-row reveal">
+        <div class="area-left">
+          <span class="area-num">04</span>
+          <span class="area-name">Beziehungen &amp; Bindung</span>
+        </div>
+        <span class="area-sub">Wiederholende Muster, Trennungsschmerz, Einsamkeit in Beziehungen.</span>
+        <span class="area-arrow">→</span>
+      </div>
+      <div class="area-row reveal d1">
+        <div class="area-left">
+          <span class="area-num">05</span>
+          <span class="area-name">Lebenskrisen &amp; Übergänge</span>
+        </div>
+        <span class="area-sub">Trauer, Verlust, Neuorientierung — wenn das Leben eine neue Richtung verlangt.</span>
+        <span class="area-arrow">→</span>
+      </div>
+      <div class="area-row reveal d2">
+        <div class="area-left">
+          <span class="area-num">06</span>
+          <span class="area-name">Selbstwert &amp; Identität</span>
+        </div>
+        <span class="area-sub">Wer bin ich, wenn ich aufhöre, zu funktionieren? Innere Stärke aufbauen.</span>
+        <span class="area-arrow">→</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="contact" id="contact">
   <div class="contact-inner">
-    <div class="contact-left">
-      <h2>Nehmen Sie<br/>Kontakt auf.</h2>
-      <p>Sie müssen nicht sicher sein, ob Therapie das Richtige für Sie ist. Ein erstes, unverbindliches Kennenlerngespräch (20 Minuten, kostenlos) genügt, um gemeinsam herauszufinden, ob wir gut zusammenpassen.</p>
-      <div class="contact-details">
-        <div class="contact-item">
-          <span class="contact-icon">📍</span>
-          <div class="contact-text">
-            Funkenburgstraße 18, 04105 Leipzig
-            <span>Nahe Waldplatz · Tram 4 &amp; 7</span>
-          </div>
-        </div>
-        <div class="contact-item">
-          <span class="contact-icon">📞</span>
-          <div class="contact-text">
-            +49 341 5568 2930
-            <span>Mo, Mi, Fr: 9–13 Uhr erreichbar</span>
-          </div>
-        </div>
-        <div class="contact-item">
-          <span class="contact-icon">✉️</span>
-          <div class="contact-text">
-            kontakt@stille-praxis.de
-            <span>Antwort innerhalb von 48 Stunden</span>
-          </div>
-        </div>
-        <div class="contact-item">
-          <span class="contact-icon">🕐</span>
-          <div class="contact-text">
-            Termine: Mo–Fr nach Vereinbarung
-            <span>Auch Abendtermine möglich</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="contact-form">
-      <h3>Erste Nachricht schreiben</h3>
+    <span class="contact-eyebrow reveal">Erstgespräch</span>
+    <h2 class="contact-heading reveal d1">Der erste<br><em>Schritt</em></h2>
+    <p class="contact-text reveal d2">Das Erstgespräch dauert 50 Minuten und ist für Sie kostenlos. Schreiben Sie mir, und ich melde mich innerhalb von zwei Werktagen.</p>
+    <form class="contact-form reveal d2" onsubmit="handleSubmit(event)">
       <div class="form-group">
-        <label>Ihr Name</label>
-        <input type="text" placeholder="Vorname und Nachname"/>
+        <label class="form-label">Vorname &amp; Nachname</label>
+        <input type="text" class="form-input" name="name" required placeholder="Maria Müller"/>
       </div>
       <div class="form-group">
-        <label>E-Mail oder Telefon</label>
-        <input type="text" placeholder="Wie darf ich Sie erreichen?"/>
+        <label class="form-label">E-Mail-Adresse</label>
+        <input type="email" class="form-input" name="email" required placeholder="hallo@example.de"/>
       </div>
-      <div class="form-group">
-        <label>Worum geht es?</label>
-        <select>
-          <option value="" disabled selected>Bitte wählen</option>
-          <option>Erstgespräch (kostenlos, 20 Min.)</option>
-          <option>Informationen zur Therapie</option>
-          <option>Kassenplatz-Anfrage</option>
-          <option>Privatpatient</option>
-          <option>Sonstiges</option>
-        </select>
+      <div class="form-group full">
+        <label class="form-label">Womit kann ich Ihnen helfen?</label>
+        <textarea class="form-textarea" name="message" required placeholder="Erzählen Sie mir gerne kurz, was Sie beschäftigt..."></textarea>
       </div>
-      <div class="form-group">
-        <label>Ihre Nachricht (optional)</label>
-        <textarea placeholder="Was bewegt Sie gerade? Sie müssen nichts erklären — aber wenn Sie möchten..."></textarea>
+      <div class="contact-submit">
+        <button type="submit" class="btn-submit" id="submitBtn">Nachricht senden</button>
+        <p class="contact-note">Alle Angaben werden vertraulich behandelt. Kein Newsletter, keine Weitergabe.</p>
       </div>
-      <button class="btn-form" type="button">Nachricht senden</button>
-      <p class="form-note">Ihre Nachricht wird vertraulich behandelt. Es besteht keine Verpflichtung zur Fortsetzung.</p>
-    </div>
+    </form>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Stille Praxis</div>
-  <div class="footer-copy">© 2026 Stille Praxis · Dipl.-Psych. Elena Bergmann · Funkenburgstraße 18, Leipzig</div>
-  <div class="footer-novu">Built by <a href="https://novudesign.de">Novu Design</a></div>
+  <div class="footer-logo">Stille <em>Praxis</em></div>
+  <div class="footer-info">
+    Leopoldstr. 142 · 80804 München<br>
+    kontakt@stille-praxis.de · 089 4123 8891<br>
+    © 2025 Dr. Katharina Berger
+  </div>
 </footer>
 
+<script>
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('ey').classList.add('vis');
+    ['w1','w2','w3'].forEach((id,i) => {
+      setTimeout(() => document.getElementById(id).classList.add('vis'), i*140);
+    });
+    setTimeout(() => document.getElementById('hc').classList.add('vis'), 500);
+    setTimeout(() => document.getElementById('hq').classList.add('vis'), 200);
+    setTimeout(() => document.getElementById('hd').classList.add('vis'), 380);
+  }, 80);
+});
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('vis');
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+async function handleSubmit(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  btn.textContent = 'Wird gesendet…';
+  btn.disabled = true;
+  await new Promise(r => setTimeout(r, 1200));
+  btn.textContent = 'Gesendet ✓';
+  btn.style.background = 'var(--deep)';
+}
+</script>
 </body>
 </html>

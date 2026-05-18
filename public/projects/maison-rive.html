@@ -1,332 +1,681 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Maison Rive — Fine Dining Leipzig</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet"/>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-:root{
-  --ivory:#F6F1E7;
-  --green:#1A3A2E;
-  --terra:#C45F3A;
-  --gold:#A87B4A;
-  --white:#FFFFFF;
-  --green-dark:#122B21;
-}
-body{font-family:'Source Sans 3',sans-serif;background:var(--ivory);color:var(--green);overflow-x:hidden;}
-img{display:block;width:100%;height:100%;object-fit:cover;}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maison Rive — Brasserie Parisienne</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* NAV */
-nav{background:var(--green);padding:0 3rem;display:flex;align-items:center;justify-content:space-between;height:70px;position:sticky;top:0;z-index:100;}
-.nav-left{display:flex;gap:2.5rem;list-style:none;}
-.nav-left a,.nav-right-links a{color:rgba(246,241,231,0.6);text-decoration:none;font-size:0.8rem;letter-spacing:0.06em;transition:color 0.2s;}
-.nav-left a:hover,.nav-right-links a:hover{color:var(--ivory);}
-.nav-logo{font-family:'Playfair Display',serif;font-style:italic;font-size:1.55rem;color:var(--ivory);letter-spacing:0.02em;white-space:nowrap;}
-.nav-right{display:flex;align-items:center;gap:2.5rem;}
-.nav-right-links{display:flex;gap:2.5rem;list-style:none;}
-.btn-reserver{border:1.5px solid var(--terra);color:var(--terra);padding:0.5rem 1.3rem;font-size:0.8rem;letter-spacing:0.06em;text-decoration:none;transition:all 0.2s;font-family:'Source Sans 3',sans-serif;}
-.btn-reserver:hover{background:var(--terra);color:var(--white);}
+    :root {
+      --burgundy: #3B0A14;
+      --parchment: #F4EDDF;
+      --gold: #B8960C;
+      --near-black: #1A0A06;
+      --border: #E8DDD0;
+      --warm-brown: #6B2D1A;
+    }
 
-/* HERO */
-.hero{display:grid;grid-template-columns:40% 60%;min-height:100vh;}
-.hero-text{background:var(--ivory);display:flex;flex-direction:column;justify-content:center;padding:5rem 4rem 5rem 5rem;}
-.hero-eyebrow{font-size:0.73rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--terra);margin-bottom:2rem;}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,3.5vw,3.8rem);line-height:1.15;color:var(--green);margin-bottom:2rem;font-weight:400;}
-.hero h1 em{font-style:italic;color:var(--terra);}
-.hero-hours{font-size:0.82rem;color:var(--gold);line-height:1.9;margin-bottom:2.5rem;font-weight:300;border-left:2px solid var(--gold);padding-left:1.2rem;}
-.btn-primary{display:inline-block;background:var(--terra);color:var(--white);padding:0.85rem 2.2rem;text-decoration:none;font-size:0.85rem;letter-spacing:0.1em;font-weight:600;text-transform:uppercase;transition:background 0.2s;}
-.btn-primary:hover{background:#a84e2d;}
-.hero-photo{position:relative;overflow:hidden;}
-.hero-photo img{width:100%;height:100%;object-position:center;}
+    html { scroll-behavior: smooth; }
 
-/* DIVIDER */
-.divider{display:flex;align-items:center;gap:1.5rem;padding:2.5rem 5rem;}
-.divider-line{flex:1;height:1px;background:var(--gold);opacity:0.4;}
-.divider-diamond{color:var(--terra);font-size:0.9rem;}
+    body {
+      background: var(--parchment);
+      color: var(--near-black);
+      font-family: 'Libre Baskerville', Georgia, serif;
+      overflow-x: hidden;
+    }
 
-/* MENU */
-.menu-section{background:var(--green);padding:5rem;}
-.menu-header{text-align:center;margin-bottom:3.5rem;}
-.menu-header h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,3vw,2.8rem);color:var(--ivory);font-weight:400;margin-bottom:0.5rem;}
-.menu-header p{color:rgba(246,241,231,0.5);font-size:0.82rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:300;}
-.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;max-width:1000px;margin:0 auto;}
-.menu-col h3{font-family:'Playfair Display',serif;font-style:italic;font-size:1.3rem;color:var(--terra);margin-bottom:1.5rem;padding-bottom:0.8rem;border-bottom:1px solid rgba(168,123,74,0.3);}
-.dish-card{padding:1.2rem 0;border-bottom:1px solid rgba(246,241,231,0.08);}
-.dish-card:last-child{border-bottom:none;}
-.dish-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.4rem;gap:1rem;}
-.dish-name{font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:var(--ivory);}
-.dish-price{color:var(--terra);font-weight:600;font-size:0.9rem;white-space:nowrap;}
-.dish-desc{font-size:0.8rem;color:rgba(246,241,231,0.45);line-height:1.65;font-weight:300;}
+    /* ---- HERO ---- */
+    .hero {
+      background: var(--parchment);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
 
-/* GALLERY */
-.gallery-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;background:var(--ivory);padding:3rem 5rem;}
-.gallery-item{height:340px;overflow:hidden;}
-.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.7s ease;}
-.gallery-item:hover img{transform:scale(1.05);}
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 30%, rgba(184,150,12,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
-/* STORY */
-.story{background:var(--ivory);padding:6rem 5rem;text-align:center;}
-.story-inner{max-width:65ch;margin:0 auto;}
-.story-label{font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--terra);margin-bottom:1.5rem;}
-.story h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,2.5vw,2.4rem);color:var(--green);margin-bottom:2rem;font-weight:400;}
-.story p{font-size:0.95rem;line-height:1.9;color:rgba(26,58,46,0.75);font-weight:300;}
-.story p::first-letter{font-family:'Playfair Display',serif;font-size:4.2rem;font-weight:700;color:var(--terra);float:left;line-height:0.76;margin-right:0.1em;margin-top:0.1em;}
-.story p + p{margin-top:1.2rem;}
-.story p + p::first-letter{font-size:1rem;float:none;margin:0;color:inherit;}
+    .hero-eyebrow {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.72rem;
+      font-variant: small-caps;
+      letter-spacing: 0.22em;
+      color: var(--warm-brown);
+      margin-bottom: 2.2rem;
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+    }
 
-/* RESERVATION */
-.reservation{background:var(--green);padding:5rem;}
-.res-inner{max-width:640px;margin:0 auto;text-align:center;}
-.res-label{font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(246,241,231,0.45);margin-bottom:1rem;}
-.reservation h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,2.5vw,2.4rem);color:var(--ivory);margin-bottom:0.8rem;font-weight:400;}
-.reservation p{color:rgba(246,241,231,0.5);font-size:0.85rem;margin-bottom:2.5rem;font-weight:300;line-height:1.7;}
-.res-form{display:flex;flex-direction:column;gap:1rem;}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-.res-form input,.res-form select,.res-form textarea{background:rgba(246,241,231,0.08);border:1px solid rgba(246,241,231,0.2);color:var(--ivory);padding:0.9rem 1.2rem;font-family:'Source Sans 3',sans-serif;font-size:0.85rem;font-weight:300;outline:none;width:100%;transition:border-color 0.2s;}
-.res-form input::placeholder,.res-form textarea::placeholder{color:rgba(246,241,231,0.3);}
-.res-form input:focus,.res-form select:focus,.res-form textarea:focus{border-color:var(--terra);}
-.res-form select option{background:var(--green-dark);color:var(--ivory);}
-.res-form textarea{height:90px;resize:none;}
-.btn-reserve{background:var(--terra);color:var(--white);border:none;padding:1rem 2.5rem;font-family:'Source Sans 3',sans-serif;font-size:0.88rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;width:100%;margin-top:0.5rem;transition:background 0.2s;}
-.btn-reserve:hover{background:#a84e2d;}
+    .hero-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(4rem, 12vw, 9.5rem);
+      font-weight: 900;
+      color: var(--burgundy);
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.2rem;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1) 0.15s, transform 0.9s cubic-bezier(0.16,1,0.3,1) 0.15s;
+    }
 
-/* FOOTER */
-footer{background:var(--green-dark);padding:1.8rem 5rem;display:flex;align-items:center;justify-content:space-between;}
-.footer-logo{font-family:'Playfair Display',serif;font-style:italic;color:rgba(246,241,231,0.6);font-size:1.1rem;}
-.footer-copy{font-size:0.72rem;color:rgba(246,241,231,0.3);}
-.footer-novu{font-size:0.72rem;color:rgba(246,241,231,0.3);}
-.footer-novu a{color:var(--terra);text-decoration:none;}
+    .hero-sub {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      margin-bottom: 2.4rem;
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s, transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s;
+    }
 
-@media(max-width:768px){
-  nav{padding:0 1.5rem;}
-  .nav-left,.nav-right-links{display:none;}
-  .hero{grid-template-columns:1fr;min-height:auto;}
-  .hero-text{padding:3.5rem 1.5rem;}
-  .hero-photo{height:380px;}
-  .divider{padding-left:1.5rem;padding-right:1.5rem;}
-  .menu-section,.gallery-grid,.story,.reservation{padding-left:1.5rem;padding-right:1.5rem;}
-  .menu-grid{grid-template-columns:1fr;}
-  .gallery-grid{grid-template-columns:1fr;gap:6px;padding-left:0;padding-right:0;}
-  .gallery-item{height:260px;}
-  .form-row{grid-template-columns:1fr;}
-  footer{flex-direction:column;gap:0.8rem;text-align:center;padding:1.5rem;}
-}
-</style>
+    .hero-rule {
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 2rem;
+      opacity: 0;
+      transform: scaleX(0);
+      transition: transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.42s, opacity 0.5s ease 0.42s;
+      transform-origin: center;
+    }
+
+    .hero-copy {
+      max-width: 520px;
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--warm-brown);
+      margin-bottom: 2.8rem;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.8s ease 0.55s, transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.55s;
+    }
+
+    .hero-cta-wrap {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.8s ease 0.7s, transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.7s;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.82rem;
+      font-variant: small-caps;
+      letter-spacing: 0.18em;
+      color: var(--parchment);
+      background: var(--burgundy);
+      border: 1px solid var(--gold);
+      padding: 1rem 2.8rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.3s cubic-bezier(0.4,0,0.2,1), color 0.3s cubic-bezier(0.4,0,0.2,1), transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .hero-cta:hover {
+      background: var(--gold);
+      color: var(--near-black);
+      transform: translateY(-2px);
+    }
+
+    .hero.visible .hero-eyebrow,
+    .hero.visible .hero-title,
+    .hero.visible .hero-sub,
+    .hero.visible .hero-copy,
+    .hero.visible .hero-cta-wrap {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero.visible .hero-rule {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+
+    /* ---- MENU SECTION ---- */
+    .menu-section {
+      background: var(--burgundy);
+      padding: 6rem 2rem;
+    }
+
+    .menu-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      color: var(--parchment);
+      margin-bottom: 3.5rem;
+      font-weight: 400;
+    }
+
+    .menu-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(184,150,12,0.3);
+      opacity: 0;
+      transform: translateX(44px);
+      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .menu-row:first-of-type { border-top: 1px solid rgba(184,150,12,0.3); }
+
+    .menu-row.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .menu-category {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      color: var(--parchment);
+      font-weight: 400;
+      flex: 1;
+    }
+
+    .menu-desc {
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+      font-size: 0.82rem;
+      color: rgba(244,237,223,0.5);
+      flex: 2;
+      padding: 0 2rem;
+    }
+
+    .menu-price {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.85rem;
+      color: var(--gold);
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+
+    /* ---- STORY SECTION ---- */
+    .story-section {
+      padding: 7rem 2rem;
+      background: var(--parchment);
+    }
+
+    .story-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 60fr 40fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .story-left {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .story-left.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .story-section-label {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.72rem;
+      font-variant: small-caps;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      margin-bottom: 1.8rem;
+    }
+
+    .story-body {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: var(--near-black);
+      margin-bottom: 2rem;
+    }
+
+    .pull-quote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+      color: var(--burgundy);
+      line-height: 1.45;
+      border-left: 3px solid var(--gold);
+      padding-left: 1.5rem;
+      margin: 2.5rem 0;
+    }
+
+    .story-right {
+      opacity: 0;
+      transform: translateY(44px);
+      transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1) 0.18s, transform 0.9s cubic-bezier(0.16,1,0.3,1) 0.18s;
+    }
+
+    .story-right.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .image-block {
+      width: 100%;
+      border-radius: 2px;
+      margin-bottom: 1rem;
+    }
+
+    .image-block-tall {
+      height: 280px;
+      background: linear-gradient(145deg, var(--burgundy) 0%, #6B2D1A 60%, #3D1A0E 100%);
+    }
+
+    .image-block-short {
+      height: 160px;
+      background: linear-gradient(145deg, #6B2D1A 0%, #9A4020 50%, var(--burgundy) 100%);
+    }
+
+    .image-caption {
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+      font-size: 0.78rem;
+      color: var(--warm-brown);
+      letter-spacing: 0.04em;
+      margin-bottom: 1.8rem;
+    }
+
+    /* ---- PLAT DU JOUR ---- */
+    .plat-section {
+      background: var(--burgundy);
+      padding: 5.5rem 2rem;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .plat-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .plat-eyebrow {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.72rem;
+      font-variant: small-caps;
+      letter-spacing: 0.22em;
+      color: rgba(184,150,12,0.65);
+      margin-bottom: 1.2rem;
+    }
+
+    .plat-heading {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+
+    .plat-rule {
+      width: 50px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 1.5rem;
+    }
+
+    .plat-dish {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      color: var(--parchment);
+      margin-bottom: 0.8rem;
+    }
+
+    .plat-desc {
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: rgba(244,237,223,0.62);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    /* ---- HOURS & RESERVATION ---- */
+    .hours-section {
+      background: var(--parchment);
+      padding: 6.5rem 2rem;
+    }
+
+    .hours-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+    }
+
+    .hours-col {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .reservation-col {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1) 0.15s, transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.15s;
+    }
+
+    .hours-col.visible, .reservation-col.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .col-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--burgundy);
+      margin-bottom: 2rem;
+      font-weight: 400;
+    }
+
+    .hours-list { list-style: none; }
+
+    .hours-list li {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--near-black);
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hours-list li .day { font-variant: small-caps; letter-spacing: 0.08em; }
+    .hours-list li .time { color: var(--warm-brown); font-style: italic; }
+
+    .form-group { margin-bottom: 1.4rem; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.72rem;
+      font-variant: small-caps;
+      letter-spacing: 0.16em;
+      color: var(--warm-brown);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--gold);
+      padding: 0.6rem 0;
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.92rem;
+      color: var(--near-black);
+      outline: none;
+      transition: border-color 0.3s cubic-bezier(0.4,0,0.2,1);
+      -webkit-appearance: none;
+      border-radius: 0;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus { border-color: var(--burgundy); }
+
+    .form-submit {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.78rem;
+      font-variant: small-caps;
+      letter-spacing: 0.18em;
+      color: var(--parchment);
+      background: var(--burgundy);
+      border: 1px solid var(--gold);
+      padding: 0.88rem 2.2rem;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: background 0.3s cubic-bezier(0.4,0,0.2,1), color 0.3s cubic-bezier(0.4,0,0.2,1), transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .form-submit:hover {
+      background: var(--gold);
+      color: var(--near-black);
+      transform: translateY(-1px);
+    }
+
+    /* ---- FOOTER ---- */
+    footer {
+      background: var(--burgundy);
+      padding: 3.5rem 2rem;
+      text-align: center;
+    }
+
+    .footer-name {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.3rem;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-rule {
+      width: 40px;
+      height: 1px;
+      background: rgba(184,150,12,0.4);
+      margin: 1.2rem auto;
+    }
+
+    .footer-detail {
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: rgba(244,237,223,0.58);
+      line-height: 1.95;
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 768px) {
+      .story-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .hours-inner { grid-template-columns: 1fr; gap: 3.5rem; }
+      .menu-desc { display: none; }
+      .hero { padding: 5rem 1.5rem 3rem; }
+    }
+  </style>
 </head>
 <body>
 
-<nav>
-  <ul class="nav-left">
-    <li><a href="#">Menu</a></li>
-    <li><a href="#">Cave</a></li>
-    <li><a href="#">Histoire</a></li>
-  </ul>
-  <div class="nav-logo">Maison Rive</div>
-  <div class="nav-right">
-    <ul class="nav-right-links">
-      <li><a href="#">Privatveranstaltungen</a></li>
-    </ul>
-    <a href="#reservation" class="btn-reserver">Réserver</a>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-text">
-    <p class="hero-eyebrow">Restaurant Gastronomique · Leipzig</p>
-    <h1>Where flavour<br/>meets <em>intention.</em></h1>
-    <div class="hero-hours">
-      Di–Do: 18:00 – 23:00 Uhr<br/>
-      Fr–Sa: 12:00 – 14:30 &amp; 18:00 – 23:30 Uhr<br/>
-      So: 12:00 – 16:00 Uhr (Brunch)
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <p class="hero-eyebrow">Est. 2019 &nbsp;·&nbsp; Paris, 6ème</p>
+    <h1 class="hero-title">Maison Rive</h1>
+    <p class="hero-sub">Une brasserie de quartier</p>
+    <div class="hero-rule"></div>
+    <p class="hero-copy">
+      Une cuisine de marché, honnête et généreuse.<br />
+      Des plats qui racontent le temps, la saison, le lieu.
+    </p>
+    <div class="hero-cta-wrap">
+      <a href="#reservation" class="hero-cta">Réserver une table</a>
     </div>
-    <a href="#reservation" class="btn-primary">Tisch reservieren</a>
-  </div>
-  <div class="hero-photo">
-    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=85&auto=format&fit=crop" alt="Maison Rive Fine Dining"/>
-  </div>
-</section>
+  </section>
 
-<!-- DIVIDER -->
-<div class="divider">
-  <div class="divider-line"></div>
-  <div class="divider-diamond">◆</div>
-  <div class="divider-line"></div>
-</div>
+  <!-- MENU PREVIEW -->
+  <section class="menu-section">
+    <div class="menu-inner">
+      <h2 class="section-label">Notre Carte</h2>
 
-<!-- MENU -->
-<section class="menu-section">
-  <div class="menu-header">
-    <h2>La Carte</h2>
-    <p>Saison · Lokalität · Handwerk</p>
-  </div>
-  <div class="menu-grid">
-    <div class="menu-col">
-      <h3>Entrées</h3>
-      <div class="dish-card">
-        <div class="dish-header">
-          <span class="dish-name">Tatar vom Saale-Lamm</span>
-          <span class="dish-price">22 €</span>
-        </div>
-        <div class="dish-desc">Kapernbutter, Pumpernickel-Tuile, Wachtelei, Petersilienöl</div>
+      <div class="menu-row">
+        <span class="menu-category">Entrées</span>
+        <span class="menu-desc">Soupes, terrines &amp; salades de saison</span>
+        <span class="menu-price">12 – 18 €</span>
       </div>
-      <div class="dish-card">
-        <div class="dish-header">
-          <span class="dish-name">Terrine de Foie Gras</span>
-          <span class="dish-price">26 €</span>
-        </div>
-        <div class="dish-desc">Brioche maison, Feigenconfit, geröstete Haselnüsse, Balsamico-Reduktion</div>
+      <div class="menu-row">
+        <span class="menu-category">Poissons</span>
+        <span class="menu-desc">Arrivage quotidien de la criée de Boulogne</span>
+        <span class="menu-price">24 – 34 €</span>
       </div>
-      <div class="dish-card">
-        <div class="dish-header">
-          <span class="dish-name">Bisque de Homard</span>
-          <span class="dish-price">18 €</span>
-        </div>
-        <div class="dish-desc">Hummerbisque, Crème fraîche, Dill, Rouille-Crouton</div>
+      <div class="menu-row">
+        <span class="menu-category">Viandes</span>
+        <span class="menu-desc">Pièces du boucher, cuissons à la braise</span>
+        <span class="menu-price">26 – 42 €</span>
       </div>
-      <div class="dish-card">
-        <div class="dish-header">
-          <span class="dish-name">Artischocken-Velouté</span>
-          <span class="dish-price">16 €</span>
-        </div>
-        <div class="dish-desc">Trüffelöl, Parmesan-Espuma, Safran-Croutons</div>
-      </div>
-      <div class="dish-card">
-        <div class="dish-header">
-          <span class="dish-name">Gegrillte Jakobsmuscheln</span>
-          <span class="dish-price">28 €</span>
-        </div>
-        <div class="dish-desc">Zitronenbutter, Erbsenpüree, Schwarze-Trüffel-Vinaigrette</div>
+      <div class="menu-row">
+        <span class="menu-category">Fromages &amp; Desserts</span>
+        <span class="menu-desc">Affinage Barthélemy, pâtisseries maison</span>
+        <span class="menu-price">8 – 14 €</span>
       </div>
     </div>
-    <div class="menu-col">
-      <h3>Plats</h3>
-      <div class="dish-card">
-        <div class="dish-header">
-          <span class="dish-name">Filet de Bœuf Rossini</span>
-          <span class="dish-price">48 €</span>
-        </div>
-        <div class="dish-desc">Rinderfilet 200g, Foie Gras Escalope, Trüffeljus, Kartoffelgratin</div>
+  </section>
+
+  <!-- STORY -->
+  <section class="story-section">
+    <div class="story-inner">
+      <div class="story-left">
+        <p class="story-section-label">L'Histoire</p>
+        <p class="story-body">
+          Maison Rive est née d'une conviction simple : Paris mérite encore des adresses où l'on mange bien sans se ruiner, où le patron connaît ses producteurs par leur prénom, où la salle sent le beurre noisette le matin et le vin rouge le soir.
+        </p>
+        <blockquote class="pull-quote">
+          "Nous cuisinons ce que le marché nous offre, jamais l'inverse."
+        </blockquote>
+        <p class="story-body">
+          Depuis 2019, notre chef Antoine Mercier compose chaque jour une carte courte — cinq entrées, cinq plats, trois desserts — en fonction des arrivages et des humeurs de la saison. Rien n'est figé. Tout est vivant.
+        </p>
+        <p class="story-body">
+          La cave est constituée de vignerons naturels, de petites appellations méconnues, et de quelques grands classiques pour les amateurs. Notre sommelier sera ravi de vous guider parmi les quelque deux cents références.
+        </p>
       </div>
-      <div class="dish-card">
-        <div class="dish-header">
-          <span class="dish-name">Canard à l'Orange</span>
-          <span class="dish-price">38 €</span>
-        </div>
-        <div class="dish-desc">Confit de Canard, Orangenglace, Rosenkohl, Wildreis</div>
-      </div>
-      <div class="dish-card">
-        <div class="dish-header">
-          <span class="dish-name">Bar en croûte</span>
-          <span class="dish-price">42 €</span>
-        </div>
-        <div class="dish-desc">Wolfsbarsch in Kräuterkruste, Beurre blanc, Fenchel, Safran-Risotto</div>
-      </div>
-      <div class="dish-card">
-        <div class="dish-header">
-          <span class="dish-name">Herbst-Risotto</span>
-          <span class="dish-price">29 €</span>
-        </div>
-        <div class="dish-desc">Steinpilze, Parmigiano Reggiano, weißer Trüffel (saisonal), Rucola</div>
-      </div>
-      <div class="dish-card">
-        <div class="dish-header">
-          <span class="dish-name">Côte d'Agneau</span>
-          <span class="dish-price">44 €</span>
-        </div>
-        <div class="dish-desc">Lammkarree, Ratatouille, Tapenade, Thymian-Jus, Kartoffelpüree</div>
+      <div class="story-right">
+        <div class="image-block image-block-tall"></div>
+        <p class="image-caption">La salle principale, 34 couverts</p>
+        <div class="image-block image-block-short"></div>
+        <p class="image-caption">Notre cave à fromages · Affinage Barthélemy</p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- GALLERY -->
-<div class="gallery-grid">
-  <div class="gallery-item">
-    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=85&auto=format&fit=crop" alt="Küche"/>
-  </div>
-  <div class="gallery-item">
-    <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=85&auto=format&fit=crop" alt="Gericht"/>
-  </div>
-  <div class="gallery-item">
-    <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=800&q=85&auto=format&fit=crop" alt="Fine Dining"/>
-  </div>
-</div>
+  <!-- PLAT DU JOUR -->
+  <section class="plat-section">
+    <p class="plat-eyebrow">Aujourd'hui</p>
+    <h2 class="plat-heading">Le Plat du Jour</h2>
+    <div class="plat-rule"></div>
+    <p class="plat-dish">Épaule d'agneau confite, jus court aux herbes</p>
+    <p class="plat-desc">
+      Cuite sept heures à basse température, accompagnée d'une purée de céleri-rave fumée et de haricots verts du Val de Loire. Servi avec un verre de Faugères inclus. 28 €.
+    </p>
+  </section>
 
-<!-- STORY -->
-<section class="story">
-  <div class="story-inner">
-    <p class="story-label">Notre Histoire</p>
-    <h2>Kochen als Handwerk.<br/>Essen als Erlebnis.</h2>
-    <p>Maison Rive entstand 2019 aus einer einfachen Überzeugung: dass großartiges Essen weder Dogma noch Spektakel braucht — nur hervorragende Zutaten, technisches Können und echte Leidenschaft. Küchenchef Marcel Fournier arbeitete über zehn Jahre in Drei-Sterne-Küchen in Lyon und Berlin, bevor er an die Ufer der Weißen Elster zog.</p>
-    <p>Wir beziehen unsere Zutaten ausschließlich von regionalen Produzenten: Lamm aus dem Saale-Tal, Gemüse von Hof Brandis, Wildkräuter aus dem Auwald. Die Karte wechselt mit den Jahreszeiten — nicht aus Trend, sondern aus Respekt vor dem Produkt.</p>
-  </div>
-</section>
-
-<!-- DIVIDER -->
-<div class="divider">
-  <div class="divider-line"></div>
-  <div class="divider-diamond">◆</div>
-  <div class="divider-line"></div>
-</div>
-
-<!-- INTERIOR PHOTO -->
-<div style="height:420px;overflow:hidden;">
-  <img src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=1600&q=85&auto=format&fit=crop" alt="Maison Rive Interieur" style="width:100%;height:100%;object-fit:cover;object-position:center 60%;"/>
-</div>
-
-<!-- RESERVATION -->
-<section class="reservation" id="reservation">
-  <div class="res-inner">
-    <p class="res-label">Réservation</p>
-    <h2>Reservez votre table</h2>
-    <p>Für Gruppen ab 8 Personen sowie Privatveranstaltungen bitten wir um telefonische Rücksprache unter +49 341 3987 2210.</p>
-    <form class="res-form">
-      <div class="form-row">
-        <input type="text" placeholder="Vorname"/>
-        <input type="text" placeholder="Nachname"/>
+  <!-- HOURS & RESERVATION -->
+  <section class="hours-section" id="reservation">
+    <div class="hours-inner">
+      <div class="hours-col">
+        <h3 class="col-heading">Horaires</h3>
+        <ul class="hours-list">
+          <li><span class="day">Lundi</span><span class="time">Fermé</span></li>
+          <li><span class="day">Mardi – Vendredi</span><span class="time">12h – 14h30 · 19h – 22h30</span></li>
+          <li><span class="day">Samedi</span><span class="time">12h – 15h · 19h – 23h</span></li>
+          <li><span class="day">Dimanche</span><span class="time">12h – 16h (brunch)</span></li>
+        </ul>
       </div>
-      <div class="form-row">
-        <input type="email" placeholder="E-Mail"/>
-        <input type="tel" placeholder="Telefon"/>
+      <div class="reservation-col">
+        <h3 class="col-heading">Réservation</h3>
+        <form onsubmit="return false;">
+          <div class="form-group">
+            <label>Nom &amp; Prénom</label>
+            <input type="text" placeholder="Sophie Lefèvre" />
+          </div>
+          <div class="form-group">
+            <label>Date souhaitée</label>
+            <input type="date" />
+          </div>
+          <div class="form-group">
+            <label>Nombre de couverts</label>
+            <select>
+              <option>1 personne</option>
+              <option>2 personnes</option>
+              <option>3 personnes</option>
+              <option>4 personnes</option>
+              <option>5 personnes</option>
+              <option>6 personnes et plus</option>
+            </select>
+          </div>
+          <button type="submit" class="form-submit">Envoyer la demande</button>
+        </form>
       </div>
-      <div class="form-row">
-        <input type="date"/>
-        <select>
-          <option value="" disabled selected>Uhrzeit</option>
-          <option>12:00</option>
-          <option>12:30</option>
-          <option>13:00</option>
-          <option>18:00</option>
-          <option>18:30</option>
-          <option>19:00</option>
-          <option>19:30</option>
-          <option>20:00</option>
-        </select>
-      </div>
-      <select>
-        <option value="" disabled selected>Anzahl der Gäste</option>
-        <option>1 Person</option>
-        <option>2 Personen</option>
-        <option>3 Personen</option>
-        <option>4 Personen</option>
-        <option>5–6 Personen</option>
-        <option>7+ Personen (bitte anrufen)</option>
-      </select>
-      <textarea placeholder="Besondere Wünsche, Allergien oder Anlass..."></textarea>
-      <button class="btn-reserve" type="submit">Tisch reservieren</button>
-    </form>
-  </div>
-</section>
+    </div>
+  </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">Maison Rive</div>
-  <div class="footer-copy">© 2026 Maison Rive · Schillerweg 12, 04159 Leipzig · +49 341 3987 2210</div>
-  <div class="footer-novu">Built by <a href="https://novudesign.de">Novu Design</a></div>
-</footer>
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-name">Maison Rive</p>
+    <div class="footer-rule"></div>
+    <p class="footer-detail">
+      14 rue de Buci, 75006 Paris<br />
+      +33 1 43 26 88 14<br />
+      contact@maisonrive.fr
+    </p>
+  </footer>
 
+  <script>
+    // Hero entrance on load
+    window.addEventListener('DOMContentLoaded', () => {
+      requestAnimationFrame(() => {
+        setTimeout(() => document.getElementById('hero').classList.add('visible'), 80);
+      });
+    });
+
+    const ioConfig = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -60px 0px'
+    };
+
+    // Menu rows staggered slide-in from right
+    const menuRows = document.querySelectorAll('.menu-row');
+    const menuObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          menuRows.forEach((row, i) => {
+            setTimeout(() => row.classList.add('visible'), i * 110);
+          });
+          menuObserver.disconnect();
+        }
+      });
+    }, ioConfig);
+    if (menuRows[0]) menuObserver.observe(menuRows[0]);
+
+    // Generic fade-up observer
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, ioConfig);
+
+    document.querySelectorAll(
+      '.story-left, .story-right, .plat-section, .hours-col, .reservation-col'
+    ).forEach(el => fadeObserver.observe(el));
+  </script>
 </body>
 </html>

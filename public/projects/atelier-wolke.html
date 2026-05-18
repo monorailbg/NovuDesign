@@ -3,342 +3,854 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Atelier Wolke — Hair Salon Leipzig</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<title>Atelier Wolke — Premium Hair Salon Berlin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap" rel="stylesheet"/>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-:root{--black:#0C0C0C;--white:#FFFFFF;--magenta:#E8196B;}
-body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;}
-img{display:block;width:100%;}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* NAV */
-nav{position:fixed;top:0;width:100%;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.4rem 3rem;background:rgba(12,12,12,0.88);backdrop-filter:blur(10px);}
-.logo-mark{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.14em;color:var(--white);}
-.nav-links{display:flex;gap:2.8rem;list-style:none;align-items:center;}
-.nav-links a{text-decoration:none;font-size:0.73rem;color:rgba(255,255,255,0.5);letter-spacing:0.14em;text-transform:uppercase;transition:color 0.2s;}
-.nav-links a:hover{color:var(--white);}
-.nav-book{text-decoration:underline !important;text-underline-offset:5px;color:var(--magenta) !important;font-weight:500;}
-.nav-book:hover{color:var(--white) !important;}
+  :root {
+    --bg: #0C0C0C;
+    --text: #FFFEF9;
+    --accent: #FF2C55;
+    --surface: #1A1A1A;
+    --hairline: rgba(255,254,249,0.12);
+  }
 
-/* HERO */
-.hero{position:relative;height:100vh;overflow:hidden;}
-.hero-img{width:100%;height:100%;object-fit:cover;object-position:center 30%;}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top right,rgba(12,12,12,0.92) 0%,rgba(12,12,12,0.55) 45%,rgba(12,12,12,0.1) 100%);}
-.hero-content{position:absolute;bottom:4.5rem;left:3rem;max-width:720px;}
-.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,10vw,9rem);line-height:0.88;letter-spacing:0.02em;color:var(--white);margin-bottom:1.8rem;}
-.hero h1 span{display:block;}
-.hero h1 .mag{color:var(--magenta);}
-.hero-sub{font-size:0.73rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.38);margin-bottom:2.8rem;}
-.hero-tagline{display:flex;align-items:center;gap:1.2rem;}
-.hero-tagline span{font-size:0.78rem;color:rgba(255,255,255,0.5);letter-spacing:0.08em;}
-.hero-line{width:40px;height:1px;background:var(--magenta);}
+  html { scroll-behavior: smooth; }
 
-/* TICKER */
-.ticker{background:var(--magenta);padding:0.8rem 0;overflow:hidden;white-space:nowrap;}
-.ticker-inner{display:inline-flex;gap:3rem;animation:tick 18s linear infinite;}
-.ticker-inner span{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:0.18em;color:var(--white);}
-@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Cormorant Garamond', serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
 
-/* SERVICES STRIP */
-.services-strip{width:100%;}
-.strip-header{padding:3rem 3rem 1.5rem;display:flex;align-items:baseline;gap:1.5rem;}
-.strip-header h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,4vw,3.5rem);letter-spacing:0.08em;}
-.strip-header span{font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.3);}
-.svc-row{display:flex;align-items:stretch;border-bottom:1px solid #1c1c1c;}
-.svc-row:first-of-type{border-top:1px solid #1c1c1c;}
-.svc-row.alt{background:#0f0f0f;}
-.svc-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,4.5vw,4rem);color:var(--magenta);padding:2rem 2.2rem;min-width:110px;display:flex;align-items:center;border-right:1px solid #1c1c1c;opacity:0.7;}
-.svc-info{flex:1;padding:2rem 2.8rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;}
-.svc-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3vw,2.6rem);letter-spacing:0.05em;}
-.svc-desc{font-size:0.8rem;color:rgba(255,255,255,0.35);max-width:360px;line-height:1.7;font-weight:300;}
-.svc-price{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--magenta);padding:2rem 2.8rem;display:flex;align-items:center;white-space:nowrap;}
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 2.5rem;
+    mix-blend-mode: difference;
+  }
 
-/* GALLERY */
-.gallery{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:280px 280px;gap:2px;background:#000;}
-.g1{grid-row:1/3;}
-.gi{overflow:hidden;position:relative;}
-.gi img{width:100%;height:100%;object-fit:cover;transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);}
-.gi:hover img{transform:scale(1.06);}
-.gi::after{content:'';position:absolute;inset:0;background:rgba(12,12,12,0);transition:background 0.4s;}
-.gi:hover::after{background:rgba(12,12,12,0.15);}
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    color: var(--text);
+    text-decoration: none;
+  }
 
-/* LABEL ROW */
-.label-row{display:flex;align-items:center;gap:0;border-bottom:1px solid #1c1c1c;}
-.label-row-item{flex:1;padding:2rem 2.5rem;border-right:1px solid #1c1c1c;}
-.label-row-item:last-child{border-right:none;}
-.label-row-item h3{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.14em;color:var(--magenta);margin-bottom:0.5rem;}
-.label-row-item p{font-size:0.8rem;color:rgba(255,255,255,0.45);line-height:1.6;font-weight:300;}
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
 
-/* TEAM */
-.team{background:#080808;padding:6rem 3rem;}
-.team-inner{max-width:900px;}
-.team-label{font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--magenta);margin-bottom:2rem;}
-.team-quote{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,4vw,3.8rem);line-height:1.1;letter-spacing:0.03em;color:var(--white);margin-bottom:3rem;max-width:740px;}
-.founder-row{display:flex;align-items:center;gap:2rem;}
-.founder-img{width:64px;height:64px;object-fit:cover;filter:grayscale(100%);}
-.founder-name{font-size:0.85rem;font-weight:500;letter-spacing:0.06em;}
-.founder-title{font-size:0.73rem;color:rgba(255,255,255,0.4);letter-spacing:0.08em;text-transform:uppercase;margin-top:0.3rem;}
+  .nav-links a {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    color: var(--text);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
 
-/* BOOKING */
-.booking{background:var(--black);padding:6rem 3rem;border-top:1px solid #1c1c1c;}
-.booking-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;max-width:1000px;}
-.booking-label{font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--magenta);margin-bottom:1.5rem;}
-.booking h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,5vw,4.5rem);line-height:0.9;letter-spacing:0.03em;margin-bottom:1.5rem;}
-.booking-info{font-size:0.82rem;color:rgba(255,255,255,0.4);line-height:1.8;font-weight:300;}
-.booking-info strong{color:var(--white);font-weight:400;}
-form{display:flex;flex-direction:column;gap:1rem;}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-input,select,textarea{background:#111;border:1px solid #222;color:var(--white);padding:1rem 1.2rem;font-family:'Inter',sans-serif;font-size:0.82rem;font-weight:300;outline:none;transition:border-color 0.2s;width:100%;}
-input::placeholder,textarea::placeholder{color:rgba(255,255,255,0.25);}
-input:focus,select:focus,textarea:focus{border-color:var(--magenta);}
-select option{background:#111;}
-textarea{height:100px;resize:none;}
-.btn-submit{background:var(--magenta);color:var(--white);border:none;padding:1.1rem 2.5rem;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.14em;cursor:pointer;margin-top:0.5rem;transition:background 0.2s;}
-.btn-submit:hover{background:#c4145a;}
+  .nav-links a:hover { opacity: 1; }
 
-/* FOOTER */
-footer{padding:1.5rem 3rem;border-top:1px solid #1c1c1c;display:flex;justify-content:space-between;align-items:center;}
-.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.14em;}
-.footer-copy{font-size:0.72rem;color:rgba(255,255,255,0.28);letter-spacing:0.06em;}
-.footer-novu{font-size:0.72rem;color:rgba(255,255,255,0.28);letter-spacing:0.06em;}
-.footer-novu a{color:var(--magenta);text-decoration:none;}
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 0 6rem 0;
+    overflow: hidden;
+  }
 
-/* RESPONSIVE */
-@media(max-width:768px){
-  nav{padding:1.2rem 1.5rem;}
-  .nav-links{gap:1.5rem;}
-  .nav-links li:not(:last-child){display:none;}
-  .hero-content{left:1.5rem;bottom:3rem;}
-  .hero h1{font-size:clamp(3.5rem,12vw,5rem);}
-  .strip-header,.booking{padding-left:1.5rem;padding-right:1.5rem;}
-  .svc-num{padding:1.5rem 1.2rem;min-width:80px;}
-  .svc-info{padding:1.5rem 1.2rem;flex-direction:column;align-items:flex-start;gap:0.5rem;}
-  .svc-price{padding:1.5rem 1.2rem;}
-  .svc-desc{max-width:100%;}
-  .gallery{grid-template-columns:1fr;grid-template-rows:240px 200px 200px 200px 200px;}
-  .g1{grid-row:auto;}
-  .booking-grid{grid-template-columns:1fr;gap:2.5rem;}
-  .form-row{grid-template-columns:1fr;}
-  .team{padding:4rem 1.5rem;}
-  footer{flex-direction:column;gap:0.8rem;text-align:center;padding:1.5rem;}
-  .label-row{flex-direction:column;}
-  .label-row-item{border-right:none;border-bottom:1px solid #1c1c1c;}
-}
+  .hero-bg-line {
+    position: absolute;
+    top: 0; right: 0;
+    width: 1px;
+    height: 100%;
+    background: var(--hairline);
+    transform: scaleY(0);
+    transform-origin: top;
+    animation: lineReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+  }
+
+  .hero-bg-line:nth-child(2) {
+    right: 33%;
+    animation-delay: 0.6s;
+  }
+
+  @keyframes lineReveal {
+    to { transform: scaleY(1); }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-word-wrap {
+    overflow: hidden;
+    line-height: 0.88;
+  }
+
+  .hero-title-atelier {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(6rem, 18vw, 22rem);
+    letter-spacing: -0.01em;
+    color: var(--text);
+    display: block;
+    margin-left: -0.04em;
+    transform: translateY(110%);
+    animation: titleReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+  }
+
+  .hero-title-wolke {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(6rem, 18vw, 22rem);
+    letter-spacing: -0.01em;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--text);
+    display: block;
+    text-align: right;
+    padding-right: 1.5rem;
+    transform: translateY(110%);
+    animation: titleReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.38s forwards;
+  }
+
+  @keyframes titleReveal {
+    to { transform: translateY(0); }
+  }
+
+  .hero-meta {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 2.5rem 2.5rem 0 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.9s forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-tagline {
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(0.9rem, 1.5vw, 1.15rem);
+    letter-spacing: 0.04em;
+    opacity: 0.6;
+    max-width: 22ch;
+    line-height: 1.5;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--accent);
+    color: var(--text);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    padding: 0.85rem 2rem;
+    border-radius: 100px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s;
+  }
+
+  .hero-cta:hover {
+    transform: scale(1.04) translateY(-2px);
+  }
+
+  .hero-cta-arrow {
+    font-style: normal;
+    font-size: 1.1em;
+  }
+
+  .hero-year {
+    position: absolute;
+    bottom: 6rem;
+    right: 2.5rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    opacity: 0.3;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+
+  /* ─── MARQUEE BAND ─── */
+  .marquee-band {
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
+    overflow: hidden;
+    padding: 1rem 0;
+    background: var(--surface);
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 4rem;
+    width: max-content;
+    animation: marqueeScroll 28s linear infinite;
+  }
+
+  .marquee-item {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    color: var(--text);
+    opacity: 0.35;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+  }
+
+  .marquee-item::after {
+    content: '✦';
+    font-size: 0.5rem;
+    opacity: 0.5;
+  }
+
+  @keyframes marqueeScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ─── SERVICES ─── */
+  .services {
+    padding: 8rem 0 6rem 0;
+  }
+
+  .section-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    opacity: 0.4;
+    text-transform: uppercase;
+    padding: 0 2.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .services-list {
+    list-style: none;
+  }
+
+  .service-row {
+    position: relative;
+    display: grid;
+    grid-template-columns: 4rem 1fr auto;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.6rem 2.5rem;
+    border-top: 1px solid var(--hairline);
+    cursor: default;
+    overflow: hidden;
+    transform: translateX(-40px);
+    opacity: 0;
+    transition:
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .service-row.visible {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  .service-row::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0s;
+    pointer-events: none;
+  }
+
+  .service-row:hover::before {
+    opacity: 0.08;
+    transition: opacity 0.05s;
+    animation: flashRow 0.28s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+
+  @keyframes flashRow {
+    0% { opacity: 0.35; }
+    30% { opacity: 0.12; }
+    100% { opacity: 0.05; }
+  }
+
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.65rem;
+    font-style: italic;
+    letter-spacing: 0.08em;
+    opacity: 0.3;
+    align-self: flex-start;
+    padding-top: 0.2em;
+  }
+
+  .service-name-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+
+  .service-row:hover .service-name {
+    color: var(--accent);
+  }
+
+  .service-desc {
+    font-style: italic;
+    font-size: 0.78rem;
+    opacity: 0.45;
+    letter-spacing: 0.03em;
+  }
+
+  .service-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .service-price span {
+    font-size: 0.65rem;
+    font-weight: 300;
+    opacity: 0.5;
+    display: block;
+    margin-top: 0.15rem;
+    letter-spacing: 0.1em;
+  }
+
+  .services-list li:last-child .service-row {
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  /* ─── THE EDIT ─── */
+  .the-edit {
+    padding: 8rem 2.5rem 8rem 2.5rem;
+  }
+
+  .edit-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 3.5rem;
+  }
+
+  .edit-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    letter-spacing: 0.04em;
+  }
+
+  .edit-link {
+    font-style: italic;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    opacity: 0.5;
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 0.1em;
+    transition: opacity 0.2s;
+  }
+
+  .edit-link:hover { opacity: 1; }
+
+  .edit-grid {
+    display: grid;
+    grid-template-columns: 1.55fr 0.9fr;
+    grid-template-rows: auto auto;
+    gap: 0;
+    position: relative;
+  }
+
+  .edit-item {
+    position: relative;
+    opacity: 0;
+    transform: translateY(30px);
+    transition:
+      opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .edit-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .edit-item-1 {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    margin-right: -2rem;
+    z-index: 2;
+  }
+
+  .edit-item-2 {
+    grid-column: 2;
+    grid-row: 1;
+    margin-top: 3rem;
+    z-index: 1;
+    transition-delay: 0.15s;
+  }
+
+  .edit-item-3 {
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: -1.5rem;
+    z-index: 3;
+    margin-right: -1.5rem;
+    transition-delay: 0.3s;
+  }
+
+  .edit-img {
+    width: 100%;
+    display: block;
+  }
+
+  .edit-img-1 {
+    height: clamp(380px, 55vw, 640px);
+    background: linear-gradient(155deg, #1a1a1a 0%, #2d1f2a 40%, #0f0f0f 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .edit-img-1::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(ellipse at bottom right, rgba(255,44,85,0.18) 0%, transparent 70%);
+  }
+
+  .edit-img-2 {
+    height: clamp(170px, 22vw, 270px);
+    background: linear-gradient(135deg, #111111 0%, #1f1f1f 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .edit-img-2::before {
+    content: '';
+    position: absolute;
+    top: 1.5rem; left: 1.5rem;
+    width: 2.5rem; height: 2.5rem;
+    border-top: 2px solid var(--accent);
+    border-left: 2px solid var(--accent);
+  }
+
+  .edit-img-3 {
+    height: clamp(200px, 25vw, 300px);
+    background: linear-gradient(160deg, #0f0c0d 0%, #1a0f15 50%, #0c0c0c 100%);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--hairline);
+  }
+
+  .edit-img-3::after {
+    content: 'AW';
+    position: absolute;
+    bottom: 1.5rem; right: 2rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: rgba(255,254,249,0.04);
+    letter-spacing: 0.08em;
+  }
+
+  .edit-caption {
+    padding: 1rem 0 0.5rem 0;
+  }
+
+  .edit-caption-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .edit-caption-text {
+    font-style: italic;
+    font-weight: 300;
+    font-size: 0.82rem;
+    line-height: 1.55;
+    opacity: 0.6;
+    max-width: 28ch;
+  }
+
+  /* ─── MANIFESTO ─── */
+  .manifesto {
+    padding: 6rem 2.5rem;
+    border-top: 1px solid var(--hairline);
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .manifesto-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    opacity: 0.3;
+  }
+
+  .manifesto-quote {
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(1.3rem, 2.5vw, 2rem);
+    line-height: 1.55;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .manifesto-quote.visible {
+    opacity: 0.85;
+    transform: translateY(0);
+  }
+
+  .manifesto-quote em {
+    color: var(--accent);
+    font-style: normal;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid var(--hairline);
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+  }
+
+  .footer-contact {
+    font-style: italic;
+    font-weight: 300;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    opacity: 0.4;
+    text-align: center;
+  }
+
+  .footer-divider {
+    width: 1px;
+    height: 1rem;
+    background: var(--hairline);
+    display: inline-block;
+    margin: 0 1rem;
+    vertical-align: middle;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .footer-social a {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--text);
+    text-decoration: none;
+    opacity: 0.25;
+    transition: opacity 0.2s;
+  }
+
+  .footer-social a:hover { opacity: 0.7; }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+
+    .hero { padding: 0 0 5rem 0; }
+    .hero-meta { padding: 2rem 1.5rem 0 1.5rem; flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+
+    .section-eyebrow { padding: 0 1.5rem; }
+
+    .service-row { grid-template-columns: 2.5rem 1fr auto; padding: 1.4rem 1.5rem; gap: 0.8rem; }
+
+    .the-edit { padding: 6rem 1.5rem 6rem 1.5rem; }
+
+    .edit-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto;
+    }
+
+    .edit-item-1 { grid-column: 1; grid-row: 1; margin-right: 0; }
+    .edit-item-2 { grid-column: 1; grid-row: 2; margin-top: 1.5rem; }
+    .edit-item-3 { grid-column: 1; grid-row: 3; margin-top: 1.5rem; margin-right: 0; }
+
+    .edit-img-1 { height: 280px; }
+    .edit-img-2 { height: 200px; }
+    .edit-img-3 { height: 200px; }
+
+    .manifesto { grid-template-columns: 1fr; gap: 1.5rem; padding: 5rem 1.5rem; }
+
+    footer { padding: 2.5rem 1.5rem; }
+
+    .hero-title-wolke { padding-right: 1rem; }
+  }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <div class="logo-mark">ATELIER WOLKE</div>
+  <a href="#" class="nav-logo">AW</a>
   <ul class="nav-links">
-    <li><a href="#">Leistungen</a></li>
-    <li><a href="#">Galerie</a></li>
-    <li><a href="#">Team</a></li>
-    <li><a href="#" class="nav-book">BOOK</a></li>
+    <li><a href="#services">Leistungen</a></li>
+    <li><a href="#edit">The Edit</a></li>
+    <li><a href="#booking">Termin</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <img class="hero-img" src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1600&q=85&auto=format&fit=crop" alt="Atelier Wolke Salon"/>
-  <div class="hero-overlay"></div>
+  <div class="hero-bg-line"></div>
+  <div class="hero-bg-line"></div>
+
   <div class="hero-content">
-    <p class="hero-sub">Atelier Wolke · Leipzig · Seit 2016</p>
-    <h1>
-      <span>WHERE HAIR</span>
-      <span>BECOMES</span>
-      <span class="mag">WEAPON.</span>
-    </h1>
-    <div class="hero-tagline">
-      <div class="hero-line"></div>
-      <span>Avantgarde-Schnitt &amp; Colordesign in der Südvorstadt</span>
+    <div class="hero-word-wrap">
+      <span class="hero-title-atelier">ATELIER</span>
+    </div>
+    <div class="hero-word-wrap">
+      <span class="hero-title-wolke">WOLKE</span>
+    </div>
+    <div class="hero-meta">
+      <p class="hero-tagline">Wo Berliner Schärfe auf handwerkliche Schönheit trifft. Seit 2009.</p>
+      <a href="#booking" class="hero-cta">Jetzt buchen <span class="hero-cta-arrow">→</span></a>
     </div>
   </div>
+
+  <span class="hero-year">EST. MMIX</span>
 </section>
 
-<!-- TICKER -->
-<div class="ticker">
-  <div class="ticker-inner">
-    <span>HAIR DESIGN</span><span>·</span>
-    <span>COLOR ARTISTRY</span><span>·</span>
-    <span>EXTENSIONS</span><span>·</span>
-    <span>BRIDAL STYLING</span><span>·</span>
-    <span>TREATMENTS</span><span>·</span>
-    <span>HAIR DESIGN</span><span>·</span>
-    <span>COLOR ARTISTRY</span><span>·</span>
-    <span>EXTENSIONS</span><span>·</span>
-    <span>BRIDAL STYLING</span><span>·</span>
-    <span>TREATMENTS</span><span>·</span>
+<!-- MARQUEE -->
+<div class="marquee-band" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">Prenzlauer Berg</span>
+    <span class="marquee-item">Schnitt & Farbe</span>
+    <span class="marquee-item">Berliner Handwerk</span>
+    <span class="marquee-item">Editorial Styling</span>
+    <span class="marquee-item">Hochzeit & Event</span>
+    <span class="marquee-item">Prenzlauer Berg</span>
+    <span class="marquee-item">Schnitt & Farbe</span>
+    <span class="marquee-item">Berliner Handwerk</span>
+    <span class="marquee-item">Editorial Styling</span>
+    <span class="marquee-item">Hochzeit & Event</span>
   </div>
 </div>
 
 <!-- SERVICES -->
-<section>
-  <div class="strip-header">
-    <h2>LEISTUNGEN</h2>
-    <span>Was wir tun</span>
-  </div>
-  <div class="services-strip">
-    <div class="svc-row">
-      <div class="svc-num">01</div>
-      <div class="svc-info">
-        <div>
-          <div class="svc-name">PRECISION CUT</div>
-          <div class="svc-desc">Architektonischer Schnitt, individuell auf Gesichtsform und Haarstruktur abgestimmt. Dauer: 60 Min.</div>
+<section class="services" id="services">
+  <p class="section-eyebrow">— Leistungen &amp; Preise</p>
+  <ul class="services-list">
+    <li>
+      <div class="service-row">
+        <span class="service-num">01</span>
+        <div class="service-name-wrap">
+          <span class="service-name">Signature Schnitt</span>
+          <span class="service-desc">Beratung, Waschen, Schnitt &amp; Finish</span>
         </div>
+        <div class="service-price">€ 110 <span>ab</span></div>
       </div>
-      <div class="svc-price">ab 68 €</div>
-    </div>
-    <div class="svc-row alt">
-      <div class="svc-num">02</div>
-      <div class="svc-info">
-        <div>
-          <div class="svc-name">COLORDESIGN</div>
-          <div class="svc-desc">Balayage, Highlights, Vollcoloration — mit Wella Professionals und Olaplex-Treatment. Beratung inklusive.</div>
+    </li>
+    <li>
+      <div class="service-row">
+        <span class="service-num">02</span>
+        <div class="service-name-wrap">
+          <span class="service-name">Balayage Lumière</span>
+          <span class="service-desc">Handgemalt, ombre bis full-colour</span>
         </div>
+        <div class="service-price">€ 220 <span>ab</span></div>
       </div>
-      <div class="svc-price">ab 95 €</div>
-    </div>
-    <div class="svc-row">
-      <div class="svc-num">03</div>
-      <div class="svc-info">
-        <div>
-          <div class="svc-name">GLOSSING &amp; CARE</div>
-          <div class="svc-desc">Tiefenpflege und Glanzbehandlung mit Kerastase-Ritualen für nachhaltigen Haarglanz.</div>
+    </li>
+    <li>
+      <div class="service-row">
+        <span class="service-num">03</span>
+        <div class="service-name-wrap">
+          <span class="service-name">Vollcoloration</span>
+          <span class="service-desc">Ansatz oder Gesamtfärbung, pflanzliche Optionen</span>
         </div>
+        <div class="service-price">€ 180 <span>ab</span></div>
       </div>
-      <div class="svc-price">ab 45 €</div>
-    </div>
-    <div class="svc-row alt">
-      <div class="svc-num">04</div>
-      <div class="svc-info">
-        <div>
-          <div class="svc-name">EXTENSIONS</div>
-          <div class="svc-desc">Great Lengths Echthaar-Extensions für mehr Länge und Fülle. Individuelle Beratung erforderlich.</div>
+    </li>
+    <li>
+      <div class="service-row">
+        <span class="service-num">04</span>
+        <div class="service-name-wrap">
+          <span class="service-name">Bridal &amp; Editorial</span>
+          <span class="service-desc">Hochzeit, Fashion Week, Shooting</span>
         </div>
+        <div class="service-price">€ 350 <span>ab</span></div>
       </div>
-      <div class="svc-price">ab 280 €</div>
-    </div>
-    <div class="svc-row">
-      <div class="svc-num">05</div>
-      <div class="svc-info">
-        <div>
-          <div class="svc-name">BRIDAL STYLING</div>
-          <div class="svc-desc">Brautstyling inkl. Probetermin, Hochsteckfrisur oder offene romantische Wellen — unvergesslich.</div>
+    </li>
+    <li>
+      <div class="service-row">
+        <span class="service-num">05</span>
+        <div class="service-name-wrap">
+          <span class="service-name">Keratin Treatment</span>
+          <span class="service-desc">Brasilianisches Glätten, bis zu 4 Monate</span>
         </div>
+        <div class="service-price">€ 290 <span>ab</span></div>
       </div>
-      <div class="svc-price">ab 155 €</div>
-    </div>
-    <div class="svc-row alt">
-      <div class="svc-num">06</div>
-      <div class="svc-info">
-        <div>
-          <div class="svc-name">KIDS CUT</div>
-          <div class="svc-desc">Kinderhaarschnitt bis 12 Jahre. In entspannter Atmosphäre, ohne Stress und Tränen.</div>
+    </li>
+    <li>
+      <div class="service-row">
+        <span class="service-num">06</span>
+        <div class="service-name-wrap">
+          <span class="service-name">Kopfhautpflege Ritual</span>
+          <span class="service-desc">Peeling, Öl-Maske &amp; regenerierende Behandlung</span>
         </div>
+        <div class="service-price">€ 85 <span>ab</span></div>
       </div>
-      <div class="svc-price">28 €</div>
-    </div>
-  </div>
+    </li>
+  </ul>
 </section>
 
-<!-- GALLERY -->
-<section class="gallery">
-  <div class="gi g1">
-    <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1600&q=85&auto=format&fit=crop" alt="Salon Galerie"/>
+<!-- THE EDIT -->
+<section class="the-edit" id="edit">
+  <div class="edit-header">
+    <h2 class="edit-title">The Edit</h2>
+    <a href="#" class="edit-link">Alle Arbeiten →</a>
   </div>
-  <div class="gi">
-    <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&q=85&auto=format&fit=crop" alt="Friseur Kunst"/>
-  </div>
-  <div class="gi">
-    <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=800&q=85&auto=format&fit=crop" alt="Hair Color"/>
-  </div>
-  <div class="gi">
-    <img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=800&q=85&auto=format&fit=crop" alt="Friseur Leipzig"/>
-  </div>
-  <div class="gi">
-    <img src="https://images.unsplash.com/photo-1493256338651-d82f7acb2b38?w=800&q=85&auto=format&fit=crop" alt="Styling"/>
-  </div>
-</section>
 
-<!-- INFO ROW -->
-<div class="label-row">
-  <div class="label-row-item">
-    <h3>ÖFFNUNGSZEITEN</h3>
-    <p>Mo–Fr: 10:00 – 20:00<br/>Sa: 09:00 – 18:00<br/>So: geschlossen</p>
-  </div>
-  <div class="label-row-item">
-    <h3>ADRESSE</h3>
-    <p>Karl-Liebknecht-Str. 72<br/>04275 Leipzig · Südvorstadt<br/>Tram: Linie 9, Haltestelle Connewitz</p>
-  </div>
-  <div class="label-row-item">
-    <h3>KONTAKT</h3>
-    <p>Tel: +49 341 2238 4417<br/>info@atelier-wolke.de<br/>Instagram: @atelier.wolke</p>
-  </div>
-  <div class="label-row-item">
-    <h3>TERMIN</h3>
-    <p>Online buchbar 24/7<br/>Kurzfristige Termine auf Anfrage<br/>Walk-ins willkommen, wenn verfügbar</p>
-  </div>
-</div>
-
-<!-- TEAM / FOUNDER -->
-<section class="team">
-  <div class="team-inner">
-    <p class="team-label">Der Geist hinter dem Salon</p>
-    <p class="team-quote">"Hair is architecture. Every cut is a decision. Every decision is a statement. We don't do nice — we do remarkable."</p>
-    <div class="founder-row">
-      <img class="founder-img" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&q=85&auto=format&fit=crop" alt="Gründerin"/>
-      <div>
-        <div class="founder-name">Jana Wolkenstein</div>
-        <div class="founder-title">Gründerin &amp; Creative Director</div>
+  <div class="edit-grid">
+    <div class="edit-item edit-item-1">
+      <div class="edit-img edit-img-1"></div>
+      <div class="edit-caption">
+        <span class="edit-caption-label">SS 2025 — Campaign</span>
+        <p class="edit-caption-text">Zusammenarbeit mit der Designerin Mia Brandt für ihre Frühjahrskollektion. Strukturierte Hochsteckfrisuren treffen auf rohe Berliner Ästhetik.</p>
+      </div>
+    </div>
+    <div class="edit-item edit-item-2">
+      <div class="edit-img edit-img-2"></div>
+      <div class="edit-caption">
+        <span class="edit-caption-label">Editorial — Vogue DE</span>
+        <p class="edit-caption-text">Glatte Textur trifft auf scharfe Geometrie.</p>
+      </div>
+    </div>
+    <div class="edit-item edit-item-3">
+      <div class="edit-img edit-img-3"></div>
+      <div class="edit-caption">
+        <span class="edit-caption-label">Bridal — Juni 2024</span>
+        <p class="edit-caption-text">Romantisches Chaos in aufgesteckter Perfektion.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- BOOKING -->
-<section class="booking" id="booking">
-  <div class="booking-grid">
-    <div>
-      <p class="booking-label">Termin vereinbaren</p>
-      <h2>LET'S CREATE SOMETHING BOLD.</h2>
-      <p class="booking-info">
-        <strong>Atelier Wolke</strong><br/>
-        Karl-Liebknecht-Str. 72, 04275 Leipzig<br/><br/>
-        Tel: +49 341 2238 4417<br/>
-        info@atelier-wolke.de<br/><br/>
-        Mo–Fr: 10–20 Uhr<br/>
-        Sa: 09–18 Uhr
-      </p>
-    </div>
-    <form>
-      <div class="form-row">
-        <input type="text" placeholder="Vorname"/>
-        <input type="text" placeholder="Nachname"/>
-      </div>
-      <input type="email" placeholder="E-Mail-Adresse"/>
-      <input type="tel" placeholder="Telefon (optional)"/>
-      <select>
-        <option value="" disabled selected>Leistung auswählen</option>
-        <option>Precision Cut</option>
-        <option>Colordesign</option>
-        <option>Glossing &amp; Care</option>
-        <option>Extensions</option>
-        <option>Bridal Styling</option>
-        <option>Kids Cut</option>
-      </select>
-      <textarea placeholder="Wünsche oder Anmerkungen..."></textarea>
-      <button class="btn-submit" type="submit">JETZT BUCHEN →</button>
-    </form>
-  </div>
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <span class="manifesto-label">Unser Ansatz</span>
+  <p class="manifesto-quote">
+    Haare sind keine Dekoration —<br/>sie sind <em>Haltung</em>, Identität, und der erste Eindruck, den Sie hinterlassen.
+  </p>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">ATELIER WOLKE</div>
-  <div class="footer-novu">Built by <a href="https://novudesign.de">Novu Design</a></div>
-  <div class="footer-copy">© 2026 Atelier Wolke. Alle Rechte vorbehalten.</div>
+  <p class="footer-contact">
+    Prenzlauer Berg, Berlin
+    <span class="footer-divider"></span>
+    +49 30 123 456
+    <span class="footer-divider"></span>
+    hallo@atelierwolke.de
+  </p>
+  <div class="footer-social">
+    <a href="#">Instagram</a>
+    <a href="#">Pinterest</a>
+    <a href="#">Booksy</a>
+  </div>
 </footer>
 
+<script>
+  // ─── IntersectionObserver: services stagger
+  const serviceRows = document.querySelectorAll('.service-row');
+  const rowObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const rows = document.querySelectorAll('.service-row');
+        rows.forEach((row, i) => {
+          setTimeout(() => { row.classList.add('visible'); }, i * 80);
+        });
+        rowObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.1 });
+
+  if (serviceRows[0]) rowObserver.observe(serviceRows[0]);
+
+  // ─── IntersectionObserver: edit items stagger
+  const editItems = document.querySelectorAll('.edit-item');
+  const editObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        editObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  editItems.forEach((item) => editObserver.observe(item));
+
+  // ─── IntersectionObserver: manifesto
+  const manifesto = document.querySelector('.manifesto-quote');
+  const mObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        mObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  if (manifesto) mObserver.observe(manifesto);
+
+  // ─── Service row flash: hot-pink burst for 80ms
+  serviceRows.forEach((row) => {
+    row.addEventListener('mouseenter', () => {
+      row.style.setProperty('--flash', '1');
+    });
+  });
+</script>
 </body>
 </html>

@@ -1,251 +1,440 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>KAORU. — Specialty Coffee Leipzig</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<title>Kaoru — Specialty Coffee, Tokyo-Leipzig</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
-  --cream:#F4F0E8;
-  --dark:#1C1410;
-  --olive:#4A5E2A;
-  --orange:#D4622A;
-  --rose:#D4907A;
+  --ink:#0E0C0A;
+  --rice:#F7F3EC;
+  --matcha:#3D5C3A;
+  --copper:#B87333;
+  --mist:#D6CFC4;
+  --warm-white:#FDFAF6;
 }
-body{font-family:'DM Mono',monospace;background:var(--cream);color:var(--dark);overflow-x:hidden;}
-img{display:block;}
+html{scroll-behavior:smooth;}
+body{font-family:'Space Grotesk',sans-serif;background:var(--ink);color:var(--rice);overflow-x:hidden;cursor:none;}
+
+/* CURSOR */
+.cur-dot{position:fixed;top:0;left:0;width:6px;height:6px;background:var(--copper);border-radius:50%;pointer-events:none;z-index:9999;transition:opacity .25s;}
+.cur-ring{position:fixed;top:0;left:0;width:36px;height:36px;border:1px solid rgba(184,115,51,.4);border-radius:50%;pointer-events:none;z-index:9998;margin:-18px 0 0 -18px;transition:width .5s cubic-bezier(.16,1,.3,1),height .5s cubic-bezier(.16,1,.3,1),margin .5s cubic-bezier(.16,1,.3,1),border-color .3s;}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:1.6rem 3rem;display:flex;justify-content:space-between;align-items:center;mix-blend-mode:normal;}
-.nav-bg{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(28,20,16,0.6) 0%,transparent 100%);pointer-events:none;}
-.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;color:#fff;letter-spacing:0.02em;position:relative;z-index:1;}
-.nav-links{display:flex;gap:2.2rem;list-style:none;position:relative;z-index:1;}
-.nav-links a{text-decoration:none;font-size:0.72rem;color:rgba(255,255,255,0.6);letter-spacing:0.1em;text-transform:lowercase;transition:color 0.2s;}
-.nav-links a:hover{color:#fff;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 2.5rem;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-family:'Shippori Mincho',serif;font-size:1.125rem;letter-spacing:.06em;color:var(--rice);text-decoration:none;}
+.nav-logo span{color:var(--copper);}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(247,243,236,.45);text-decoration:none;transition:color .3s;}
+.nav-links a:hover{color:var(--copper);}
+.nav-reserve{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;padding:.5rem 1.25rem;border:1px solid rgba(184,115,51,.4);color:var(--copper);text-decoration:none;transition:background .3s,color .3s;}
+.nav-reserve:hover{background:var(--copper);color:var(--ink);}
 
 /* HERO */
-.hero{position:relative;height:100vh;overflow:hidden;}
-.hero img{width:100%;height:100%;object-fit:cover;object-position:center 40%;}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(28,20,16,0.85) 0%,rgba(28,20,16,0.6) 40%,rgba(28,20,16,0.1) 100%);}
-.hero-content{position:absolute;bottom:5rem;left:3rem;max-width:600px;}
-.hero h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(3.8rem,7vw,7rem);line-height:1.0;color:#fff;margin-bottom:1.5rem;}
-.hero h1 em{font-style:normal;color:var(--olive);}
-.hero-meta{font-size:0.7rem;letter-spacing:0.22em;color:rgba(255,255,255,0.38);text-transform:uppercase;}
+.hero{min-height:100dvh;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:0 2.5rem 6rem;}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(160deg,#1A1209 0%,#0E0C0A 60%);z-index:0;}
+.hero-texture{position:absolute;inset:0;background-image:radial-gradient(ellipse 60% 40% at 70% 30%,rgba(61,92,58,.18) 0%,transparent 70%);z-index:1;}
+.hero-kana{position:absolute;top:50%;right:8%;transform:translateY(-50%);font-family:'Shippori Mincho',serif;font-size:clamp(7rem,14vw,16rem);color:rgba(184,115,51,.06);line-height:1;z-index:1;pointer-events:none;writing-mode:vertical-rl;}
+.hero-content{position:relative;z-index:2;max-width:680px;}
+.hero-eyebrow{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--copper);margin-bottom:2.5rem;opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.hero-eyebrow.vis{opacity:1;transform:translateY(0);}
+.hero-title{font-family:'Shippori Mincho',serif;font-size:clamp(3.5rem,9vw,9rem);line-height:.9;letter-spacing:-.02em;margin-bottom:2rem;}
+.hero-title .line{display:block;overflow:hidden;}
+.hero-title .word{display:inline-block;opacity:0;transform:translateY(100%);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.hero-title .word.vis{opacity:1;transform:translateY(0);}
+.hero-desc{font-size:.9rem;line-height:1.8;color:rgba(247,243,236,.55);max-width:420px;margin-bottom:3rem;opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .4s,transform .9s cubic-bezier(.16,1,.3,1) .4s;}
+.hero-desc.vis{opacity:1;transform:translateY(0);}
+.hero-ctas{display:flex;align-items:center;gap:2rem;opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .55s,transform .9s cubic-bezier(.16,1,.3,1) .55s;}
+.hero-ctas.vis{opacity:1;transform:translateY(0);}
+.btn-primary{display:inline-block;padding:.75rem 2rem;background:var(--copper);color:var(--ink);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;font-weight:500;transition:background .3s;}
+.btn-primary:hover{background:#D4893A;}
+.btn-ghost{font-size:.75rem;letter-spacing:.08em;color:rgba(247,243,236,.5);text-decoration:none;border-bottom:1px solid rgba(247,243,236,.2);padding-bottom:.1rem;transition:color .3s,border-color .3s;}
+.btn-ghost:hover{color:var(--rice);border-color:rgba(247,243,236,.6);}
+.hero-scroll{position:absolute;right:2.5rem;bottom:6rem;z-index:2;writing-mode:vertical-rl;font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(247,243,236,.25);display:flex;align-items:center;gap:.75rem;}
+.hero-scroll::after{content:'';display:block;width:1px;height:60px;background:rgba(247,243,236,.15);}
 
-/* INFO STRIP */
-.info-strip{background:var(--olive);padding:1rem 3rem;display:flex;gap:3rem;align-items:center;flex-wrap:wrap;}
-.info-item{font-size:0.72rem;color:rgba(244,240,232,0.75);letter-spacing:0.1em;}
-.info-sep{color:rgba(244,240,232,0.25);font-size:0.6rem;}
+/* PHILOSOPHY */
+.philosophy{padding:8rem 2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;max-width:1400px;margin:0 auto;}
+.philosophy-visual{position:relative;}
+.phil-block-big{width:100%;aspect-ratio:3/4;background:linear-gradient(145deg,var(--matcha) 0%,#2A3D28 100%);position:relative;overflow:hidden;}
+.phil-block-big::before{content:'香';font-family:'Shippori Mincho',serif;position:absolute;bottom:-1rem;right:-1rem;font-size:14rem;color:rgba(255,255,255,.04);line-height:1;}
+.phil-block-small{position:absolute;bottom:-3rem;right:-3rem;width:55%;aspect-ratio:1;background:var(--copper);display:flex;align-items:center;justify-content:center;}
+.phil-block-small span{font-family:'Shippori Mincho',serif;font-size:2.5rem;color:var(--ink);}
+.philosophy-text{}
+.section-number{font-size:.65rem;letter-spacing:.2em;color:var(--copper);margin-bottom:1.5rem;display:block;}
+.philosophy-heading{font-family:'Shippori Mincho',serif;font-size:clamp(2rem,4vw,3.5rem);line-height:1.1;margin-bottom:2rem;}
+.philosophy-body{font-size:.9rem;line-height:1.9;color:rgba(247,243,236,.6);margin-bottom:1.5rem;}
+.philosophy-body:last-of-type{margin-bottom:0;}
+.divider{width:3rem;height:1px;background:var(--copper);margin:2.5rem 0;}
 
-/* MENU SECTION */
-.menu-section{position:relative;padding:5rem 3rem 5rem 6rem;background:var(--cream);}
-.menu-bg-label{position:absolute;left:-0.3em;top:50%;transform:translateY(-50%) rotate(-90deg);font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(6rem,12vw,14rem);color:var(--dark);opacity:0.04;white-space:nowrap;pointer-events:none;letter-spacing:0.05em;transform-origin:left center;}
-.menu-header{margin-bottom:3rem;}
-.menu-header h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.8rem,3vw,2.8rem);color:var(--dark);}
-.menu-header p{font-size:0.72rem;color:rgba(28,20,16,0.4);letter-spacing:0.12em;margin-top:0.4rem;}
-.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid rgba(28,20,16,0.1);}
-.menu-item{padding:1.6rem 1.4rem;border-right:1px solid rgba(28,20,16,0.1);border-bottom:1px solid rgba(28,20,16,0.1);}
-.menu-item:nth-child(3n){border-right:none;}
-.menu-item:nth-last-child(-n+3){border-bottom:none;}
-.menu-name{font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;color:var(--dark);margin-bottom:0.3rem;}
-.menu-origin{font-size:0.68rem;color:rgba(28,20,16,0.38);letter-spacing:0.08em;margin-bottom:0.8rem;}
-.menu-price{font-family:'Syne',sans-serif;font-weight:700;color:var(--orange);font-size:1.05rem;}
+/* MENU */
+.menu{background:var(--warm-white);color:var(--ink);padding:8rem 2.5rem;}
+.menu-inner{max-width:1400px;margin:0 auto;}
+.menu-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:5rem;}
+.menu-heading{font-family:'Shippori Mincho',serif;font-size:clamp(2.5rem,5vw,5rem);color:var(--ink);line-height:1;}
+.menu-heading em{color:var(--matcha);font-style:italic;}
+.menu-note{font-size:.75rem;max-width:240px;color:rgba(14,12,10,.5);line-height:1.7;text-align:right;}
+.menu-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:1px;background:var(--mist);}
+.menu-col{background:var(--warm-white);padding:3rem;}
+.menu-col-title{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--matcha);margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid var(--mist);}
+.menu-item{display:flex;justify-content:space-between;align-items:baseline;padding:1.1rem 0;border-bottom:1px solid rgba(14,12,10,.06);cursor:default;transition:background .15s;}
+.menu-item:hover{background:rgba(61,92,58,.04);margin:0 -1rem;padding:1.1rem 1rem;}
+.menu-item-name{font-family:'Shippori Mincho',serif;font-size:1.1rem;color:var(--ink);}
+.menu-item-sub{font-size:.72rem;color:rgba(14,12,10,.4);margin-top:.2rem;}
+.menu-item-price{font-size:.8rem;color:var(--copper);font-weight:500;white-space:nowrap;margin-left:1rem;}
+.menu-seasonal{margin-top:1px;background:var(--matcha);padding:3rem;grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;}
+.menu-seasonal-text h3{font-family:'Shippori Mincho',serif;font-size:1.75rem;color:var(--rice);margin-bottom:.5rem;}
+.menu-seasonal-text p{font-size:.85rem;color:rgba(247,243,236,.65);max-width:500px;line-height:1.7;}
+.menu-seasonal-badge{font-family:'Shippori Mincho',serif;font-size:4rem;color:rgba(255,255,255,.12);flex-shrink:0;}
 
-/* GALLERY */
-.gallery{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:260px 260px;gap:6px;background:var(--cream);padding:0 3rem 3rem;}
-.g-tall{grid-row:1/3;}
-.g-item{overflow:hidden;}
-.g-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease;}
-.g-item:hover img{transform:scale(1.04);}
+/* ORIGINS */
+.origins{padding:8rem 2.5rem;}
+.origins-inner{max-width:1400px;margin:0 auto;}
+.origins-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:4rem;}
+.origin-card{position:relative;overflow:hidden;cursor:default;}
+.origin-card:nth-child(2){margin-top:4rem;}
+.origin-card:nth-child(3){margin-top:8rem;}
+.origin-img{aspect-ratio:2/3;background:linear-gradient(135deg,#2A3D28 0%,#1A2618 100%);position:relative;overflow:hidden;transition:transform .6s cubic-bezier(.16,1,.3,1);}
+.origin-card:nth-child(1) .origin-img{background:linear-gradient(145deg,#3D2A1A 0%,#1A1007 100%);}
+.origin-card:nth-child(2) .origin-img{background:linear-gradient(145deg,#2A3D28 0%,#0E1A0C 100%);}
+.origin-card:nth-child(3) .origin-img{background:linear-gradient(145deg,#1A1A2A 0%,#0E0C1A 100%);}
+.origin-card:hover .origin-img{transform:scale(1.03);}
+.origin-label{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;background:linear-gradient(to top,rgba(14,12,10,.9) 0%,transparent 60%);}
+.origin-country{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--copper);margin-bottom:.5rem;}
+.origin-name{font-family:'Shippori Mincho',serif;font-size:1.5rem;color:var(--rice);}
+.origin-detail{margin-top:1.25rem;}
+.origin-detail h4{font-size:.75rem;letter-spacing:.08em;color:rgba(247,243,236,.6);margin-bottom:.4rem;}
+.origin-detail p{font-size:.8rem;color:rgba(247,243,236,.4);line-height:1.6;}
 
-/* STORY */
-.story{background:var(--dark);padding:6rem 3rem;text-align:center;}
-.story-inner{max-width:520px;margin:0 auto;}
-.story h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.2rem,4vw,3.5rem);color:#fff;line-height:1.05;margin-bottom:2rem;}
-.story p{font-size:0.88rem;color:rgba(244,240,232,0.5);line-height:1.9;font-weight:300;}
-.story-accent{color:var(--orange);}
-
-/* HOURS */
-.hours{background:var(--cream);padding:4rem 3rem;}
-.hours-inner{max-width:480px;}
-.hours h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1.2rem;color:var(--dark);margin-bottom:1.8rem;}
-.hours-table{width:100%;border-collapse:collapse;}
-.hours-table tr{border-bottom:1px solid rgba(28,20,16,0.08);}
-.hours-table td{padding:0.7rem 0;font-size:0.78rem;}
-.hours-table .day{color:rgba(28,20,16,0.4);letter-spacing:0.06em;}
-.hours-table .time{color:var(--orange);font-weight:400;text-align:right;}
-.hours-note{font-size:0.7rem;color:rgba(28,20,16,0.35);margin-top:1.2rem;line-height:1.7;}
+/* VISIT */
+.visit{padding:6rem 2.5rem;border-top:1px solid rgba(247,243,236,.06);}
+.visit-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:end;}
+.visit-text{}
+.visit-heading{font-family:'Shippori Mincho',serif;font-size:clamp(2rem,4vw,3.5rem);line-height:1.05;margin-bottom:2rem;}
+.visit-address{font-size:.85rem;line-height:2;color:rgba(247,243,236,.5);}
+.visit-address strong{color:var(--rice);display:block;font-weight:500;}
+.visit-hours{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:3rem;}
+.visit-hours-item{}
+.visit-hours-day{font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--copper);margin-bottom:.4rem;}
+.visit-hours-time{font-size:.85rem;color:rgba(247,243,236,.6);}
+.visit-map{aspect-ratio:4/3;background:linear-gradient(135deg,rgba(61,92,58,.15) 0%,rgba(14,12,10,.8) 100%);border:1px solid rgba(247,243,236,.06);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.visit-map::before{content:'Leipzig\AKarli 78';white-space:pre;font-family:'Shippori Mincho',serif;font-size:1.25rem;color:rgba(247,243,236,.2);text-align:center;line-height:1.8;}
 
 /* FOOTER */
-footer{background:var(--dark);padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between;}
-.footer-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:rgba(244,240,232,0.5);}
-.footer-copy{font-size:0.68rem;color:rgba(244,240,232,0.22);}
-.footer-novu{font-size:0.68rem;color:rgba(244,240,232,0.22);}
-.footer-novu a{color:var(--olive);text-decoration:none;}
+footer{padding:3rem 2.5rem;border-top:1px solid rgba(247,243,236,.06);display:flex;justify-content:space-between;align-items:center;}
+.footer-logo{font-family:'Shippori Mincho',serif;font-size:1rem;color:rgba(247,243,236,.4);}
+.footer-logo span{color:var(--copper);}
+.footer-copy{font-size:.7rem;color:rgba(247,243,236,.2);letter-spacing:.06em;}
 
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(48px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.reveal.d1{transition-delay:.1s;}
+.reveal.d2{transition-delay:.2s;}
+.reveal.d3{transition-delay:.3s;}
+.reveal.d4{transition-delay:.4s;}
+.reveal.vis{opacity:1;transform:translateY(0);}
+
+/* MOBILE */
 @media(max-width:768px){
-  nav{padding:1.2rem 1.5rem;}
+  nav{padding:1.25rem 1.5rem;}
   .nav-links{display:none;}
-  .hero-content{left:1.5rem;bottom:3rem;}
-  .hero h1{font-size:clamp(3rem,11vw,4.5rem);}
-  .info-strip{padding:1rem 1.5rem;gap:1.5rem;}
-  .menu-section{padding:4rem 1.5rem;}
-  .menu-bg-label{display:none;}
+  .hero{padding:0 1.5rem 5rem;}
+  .hero-kana{display:none;}
+  .hero-scroll{display:none;}
+  .philosophy{grid-template-columns:1fr;gap:3rem;padding:5rem 1.5rem;}
+  .phil-block-small{position:relative;bottom:auto;right:auto;margin-top:1.5rem;width:40%;aspect-ratio:1;}
+  .menu{padding:5rem 1.5rem;}
+  .menu-header{flex-direction:column;align-items:flex-start;gap:1.5rem;}
+  .menu-note{text-align:left;}
   .menu-grid{grid-template-columns:1fr;}
-  .menu-item{border-right:none !important;}
-  .gallery{grid-template-columns:1fr;grid-template-rows:auto;padding:0 1.5rem 1.5rem;gap:4px;}
-  .g-tall{grid-row:auto;}
-  .g-item{height:240px;}
-  .story,.hours{padding:4rem 1.5rem;}
-  footer{flex-direction:column;gap:0.8rem;text-align:center;padding:1.5rem;}
+  .menu-seasonal{flex-direction:column;gap:1.5rem;}
+  .origins{padding:5rem 1.5rem;}
+  .origins-grid{grid-template-columns:1fr;gap:2rem;}
+  .origin-card:nth-child(2),.origin-card:nth-child(3){margin-top:0;}
+  .visit{padding:5rem 1.5rem;}
+  .visit-inner{grid-template-columns:1fr;gap:3rem;}
+  footer{flex-direction:column;gap:1rem;text-align:center;padding:2rem 1.5rem;}
 }
 </style>
 </head>
 <body>
 
+<div class="cur-dot" id="dot"></div>
+<div class="cur-ring" id="ring"></div>
+
 <nav>
-  <div class="nav-bg"></div>
-  <div class="nav-logo">KAORU.</div>
+  <a href="#" class="nav-logo">香 <span>Kaoru</span></a>
   <ul class="nav-links">
-    <li><a href="#">menu</a></li>
-    <li><a href="#">über uns</a></li>
-    <li><a href="#">finden</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#origins">Origins</a></li>
+    <li><a href="#visit">Visit</a></li>
   </ul>
+  <a href="#visit" class="nav-reserve">Find Us</a>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1600&q=85&auto=format&fit=crop" alt="Kaoru Coffee Leipzig"/>
-  <div class="hero-overlay"></div>
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-texture"></div>
+  <div class="hero-kana">香</div>
   <div class="hero-content">
-    <h1>Every cup<br/>a different<br/><em>story.</em></h1>
-    <p class="hero-meta">SPECIALTY COFFEE · LEIPZIG · EST. 2018</p>
-  </div>
-</section>
-
-<!-- INFO STRIP -->
-<div class="info-strip">
-  <span class="info-item">Di–Fr: 8–18 Uhr</span>
-  <span class="info-sep">—</span>
-  <span class="info-item">Sa–So: 9–17 Uhr</span>
-  <span class="info-sep">—</span>
-  <span class="info-item">Spinnereistraße 14, 04179 Leipzig</span>
-  <span class="info-sep">—</span>
-  <span class="info-item">Mo: Ruhetag</span>
-</div>
-
-<!-- MENU -->
-<section class="menu-section">
-  <div class="menu-bg-label">MENU</div>
-  <div class="menu-header">
-    <h2>Was wir einschenken.</h2>
-    <p>Einzelursprung · saisonale Röstungen · täglich frisch</p>
-  </div>
-  <div class="menu-grid">
-    <div class="menu-item">
-      <div class="menu-name">Kyoto Pour Over</div>
-      <div class="menu-origin">Ethiopia Yirgacheffe · helle Röstung</div>
-      <div class="menu-price">5,80 €</div>
-    </div>
-    <div class="menu-item">
-      <div class="menu-name">Cardamom Flat White</div>
-      <div class="menu-origin">Hausblend · mittlere Röstung</div>
-      <div class="menu-price">4,90 €</div>
-    </div>
-    <div class="menu-item">
-      <div class="menu-name">Hojicha Latte</div>
-      <div class="menu-origin">Gerösteter Grüntee · Hafermilch</div>
-      <div class="menu-price">5,20 €</div>
-    </div>
-    <div class="menu-item">
-      <div class="menu-name">Iced Yuzu Cold Brew</div>
-      <div class="menu-origin">18h Cold Brew · Yuzusirup</div>
-      <div class="menu-price">6,50 €</div>
-    </div>
-    <div class="menu-item">
-      <div class="menu-name">Seasonal Espresso</div>
-      <div class="menu-origin">Wechselnder Einzelursprung</div>
-      <div class="menu-price">2,80 €</div>
-    </div>
-    <div class="menu-item">
-      <div class="menu-name">Ceremonial Matcha</div>
-      <div class="menu-origin">Uji, Japan · Zeremoniellqualität</div>
-      <div class="menu-price">6,20 €</div>
-    </div>
-  </div>
-</section>
-
-<!-- GALLERY -->
-<div class="gallery">
-  <div class="g-item g-tall">
-    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1000&q=85&auto=format&fit=crop" alt="Kaffee Nahaufnahme"/>
-  </div>
-  <div class="g-item">
-    <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=800&q=85&auto=format&fit=crop" alt="Kaffeebohnen"/>
-  </div>
-  <div class="g-item">
-    <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&q=85&auto=format&fit=crop" alt="Espresso Shot"/>
-  </div>
-  <div class="g-item">
-    <img src="https://images.unsplash.com/photo-1534040385115-33dcb3acba5b?w=800&q=85&auto=format&fit=crop" alt="Latte Art"/>
-  </div>
-  <div class="g-item">
-    <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=800&q=85&auto=format&fit=crop" alt="Café Interieur"/>
-  </div>
-</div>
-
-<!-- STORY -->
-<section class="story">
-  <div class="story-inner">
-    <h2>Started with one<br/>perfect cup.</h2>
-    <p>2018 eröffneten wir in einer ehemaligen Fabrikhalle der Baumwollspinnerei — mit einem gebrauchten Siebträger, einem kleinen Trommelröster und der Überzeugung, dass Leipzig besseren Kaffee verdient.</p>
-    <br/>
-    <p>Heute beziehen wir unsere Bohnen direkt von kleinen Farmen in Äthiopien, Japan und Kolumbien. Wir rösten selbst, in kleinen Chargen, und servieren jeden Kaffee frisch — ohne Kompromisse, ohne Kapseln, <span class="story-accent">ohne Bullshit</span>.</p>
-  </div>
-</section>
-
-<!-- HOURS -->
-<section class="hours">
-  <div class="hours-inner">
-    <h3>Öffnungszeiten &amp; Adresse</h3>
-    <table class="hours-table">
-      <tr>
-        <td class="day">Montag</td>
-        <td class="time">Ruhetag</td>
-      </tr>
-      <tr>
-        <td class="day">Dienstag – Freitag</td>
-        <td class="time">08:00 – 18:00</td>
-      </tr>
-      <tr>
-        <td class="day">Samstag</td>
-        <td class="time">09:00 – 17:00</td>
-      </tr>
-      <tr>
-        <td class="day">Sonntag</td>
-        <td class="time">09:00 – 17:00</td>
-      </tr>
-      <tr>
-        <td class="day">Feiertage</td>
-        <td class="time">10:00 – 16:00</td>
-      </tr>
-    </table>
-    <p class="hours-note">
-      Spinnereistraße 14 · Halle 14, EG · 04179 Leipzig<br/>
-      S-Bahn: Plagwitz (S1) · Tram 8, Haltestelle Nonnenstraße<br/>
-      Tel: +49 341 6882 1145 · hallo@kaorucafe.de
+    <p class="hero-eyebrow" id="ey">Specialty Coffee · Leipzig · Since 2019</p>
+    <h1 class="hero-title">
+      <span class="line"><span class="word" id="w1" style="transition-delay:.08s">Kaoru</span></span>
+      <span class="line"><span class="word" id="w2" style="transition-delay:.18s;padding-left:3rem">Café</span></span>
+    </h1>
+    <p class="hero-desc" id="hd">
+      Where Japanese ceremony meets Leipzig's coffee culture. Every cup sourced, roasted, and prepared with obsessive care — from farm to your hands.
     </p>
+    <div class="hero-ctas" id="hc">
+      <a href="#menu" class="btn-primary">Explore Menu</a>
+      <a href="#origins" class="btn-ghost">Our sourcing</a>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<section class="philosophy">
+  <div class="philosophy-visual reveal" id="pv">
+    <div class="phil-block-big"></div>
+    <div class="phil-block-small"><span>香</span></div>
+  </div>
+  <div class="philosophy-text">
+    <span class="section-number reveal" data-d="d1">— 01</span>
+    <h2 class="philosophy-heading reveal" data-d="d2">The art of<br><em style="color:var(--copper);font-style:italic;font-family:'Shippori Mincho',serif">paying attention</em></h2>
+    <div class="divider reveal" data-d="d2"></div>
+    <p class="philosophy-body reveal" data-d="d3">Kaoru (香) means fragrance in Japanese. A name chosen deliberately — coffee's truest expression lives in aroma, the first breath before the first sip. We built a space around that moment.</p>
+    <p class="philosophy-body reveal" data-d="d4">Our beans travel from single farms in Ethiopia, Colombia, and Kagoshima. We roast in-house, weekly, in small batches. No stale stock. No compromise.</p>
   </div>
 </section>
 
-<!-- FOOTER -->
+<section class="menu" id="menu">
+  <div class="menu-inner">
+    <div class="menu-header">
+      <h2 class="menu-heading reveal">The<br><em>Menu</em></h2>
+      <p class="menu-note reveal d2">All espresso drinks use our house blend — 70% Ethiopian Yirgacheffe, 30% Colombian Huila.</p>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-col reveal">
+        <div class="menu-col-title">Espresso Bar</div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Ristretto</div>
+            <div class="menu-item-sub">15ml, ultra-concentrated</div>
+          </div>
+          <div class="menu-item-price">2.80 €</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Espresso</div>
+            <div class="menu-item-sub">Double shot, house blend</div>
+          </div>
+          <div class="menu-item-price">3.20 €</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Cortado</div>
+            <div class="menu-item-sub">Equal parts espresso and warm milk</div>
+          </div>
+          <div class="menu-item-price">3.80 €</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Flat White</div>
+            <div class="menu-item-sub">Double ristretto, micro-foam</div>
+          </div>
+          <div class="menu-item-price">4.20 €</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Cappuccino</div>
+            <div class="menu-item-sub">Traditional ratio, dry foam</div>
+          </div>
+          <div class="menu-item-price">4.50 €</div>
+        </div>
+      </div>
+      <div class="menu-col reveal d1">
+        <div class="menu-col-title">Pour Over & Filter</div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">V60</div>
+            <div class="menu-item-sub">Single origin, daily rotation</div>
+          </div>
+          <div class="menu-item-price">5.50 €</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Chemex</div>
+            <div class="menu-item-sub">Two-cup, bright and clean</div>
+          </div>
+          <div class="menu-item-price">7.00 €</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">AeroPress</div>
+            <div class="menu-item-sub">Bold, full immersion method</div>
+          </div>
+          <div class="menu-item-price">5.00 €</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Cold Brew</div>
+            <div class="menu-item-sub">18-hour steep, on ice</div>
+          </div>
+          <div class="menu-item-price">5.80 €</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Matcha Latte</div>
+            <div class="menu-item-sub">Ceremonial grade, oat milk</div>
+          </div>
+          <div class="menu-item-price">5.20 €</div>
+        </div>
+      </div>
+      <div class="menu-seasonal reveal d2">
+        <div class="menu-seasonal-text">
+          <h3>Seasonal: Kagoshima Geisha</h3>
+          <p>Available through June. A rare natural process from the Kirishima highlands — jasmine florals, lychee sweetness, almost no bitterness. Prepared exclusively as pour-over, 8 €.</p>
+        </div>
+        <div class="menu-seasonal-badge">季</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="origins" id="origins">
+  <div class="origins-inner">
+    <span class="section-number reveal">— 02</span>
+    <h2 class="philosophy-heading reveal d1">Where our<br>beans come from</h2>
+    <div class="origins-grid">
+      <div class="origin-card reveal">
+        <div class="origin-img">
+          <div class="origin-label">
+            <div class="origin-country">Ethiopia</div>
+            <div class="origin-name">Yirgacheffe<br>Konga</div>
+          </div>
+        </div>
+        <div class="origin-detail">
+          <h4>Washed Process · 1,900m altitude</h4>
+          <p>Jasmine, bergamot, bright citrus acidity. The backbone of our espresso blend.</p>
+        </div>
+      </div>
+      <div class="origin-card reveal d1">
+        <div class="origin-img">
+          <div class="origin-label">
+            <div class="origin-country">Colombia</div>
+            <div class="origin-name">Huila<br>El Paraíso</div>
+          </div>
+        </div>
+        <div class="origin-detail">
+          <h4>Honey Process · 1,750m altitude</h4>
+          <p>Dark cherry, cacao, caramel sweetness. Adds body and depth to the blend.</p>
+        </div>
+      </div>
+      <div class="origin-card reveal d2">
+        <div class="origin-img">
+          <div class="origin-label">
+            <div class="origin-country">Japan</div>
+            <div class="origin-name">Kagoshima<br>Kirishima</div>
+          </div>
+        </div>
+        <div class="origin-detail">
+          <h4>Natural Process · 800m altitude</h4>
+          <p>Floral, lychee, soft stone fruit. Offered seasonally as single-origin pour-over.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="visit" id="visit">
+  <div class="visit-inner">
+    <div class="visit-text">
+      <span class="section-number reveal">— 03</span>
+      <h2 class="visit-heading reveal d1">Come<br>find us</h2>
+      <div class="visit-address reveal d2">
+        <strong>Kaoru Specialty Coffee</strong>
+        Karl-Liebknecht-Straße 78<br>
+        04275 Leipzig<br>
+        Germany
+      </div>
+      <div class="visit-hours reveal d3">
+        <div class="visit-hours-item">
+          <div class="visit-hours-day">Mon – Fri</div>
+          <div class="visit-hours-time">07:30 – 19:00</div>
+        </div>
+        <div class="visit-hours-item">
+          <div class="visit-hours-day">Sat – Sun</div>
+          <div class="visit-hours-time">09:00 – 18:00</div>
+        </div>
+      </div>
+    </div>
+    <div class="visit-map reveal d2"></div>
+  </div>
+</section>
+
 <footer>
-  <div class="footer-logo">KAORU.</div>
-  <div class="footer-copy">© 2026 Kaoru Café · Leipzig</div>
-  <div class="footer-novu">Built by <a href="https://novudesign.de">Novu Design</a></div>
+  <div class="footer-logo">香 <span>Kaoru</span></div>
+  <div class="footer-copy">© 2025 Kaoru GmbH · All rights reserved</div>
 </footer>
 
+<script>
+// Custom cursor
+const dot = document.getElementById('dot');
+const ring = document.getElementById('ring');
+let rx = -100, ry = -100, cx = -100, cy = -100;
+document.addEventListener('mousemove', e => {
+  rx = e.clientX; ry = e.clientY;
+  dot.style.transform = `translate(${rx-3}px,${ry-3}px)`;
+});
+(function loop() {
+  cx += (rx - cx) * 0.12;
+  cy += (ry - cy) * 0.12;
+  ring.style.transform = `translate(${cx}px,${cy}px)`;
+  requestAnimationFrame(loop);
+})();
+document.addEventListener('mouseover', e => {
+  if (e.target.closest('a,button')) {
+    dot.style.opacity = '0';
+    ring.style.width = '60px'; ring.style.height = '60px';
+    ring.style.margin = '-30px 0 0 -30px';
+    ring.style.borderColor = 'rgba(184,115,51,.6)';
+  }
+});
+document.addEventListener('mouseout', e => {
+  if (e.target.closest('a,button')) {
+    dot.style.opacity = '1';
+    ring.style.width = '36px'; ring.style.height = '36px';
+    ring.style.margin = '-18px 0 0 -18px';
+    ring.style.borderColor = 'rgba(184,115,51,.4)';
+  }
+});
+
+// Hero reveal
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('ey').classList.add('vis');
+    ['w1','w2'].forEach((id,i) => {
+      setTimeout(() => document.getElementById(id).classList.add('vis'), i*120);
+    });
+    setTimeout(() => document.getElementById('hd').classList.add('vis'), 300);
+    setTimeout(() => document.getElementById('hc').classList.add('vis'), 450);
+  }, 100);
+});
+
+// Scroll reveals
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const d = e.target.dataset.d || '';
+      e.target.classList.add(d, 'vis');
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
 </body>
 </html>
