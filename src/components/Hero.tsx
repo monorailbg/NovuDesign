@@ -289,8 +289,8 @@ export default function Hero() {
         </div>
 
         {/* Headline */}
-        <h1 className="font-heading font-black tracking-[-0.03em] leading-[0.88] max-w-5xl">
-          <span className="block text-[clamp(44px,7.5vw,112px)] text-white">
+        <h1 className="font-heading font-black tracking-[-0.03em] max-w-5xl" style={{ lineHeight: 1 }}>
+          <span className="block text-[clamp(44px,7.5vw,112px)] text-white" style={{ lineHeight: 0.92 }}>
             {h.words1.map((word, i) => (
               <span key={i}>
                 <Word text={word} delay={200 + i * 120} />
@@ -298,7 +298,7 @@ export default function Hero() {
               </span>
             ))}
           </span>
-          <span className="block text-[clamp(44px,7.5vw,112px)]" style={{ paddingBottom: "0.04em" }}>
+          <span className="block text-[clamp(44px,7.5vw,112px)]" style={{ lineHeight: 1, paddingBottom: "0.12em" }}>
             <GradientWord text={h.word2} delay={200 + h.words1.length * 120} />
           </span>
         </h1>

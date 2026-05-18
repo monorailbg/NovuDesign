@@ -165,7 +165,6 @@ const en = {
     heading1: "Got a bold",
     heading2: "idea?",
     sub: "Tell us about your project and let’s make something extraordinary together. We respond within 24 hours.",
-    social: "Or find us on",
     form: {
       name: "Your Name",
       email: "Email Address",
@@ -348,7 +347,6 @@ const de: typeof en = {
     heading1: "Eine mutige",
     heading2: "Idee?",
     sub: "Erzählen Sie uns von Ihrem Projekt und lassen Sie uns gemeinsam etwas Außergewöhnliches erschaffen. Wir antworten innerhalb von 24 Stunden.",
-    social: "Oder finden Sie uns auf",
     form: {
       name: "Ihr Name",
       email: "E-Mail-Adresse",

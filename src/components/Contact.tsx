@@ -137,15 +137,6 @@ export default function Contact() {
                 </svg>
               </a>
 
-              <p className="mt-6 text-xs" style={{ color: "rgba(107,120,216,0.25)" }}>
-                {c.social}{" "}
-                {["Twitter", "Instagram", "LinkedIn"].map((s, i) => (
-                  <span key={s}>
-                    <a href="#" className="transition-colors duration-200 cursor-pointer hover:text-violet-300" style={{ color: "rgba(107,120,216,0.4)" }}>{s}</a>
-                    {i < 2 && <span> · </span>}
-                  </span>
-                ))}
-              </p>
             </div>
 
             {/* Right — form */}

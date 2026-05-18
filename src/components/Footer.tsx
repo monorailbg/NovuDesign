@@ -12,16 +12,13 @@ export default function Footer() {
           Novu<span style={{ background:"linear-gradient(135deg,#C4563A,#9B3420)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }}>.</span>
         </span>
         <p className="text-xs font-mono" style={{ color:"rgba(107,120,216,0.2)" }}>{t.footer.rights}</p>
-        <div className="flex items-center gap-6">
-          {["Twitter","Instagram","LinkedIn"].map((s) => (
-            <a key={s} href="#" className="text-xs font-semibold tracking-wider uppercase transition-colors duration-200 cursor-pointer"
-              style={{ color:"rgba(107,120,216,0.25)" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(160,170,235,0.7)")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(107,120,216,0.25)")}>
-              {s}
-            </a>
-          ))}
-        </div>
+        <a href="mailto:team@novudesign.co"
+          className="text-xs font-semibold tracking-wider transition-colors duration-200 cursor-pointer"
+          style={{ color:"rgba(107,120,216,0.3)" }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(160,170,235,0.7)")}
+          onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(107,120,216,0.3)")}>
+          team@novudesign.co
+        </a>
       </div>
     </footer>
   );
