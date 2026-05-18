@@ -5,7 +5,7 @@ import { useEffect, useRef, useState, ReactNode } from "react";
 export default function FadeIn({
   children,
   delay = 0,
-  y = 48,
+  y = 56,
   className,
   style,
 }: {
@@ -23,12 +23,9 @@ export default function FadeIn({
     if (!el) return;
     const obs = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          obs.disconnect();
-        }
+        if (entry.isIntersecting) { setVisible(true); obs.disconnect(); }
       },
-      { threshold: 0.06, rootMargin: "0px 0px -32px 0px" }
+      { threshold: 0.06, rootMargin: "0px 0px -24px 0px" }
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -43,7 +40,8 @@ export default function FadeIn({
         willChange: "opacity, transform",
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0px)" : `translateY(${y}px)`,
-        transition: `opacity 0.75s ease ${delay}ms, transform 0.75s cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
+        // Longer duration, spring easing — feels deliberate not mechanical
+        transition: `opacity 0.9s cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 0.9s cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
       }}
     >
       {children}

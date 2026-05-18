@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useLang } from "@/context/LanguageContext";
+import Magnetic from "@/components/Magnetic";
 
 // ─── 3D Fibonacci Sphere Network ─────────────────────────────────────────────
 // N nodes distributed uniformly on a sphere using the golden angle.
@@ -47,7 +48,7 @@ const EDGES: [number, number][] = (() => {
 })();
 
 // Number of trailing dots in the cursor cone
-const CHAIN_N = 7;
+const CHAIN_N = 5;
 
 function FibSphere() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -184,16 +185,14 @@ function FibSphere() {
       }
 
       // Draw tail → tip so smaller tip dot sits on top
+      // Monochromatic indigo — subtle, precise, not flashy
       for (let i = CHAIN_N - 1; i >= 0; i--) {
-        const t = i / (CHAIN_N - 1); // 0 = tip (cursor), 1 = tail
-        const r     = 2 + t * 9;     // 2 px at tip → 11 px at tail
-        const alpha = 0.95 - t * 0.6;
-        // colour: crimson at tip → indigo at tail (matches brand palette)
-        const hue   = Math.round(10 + t * 222);
-        const light = Math.round(68 - t * 24);
+        const t     = i / (CHAIN_N - 1); // 0 = tip, 1 = tail
+        const r     = 1.5 + t * 5.5;     // 1.5 px tip → 7 px tail
+        const alpha = 0.88 - t * 0.68;   // bright tip, nearly invisible tail
         ctx.beginPath();
         ctx.arc(chain[i].x, chain[i].y, r, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(${hue},85%,${light}%,${alpha})`;
+        ctx.fillStyle = `rgba(107,120,216,${alpha})`;
         ctx.fill();
       }
     };
@@ -227,8 +226,8 @@ function Word({ text, delay }: { text: string; delay: number }) {
   return (
     <span className="inline-block" style={{
       opacity: show ? 1 : 0,
-      transform: show ? "translateY(0)" : "translateY(36px)",
-      transition: "opacity 0.75s ease, transform 0.75s ease",
+      transform: show ? "translateY(0)" : "translateY(52px)",
+      transition: `opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)`,
     }}>{text}</span>
   );
 }
@@ -239,8 +238,8 @@ function GradientWord({ text, delay }: { text: string; delay: number }) {
   return (
     <span className="inline-block" style={{
       opacity: show ? 1 : 0,
-      transform: show ? "translateY(0)" : "translateY(36px)",
-      transition: "opacity 0.75s ease, transform 0.75s ease",
+      transform: show ? "translateY(0)" : "translateY(52px)",
+      transition: `opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)`,
       background: "linear-gradient(135deg, #A0AAEB 0%, #3A45C4 45%, #9B3420 100%)",
       WebkitBackgroundClip: "text",
       WebkitTextFillColor: "transparent",
@@ -290,17 +289,17 @@ export default function Hero() {
         </div>
 
         {/* Headline */}
-        <h1 className="font-heading font-black tracking-tighter leading-[0.88] max-w-5xl">
-          <span className="block text-[clamp(50px,9vw,132px)] text-white">
+        <h1 className="font-heading font-black tracking-[-0.04em] leading-[0.84] max-w-5xl">
+          <span className="block text-[clamp(58px,10.5vw,150px)] text-white">
             {h.words1.map((word, i) => (
               <span key={i}>
-                <Word text={word} delay={200 + i * 130} />
+                <Word text={word} delay={200 + i * 120} />
                 {i < h.words1.length - 1 ? " " : ""}
               </span>
             ))}
           </span>
-          <span className="block text-[clamp(50px,9vw,132px)]" style={{ lineHeight: 1.1, paddingBottom: "0.05em" }}>
-            <GradientWord text={h.word2} delay={200 + h.words1.length * 130} />
+          <span className="block text-[clamp(58px,10.5vw,150px)]" style={{ paddingBottom: "0.04em" }}>
+            <GradientWord text={h.word2} delay={200 + h.words1.length * 120} />
           </span>
         </h1>
 
@@ -311,24 +310,28 @@ export default function Hero() {
         </p>
 
         {/* CTAs */}
-        <div className="mt-11 flex flex-wrap items-center justify-center gap-4" style={{ animation: "fadeUp 0.8s ease 1.15s both" }}>
-          <Link href="#work"
-            className="group flex items-center gap-2.5 px-8 py-4 rounded-full font-bold text-white cursor-pointer transition-all duration-300 hover:-translate-y-0.5"
-            style={{ background: "linear-gradient(135deg, #9B3420, #3A45C4)", boxShadow: "0 0 32px rgba(155,52,32,0.4)" }}
-            onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "0 0 48px rgba(58,69,196,0.55)")}
-            onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "0 0 32px rgba(155,52,32,0.4)")}>
-            {h.cta1}
-            <svg className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-            </svg>
-          </Link>
-          <Link href="#contact"
-            className="flex items-center gap-2 px-8 py-4 rounded-full font-bold border cursor-pointer transition-all duration-300 hover:-translate-y-0.5"
-            style={{ borderColor: "rgba(107,120,216,0.2)", color: "rgba(160,170,235,0.7)" }}
-            onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(107,120,216,0.4)"; e.currentTarget.style.color = "#A0AAEB"; e.currentTarget.style.background = "rgba(58,69,196,0.12)"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(107,120,216,0.2)"; e.currentTarget.style.color = "rgba(160,170,235,0.7)"; e.currentTarget.style.background = "transparent"; }}>
-            {h.cta2}
-          </Link>
+        <div className="mt-11 flex flex-wrap items-center justify-center gap-4" style={{ animation: "fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 1.1s both" }}>
+          <Magnetic strength={0.22}>
+            <Link href="#work"
+              className="group flex items-center gap-2.5 px-8 py-4 rounded-full font-bold text-white cursor-pointer transition-all duration-300"
+              style={{ background: "linear-gradient(135deg, #9B3420, #3A45C4)", boxShadow: "0 0 32px rgba(155,52,32,0.4)" }}
+              onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "0 0 56px rgba(58,69,196,0.6)")}
+              onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "0 0 32px rgba(155,52,32,0.4)")}>
+              {h.cta1}
+              <svg className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+              </svg>
+            </Link>
+          </Magnetic>
+          <Magnetic strength={0.22}>
+            <Link href="#contact"
+              className="flex items-center gap-2 px-8 py-4 rounded-full font-bold border cursor-pointer transition-all duration-300"
+              style={{ borderColor: "rgba(107,120,216,0.2)", color: "rgba(160,170,235,0.7)" }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(107,120,216,0.4)"; e.currentTarget.style.color = "#A0AAEB"; e.currentTarget.style.background = "rgba(58,69,196,0.12)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(107,120,216,0.2)"; e.currentTarget.style.color = "rgba(160,170,235,0.7)"; e.currentTarget.style.background = "transparent"; }}>
+              {h.cta2}
+            </Link>
+          </Magnetic>
         </div>
 
         {/* Depth cue — subtle coordinate labels */}
