@@ -48,12 +48,9 @@ const EDGES: [number, number][] = (() => {
 
 function FibSphere() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  // nx/ny = normalised cursor pos (-1..1)
-  // vx/vy = raw per-frame delta, svx/svy = smoothed (decays to 0 at rest)
   const mouse = useRef({ nx: 0, ny: 0, vx: 0, vy: 0, svx: 0, svy: 0 });
   const [opacity, setOpacity] = useState(0);
 
-  // Fade sphere in after a short delay so it doesn't pop
   useEffect(() => {
     const t = setTimeout(() => setOpacity(0.95), 250);
     return () => clearTimeout(t);
@@ -64,8 +61,9 @@ function FibSphere() {
     if (!canvas) return;
     const ctx = canvas.getContext("2d")!;
     let raf: number, lastTs = 0;
-    let angY = 0, angX = 0;
-    let autoY = 0;
+    let angY = 0, angX = 0, autoY = 0;
+    // sphere centre offset — follows the cursor physically
+    let ox = 0, oy = 0;
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio, 2);
@@ -88,7 +86,7 @@ function FibSphere() {
     };
     document.addEventListener("mousemove", onMove, { passive: true });
 
-    const FRAME = 1000 / 60; // 60 fps — snappy enough to feel alive
+    const FRAME = 1000 / 60;
 
     const draw = (ts: number) => {
       raf = requestAnimationFrame(draw);
@@ -97,29 +95,35 @@ function FibSphere() {
 
       const m = mouse.current;
       const W = canvas.offsetWidth, H = canvas.offsetHeight;
-      const cx = W / 2, cy = H / 2;
       const scale = Math.min(W, H) * 0.38;
 
-      // Smooth velocity → natural spring-back when mouse stops
-      m.svx += (m.vx - m.svx) * 0.14;
-      m.svy += (m.vy - m.svy) * 0.14;
-      m.vx  *= 0.80;
-      m.vy  *= 0.80;
+      // ── Follow cursor ──────────────────────────────────────────────────────
+      // Sphere centre drifts toward cursor (max 22% of canvas width/height)
+      const targetOx = m.nx * W * 0.22;
+      const targetOy = m.ny * H * 0.17;
+      ox += (targetOx - ox) * 0.065;
+      oy += (targetOy - oy) * 0.065;
+      const cx = W / 2 + ox;
+      const cy = H / 2 + oy;
 
-      // Rotation — more responsive than before
-      autoY += 0.005;
-      const targetY = autoY + m.nx * 1.1;
-      const targetX = m.ny * 0.55;
-      angY += (targetY - angY) * 0.10;
-      angX += (targetX - angX) * 0.10;
+      // ── Sharp velocity stretch ─────────────────────────────────────────────
+      // Fast smoothing + strong multiplier = reacts hard and snaps back
+      m.svx += (m.vx - m.svx) * 0.30;
+      m.svy += (m.vy - m.svy) * 0.30;
+      m.vx  *= 0.70;
+      m.vy  *= 0.70;
+      const sX = Math.max(0.55, Math.min(1.60, 1 + m.svx * 20));
+      const sY = Math.max(0.55, Math.min(1.60, 1 + m.svy * 20));
+
+      // ── Rotation ──────────────────────────────────────────────────────────
+      autoY += 0.004;
+      const targetY = autoY + m.nx * 0.7;
+      const targetX = m.ny * 0.35;
+      angY += (targetY - angY) * 0.09;
+      angX += (targetX - angX) * 0.09;
 
       const cosX = Math.cos(angX), sinX = Math.sin(angX);
       const cosY = Math.cos(angY), sinY = Math.sin(angY);
-
-      // Stretch the sphere from its centre in the direction of cursor movement.
-      // Clamped so it never looks broken at extreme velocities.
-      const sX = Math.max(0.80, Math.min(1.24, 1 + m.svx * 7));
-      const sY = Math.max(0.80, Math.min(1.24, 1 + m.svy * 7));
 
       const proj = BASE_NODES.map(n => {
         const x1 =  n.x * cosY + n.z * sinY;
@@ -143,12 +147,11 @@ function FibSphere() {
         .map(([i, j]) => ({ i, j, depth: (proj[i].depth + proj[j].depth) * 0.5 }))
         .sort((a, b) => a.depth - b.depth)
         .forEach(({ i, j, depth }) => {
-          const hue   = Math.round(232 - depth * 222);
-          const alpha = 0.055 + depth * 0.28;
+          const hue = Math.round(232 - depth * 222);
           ctx.beginPath();
           ctx.moveTo(proj[i].sx, proj[i].sy);
           ctx.lineTo(proj[j].sx, proj[j].sy);
-          ctx.strokeStyle = `hsla(${hue},75%,${28 + depth * 36}%,${alpha})`;
+          ctx.strokeStyle = `hsla(${hue},75%,${28 + depth * 36}%,${0.055 + depth * 0.28})`;
           ctx.lineWidth   = 0.5 + depth * 1.5;
           ctx.stroke();
         });
@@ -158,15 +161,14 @@ function FibSphere() {
         .map((p, i) => ({ ...p, i }))
         .sort((a, b) => a.depth - b.depth)
         .forEach(({ sx, sy, depth }) => {
-          const hue   = Math.round(232 - depth * 222);
-          const alpha = 0.15 + depth * 0.85;
+          const hue = Math.round(232 - depth * 222);
           ctx.beginPath();
           ctx.arc(sx, sy, 0.9 + depth * 3.1, 0, Math.PI * 2);
-          ctx.fillStyle = `hsla(${hue},85%,${38 + depth * 42}%,${alpha})`;
+          ctx.fillStyle = `hsla(${hue},85%,${38 + depth * 42}%,${0.15 + depth * 0.85})`;
           ctx.fill();
         });
 
-      // Equator ring (also stretched so it stays consistent with nodes)
+      // Equator ring (follows same stretch so it stays consistent)
       ctx.beginPath();
       for (let k = 0; k <= 64; k++) {
         const theta = (k / 64) * Math.PI * 2;
