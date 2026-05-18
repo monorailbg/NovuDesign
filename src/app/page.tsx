@@ -11,6 +11,7 @@ import Insights from "@/components/Insights";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import FadeIn from "@/components/FadeIn";
+import AIEdge from "@/components/AIEdge";
 
 export default function Home() {
   return (
@@ -26,6 +27,7 @@ export default function Home() {
         <FadeIn delay={0}  y={48}><Work /></FadeIn>
         <FadeIn delay={0}  y={48}><Manifesto /></FadeIn>
         <FadeIn delay={0}  y={48}><About /></FadeIn>
+        <AIEdge />
         <FadeIn delay={0}  y={48}><Testimonials /></FadeIn>
         <FadeIn delay={0}  y={48}><Insights /></FadeIn>
         <FadeIn delay={0}  y={48}><Contact /></FadeIn>
