@@ -48,15 +48,24 @@ const EDGES: [number, number][] = (() => {
 
 function FibSphere() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mouseRef  = useRef({ nx: 0, ny: 0 }); // normalised -1..1
+  // nx/ny = normalised cursor pos (-1..1)
+  // vx/vy = raw per-frame delta, svx/svy = smoothed (decays to 0 at rest)
+  const mouse = useRef({ nx: 0, ny: 0, vx: 0, vy: 0, svx: 0, svy: 0 });
+  const [opacity, setOpacity] = useState(0);
+
+  // Fade sphere in after a short delay so it doesn't pop
+  useEffect(() => {
+    const t = setTimeout(() => setOpacity(0.95), 250);
+    return () => clearTimeout(t);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d")!;
     let raf: number, lastTs = 0;
-    let angY = 0, angX = 0;   // current rotation
-    let autoY = 0;             // slow auto-rotation accumulator
+    let angY = 0, angX = 0;
+    let autoY = 0;
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio, 2);
@@ -69,102 +78,112 @@ function FibSphere() {
 
     const onMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
-      mouseRef.current = {
-        nx: ((e.clientX - rect.left) / rect.width  - 0.5) * 2,
-        ny: ((e.clientY - rect.top)  / rect.height - 0.5) * 2,
-      };
+      const nx = ((e.clientX - rect.left) / rect.width  - 0.5) * 2;
+      const ny = ((e.clientY - rect.top)  / rect.height - 0.5) * 2;
+      const m = mouse.current;
+      m.vx = nx - m.nx;
+      m.vy = ny - m.ny;
+      m.nx = nx;
+      m.ny = ny;
     };
     document.addEventListener("mousemove", onMove, { passive: true });
 
+    const FRAME = 1000 / 60; // 60 fps — snappy enough to feel alive
+
     const draw = (ts: number) => {
       raf = requestAnimationFrame(draw);
-      if (ts - lastTs < FRAME_MS) return;
+      if (ts - lastTs < FRAME) return;
       lastTs = ts;
 
+      const m = mouse.current;
       const W = canvas.offsetWidth, H = canvas.offsetHeight;
       const cx = W / 2, cy = H / 2;
       const scale = Math.min(W, H) * 0.38;
 
-      // Smooth lerp toward target
-      autoY += 0.006;
-      const targetY = autoY + mouseRef.current.nx * 0.7;
-      const targetX = mouseRef.current.ny * 0.38;
-      angY += (targetY - angY) * 0.05;
-      angX += (targetX - angX) * 0.05;
+      // Smooth velocity → natural spring-back when mouse stops
+      m.svx += (m.vx - m.svx) * 0.14;
+      m.svy += (m.vy - m.svy) * 0.14;
+      m.vx  *= 0.80;
+      m.vy  *= 0.80;
+
+      // Rotation — more responsive than before
+      autoY += 0.005;
+      const targetY = autoY + m.nx * 1.1;
+      const targetX = m.ny * 0.55;
+      angY += (targetY - angY) * 0.10;
+      angX += (targetX - angX) * 0.10;
 
       const cosX = Math.cos(angX), sinX = Math.sin(angX);
       const cosY = Math.cos(angY), sinY = Math.sin(angY);
 
-      // Project all nodes
+      // Stretch the sphere from its centre in the direction of cursor movement.
+      // Clamped so it never looks broken at extreme velocities.
+      const sX = Math.max(0.80, Math.min(1.24, 1 + m.svx * 7));
+      const sY = Math.max(0.80, Math.min(1.24, 1 + m.svy * 7));
+
       const proj = BASE_NODES.map(n => {
-        // Y-axis rotation
         const x1 =  n.x * cosY + n.z * sinY;
         const z1 = -n.x * sinY + n.z * cosY;
-        // X-axis rotation
         const y2 =  n.y * cosX - z1 * sinX;
         const z2 =  n.y * sinX + z1 * cosX;
-
-        // Perspective divide
         const persp = FOV / (FOV + z2 + 1.2);
+        const rawX = cx + x1 * scale * persp;
+        const rawY = cy - y2 * scale * persp;
         return {
-          sx: cx + x1 * scale * persp,
-          sy: cy - y2 * scale * persp,
-          depth: (z2 + 1.2) / 2.4, // 0=back 1=front
+          sx:    cx + (rawX - cx) * sX,
+          sy:    cy + (rawY - cy) * sY,
+          depth: (z2 + 1.2) / 2.4,
         };
       });
 
       ctx.clearRect(0, 0, W, H);
 
-      // Draw edges back-to-front
-      const sortedEdges = EDGES.map(([i, j]) => ({
-        i, j, depth: (proj[i].depth + proj[j].depth) * 0.5,
-      })).sort((a, b) => a.depth - b.depth);
+      // Edges back-to-front
+      EDGES
+        .map(([i, j]) => ({ i, j, depth: (proj[i].depth + proj[j].depth) * 0.5 }))
+        .sort((a, b) => a.depth - b.depth)
+        .forEach(({ i, j, depth }) => {
+          const hue   = Math.round(232 - depth * 222);
+          const alpha = 0.055 + depth * 0.28;
+          ctx.beginPath();
+          ctx.moveTo(proj[i].sx, proj[i].sy);
+          ctx.lineTo(proj[j].sx, proj[j].sy);
+          ctx.strokeStyle = `hsla(${hue},75%,${28 + depth * 36}%,${alpha})`;
+          ctx.lineWidth   = 0.5 + depth * 1.5;
+          ctx.stroke();
+        });
 
-      for (const { i, j, depth } of sortedEdges) {
-        const hue   = Math.round(232 - depth * 222);
-        const alpha = 0.055 + depth * 0.28;
-        const lw    = 0.5 + depth * 1.5;
-        ctx.beginPath();
-        ctx.moveTo(proj[i].sx, proj[i].sy);
-        ctx.lineTo(proj[j].sx, proj[j].sy);
-        ctx.strokeStyle = `hsla(${hue},75%,${28 + depth * 36}%,${alpha})`;
-        ctx.lineWidth   = lw;
-        ctx.stroke();
-      }
+      // Nodes back-to-front
+      proj
+        .map((p, i) => ({ ...p, i }))
+        .sort((a, b) => a.depth - b.depth)
+        .forEach(({ sx, sy, depth }) => {
+          const hue   = Math.round(232 - depth * 222);
+          const alpha = 0.15 + depth * 0.85;
+          ctx.beginPath();
+          ctx.arc(sx, sy, 0.9 + depth * 3.1, 0, Math.PI * 2);
+          ctx.fillStyle = `hsla(${hue},85%,${38 + depth * 42}%,${alpha})`;
+          ctx.fill();
+        });
 
-      // Draw nodes back-to-front
-      const sortedNodes = proj.map((p, i) => ({ ...p, i })).sort((a, b) => a.depth - b.depth);
-
-      for (const { sx, sy, depth } of sortedNodes) {
-        const hue   = Math.round(232 - depth * 222);
-        const r     = 0.9 + depth * 3.1;
-        const alpha = 0.15 + depth * 0.85;
-        ctx.beginPath();
-        ctx.arc(sx, sy, r, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(${hue},85%,${38 + depth * 42}%,${alpha})`;
-        ctx.fill();
-      }
-
-      // Faint equator ring at z≈0 for spatial anchor
-      const ringPts = 64;
+      // Equator ring (also stretched so it stays consistent with nodes)
       ctx.beginPath();
-      for (let k = 0; k <= ringPts; k++) {
-        const theta = (k / ringPts) * Math.PI * 2;
-        const nx = Math.cos(theta), nz = Math.sin(theta), ny = 0;
-        const x1 =  nx * cosY + nz * sinY;
-        const z1 = -nx * sinY + nz * cosY;
-        const y2 =  ny * cosX - z1 * sinX;
-        const z2 =  ny * sinX + z1 * cosX;
+      for (let k = 0; k <= 64; k++) {
+        const theta = (k / 64) * Math.PI * 2;
+        const rnx = Math.cos(theta), rnz = Math.sin(theta);
+        const x1 =  rnx * cosY + rnz * sinY;
+        const z1 = -rnx * sinY + rnz * cosY;
+        const y2 = -z1 * sinX;
+        const z2 =  z1 * cosX;
         const persp = FOV / (FOV + z2 + 1.2);
-        const sx = cx + x1 * scale * persp;
-        const sy2 = cy - y2 * scale * persp;
+        const rawX = cx + x1 * scale * persp;
+        const rawY = cy - y2 * scale * persp;
         const depth = (z2 + 1.2) / 2.4;
-        const alpha = 0.04 + depth * 0.06;
-        if (k === 0) ctx.moveTo(sx, sy2);
+        if (k === 0) ctx.moveTo(cx + (rawX - cx) * sX, cy + (rawY - cy) * sY);
         else {
-          ctx.strokeStyle = `rgba(107,120,216,${alpha})`;
+          ctx.strokeStyle = `rgba(107,120,216,${0.04 + depth * 0.06})`;
           ctx.lineWidth   = 0.5;
-          ctx.lineTo(sx, sy2);
+          ctx.lineTo(cx + (rawX - cx) * sX, cy + (rawY - cy) * sY);
         }
       }
       ctx.stroke();
@@ -182,7 +201,11 @@ function FibSphere() {
     <canvas
       ref={canvasRef}
       className="absolute inset-0 w-full h-full"
-      style={{ filter: "drop-shadow(0 0 28px rgba(58,69,196,0.35))", opacity: 0.95 }}
+      style={{
+        filter:     "drop-shadow(0 0 28px rgba(58,69,196,0.35))",
+        opacity,
+        transition: "opacity 1.4s cubic-bezier(0.16,1,0.3,1)",
+      }}
     />
   );
 }
