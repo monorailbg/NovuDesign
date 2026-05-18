@@ -10,6 +10,7 @@ import Testimonials from "@/components/Testimonials";
 import Insights from "@/components/Insights";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import FadeIn from "@/components/FadeIn";
 
 export default function Home() {
   return (
@@ -17,17 +18,19 @@ export default function Home() {
       <Cursor />
       <Navbar />
       <main>
+        {/* Hero animates itself internally */}
         <Hero />
-        <Marquee />
-        <Services />
-        <Work />
-        <Manifesto />
-        <About />
-        <Testimonials />
-        <Insights />
-        <Contact />
+
+        <FadeIn delay={0}  y={36}><Marquee /></FadeIn>
+        <FadeIn delay={0}  y={48}><Services /></FadeIn>
+        <FadeIn delay={0}  y={48}><Work /></FadeIn>
+        <FadeIn delay={0}  y={48}><Manifesto /></FadeIn>
+        <FadeIn delay={0}  y={48}><About /></FadeIn>
+        <FadeIn delay={0}  y={48}><Testimonials /></FadeIn>
+        <FadeIn delay={0}  y={48}><Insights /></FadeIn>
+        <FadeIn delay={0}  y={48}><Contact /></FadeIn>
       </main>
-      <Footer />
+      <FadeIn delay={0} y={24}><Footer /></FadeIn>
     </>
   );
 }
