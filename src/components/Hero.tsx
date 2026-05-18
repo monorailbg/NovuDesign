@@ -46,9 +46,12 @@ const EDGES: [number, number][] = (() => {
   return out;
 })();
 
+// Number of trailing dots in the cursor cone
+const CHAIN_N = 7;
+
 function FibSphere() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mouse = useRef({ nx: 0, ny: 0, vx: 0, vy: 0, svx: 0, svy: 0 });
+  const mouse = useRef({ nx: 0, ny: 0 });
   const [opacity, setOpacity] = useState(0);
 
   useEffect(() => {
@@ -62,8 +65,13 @@ function FibSphere() {
     const ctx = canvas.getContext("2d")!;
     let raf: number, lastTs = 0;
     let angY = 0, angX = 0, autoY = 0;
-    // sphere centre offset — follows the cursor physically
-    let ox = 0, oy = 0;
+
+    // Cone chain — starts at canvas centre, dot[0] chases cursor,
+    // each subsequent dot chases the one before it (slower each time)
+    const chain: { x: number; y: number }[] = Array.from(
+      { length: CHAIN_N },
+      () => ({ x: canvas.offsetWidth / 2, y: canvas.offsetHeight / 2 })
+    );
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio, 2);
@@ -76,13 +84,10 @@ function FibSphere() {
 
     const onMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
-      const nx = ((e.clientX - rect.left) / rect.width  - 0.5) * 2;
-      const ny = ((e.clientY - rect.top)  / rect.height - 0.5) * 2;
-      const m = mouse.current;
-      m.vx = nx - m.nx;
-      m.vy = ny - m.ny;
-      m.nx = nx;
-      m.ny = ny;
+      mouse.current = {
+        nx: ((e.clientX - rect.left) / rect.width  - 0.5) * 2,
+        ny: ((e.clientY - rect.top)  / rect.height - 0.5) * 2,
+      };
     };
     document.addEventListener("mousemove", onMove, { passive: true });
 
@@ -95,32 +100,13 @@ function FibSphere() {
 
       const m = mouse.current;
       const W = canvas.offsetWidth, H = canvas.offsetHeight;
+      const cx = W / 2, cy = H / 2;
       const scale = Math.min(W, H) * 0.38;
 
-      // ── Follow cursor ──────────────────────────────────────────────────────
-      // Sphere centre drifts toward cursor (max 22% of canvas width/height)
-      const targetOx = m.nx * W * 0.22;
-      const targetOy = m.ny * H * 0.17;
-      ox += (targetOx - ox) * 0.065;
-      oy += (targetOy - oy) * 0.065;
-      const cx = W / 2 + ox;
-      const cy = H / 2 + oy;
-
-      // ── Sharp velocity stretch ─────────────────────────────────────────────
-      // Fast smoothing + strong multiplier = reacts hard and snaps back
-      m.svx += (m.vx - m.svx) * 0.30;
-      m.svy += (m.vy - m.svy) * 0.30;
-      m.vx  *= 0.70;
-      m.vy  *= 0.70;
-      const sX = Math.max(0.55, Math.min(1.60, 1 + m.svx * 20));
-      const sY = Math.max(0.55, Math.min(1.60, 1 + m.svy * 20));
-
-      // ── Rotation ──────────────────────────────────────────────────────────
+      // ── Sphere: slow auto-rotation + very subtle cursor tilt ──────────────
       autoY += 0.004;
-      const targetY = autoY + m.nx * 0.7;
-      const targetX = m.ny * 0.35;
-      angY += (targetY - angY) * 0.09;
-      angX += (targetX - angX) * 0.09;
+      angY += (autoY + m.nx * 0.3 - angY) * 0.04;
+      angX += (m.ny * 0.15        - angX) * 0.04;
 
       const cosX = Math.cos(angX), sinX = Math.sin(angX);
       const cosY = Math.cos(angY), sinY = Math.sin(angY);
@@ -131,18 +117,16 @@ function FibSphere() {
         const y2 =  n.y * cosX - z1 * sinX;
         const z2 =  n.y * sinX + z1 * cosX;
         const persp = FOV / (FOV + z2 + 1.2);
-        const rawX = cx + x1 * scale * persp;
-        const rawY = cy - y2 * scale * persp;
         return {
-          sx:    cx + (rawX - cx) * sX,
-          sy:    cy + (rawY - cy) * sY,
+          sx:    cx + x1 * scale * persp,
+          sy:    cy - y2 * scale * persp,
           depth: (z2 + 1.2) / 2.4,
         };
       });
 
       ctx.clearRect(0, 0, W, H);
 
-      // Edges back-to-front
+      // Sphere edges
       EDGES
         .map(([i, j]) => ({ i, j, depth: (proj[i].depth + proj[j].depth) * 0.5 }))
         .sort((a, b) => a.depth - b.depth)
@@ -156,7 +140,7 @@ function FibSphere() {
           ctx.stroke();
         });
 
-      // Nodes back-to-front
+      // Sphere nodes
       proj
         .map((p, i) => ({ ...p, i }))
         .sort((a, b) => a.depth - b.depth)
@@ -168,7 +152,7 @@ function FibSphere() {
           ctx.fill();
         });
 
-      // Equator ring (follows same stretch so it stays consistent)
+      // Equator ring
       ctx.beginPath();
       for (let k = 0; k <= 64; k++) {
         const theta = (k / 64) * Math.PI * 2;
@@ -178,17 +162,40 @@ function FibSphere() {
         const y2 = -z1 * sinX;
         const z2 =  z1 * cosX;
         const persp = FOV / (FOV + z2 + 1.2);
-        const rawX = cx + x1 * scale * persp;
-        const rawY = cy - y2 * scale * persp;
         const depth = (z2 + 1.2) / 2.4;
-        if (k === 0) ctx.moveTo(cx + (rawX - cx) * sX, cy + (rawY - cy) * sY);
-        else {
-          ctx.strokeStyle = `rgba(107,120,216,${0.04 + depth * 0.06})`;
-          ctx.lineWidth   = 0.5;
-          ctx.lineTo(cx + (rawX - cx) * sX, cy + (rawY - cy) * sY);
-        }
+        const sx = cx + x1 * scale * persp;
+        const sy = cy - y2 * scale * persp;
+        if (k === 0) ctx.moveTo(sx, sy);
+        else { ctx.strokeStyle = `rgba(107,120,216,${0.04 + depth * 0.06})`; ctx.lineWidth = 0.5; ctx.lineTo(sx, sy); }
       }
       ctx.stroke();
+
+      // ── Cursor cone chain ─────────────────────────────────────────────────
+      const cursorX = cx + m.nx * W * 0.5;
+      const cursorY = cy + m.ny * H * 0.5;
+
+      // dot[0] chases cursor fast; each subsequent dot chases the previous, slower
+      chain[0].x += (cursorX   - chain[0].x) * 0.42;
+      chain[0].y += (cursorY   - chain[0].y) * 0.42;
+      for (let i = 1; i < CHAIN_N; i++) {
+        const spd = Math.max(0.09, 0.34 - i * 0.04);
+        chain[i].x += (chain[i - 1].x - chain[i].x) * spd;
+        chain[i].y += (chain[i - 1].y - chain[i].y) * spd;
+      }
+
+      // Draw tail → tip so smaller tip dot sits on top
+      for (let i = CHAIN_N - 1; i >= 0; i--) {
+        const t = i / (CHAIN_N - 1); // 0 = tip (cursor), 1 = tail
+        const r     = 2 + t * 9;     // 2 px at tip → 11 px at tail
+        const alpha = 0.95 - t * 0.6;
+        // colour: crimson at tip → indigo at tail (matches brand palette)
+        const hue   = Math.round(10 + t * 222);
+        const light = Math.round(68 - t * 24);
+        ctx.beginPath();
+        ctx.arc(chain[i].x, chain[i].y, r, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${hue},85%,${light}%,${alpha})`;
+        ctx.fill();
+      }
     };
 
     raf = requestAnimationFrame(draw);
