@@ -2,43 +2,64 @@
 
 import { useEffect, useRef } from "react";
 
+const INTERACTIVE = "a,button,[data-magnetic]";
+
 export default function Cursor() {
   const dotRef    = useRef<HTMLDivElement>(null);
   const ringOuter = useRef<HTMLDivElement>(null);
   const ringInner = useRef<HTMLDivElement>(null);
-  const target    = useRef({ x: -100, y: -100 });
-  const current   = useRef({ x: -100, y: -100 });
+  const target    = useRef({ x: -200, y: -200 });
+  const current   = useRef({ x: -200, y: -200 });
   const rafId     = useRef<number>(0);
+  const hovered   = useRef(false);
 
   useEffect(() => {
+    // Hide on touch-only devices
+    if (window.matchMedia("(hover: none)").matches) return;
+
+    const expand = () => {
+      hovered.current = true;
+      if (dotRef.current) dotRef.current.style.opacity = "0";
+      if (ringInner.current) {
+        ringInner.current.style.width       = "64px";
+        ringInner.current.style.height      = "64px";
+        ringInner.current.style.marginLeft  = "-32px";
+        ringInner.current.style.marginTop   = "-32px";
+        ringInner.current.style.borderColor = "rgba(155,52,32,0.55)";
+        ringInner.current.style.background  = "rgba(155,52,32,0.04)";
+      }
+    };
+
+    const contract = () => {
+      hovered.current = false;
+      if (dotRef.current) dotRef.current.style.opacity = "1";
+      if (ringInner.current) {
+        ringInner.current.style.width       = "40px";
+        ringInner.current.style.height      = "40px";
+        ringInner.current.style.marginLeft  = "-20px";
+        ringInner.current.style.marginTop   = "-20px";
+        ringInner.current.style.borderColor = "rgba(107,120,216,0.45)";
+        ringInner.current.style.background  = "transparent";
+      }
+    };
+
     const onMove = (e: PointerEvent) => {
       target.current = { x: e.clientX, y: e.clientY };
     };
 
+    // Only expand/contract when truly entering/leaving an interactive zone
     const onOver = (e: MouseEvent) => {
-      if (!(e.target as HTMLElement).closest("a,button,[data-magnetic]")) return;
-      if (dotRef.current)    dotRef.current.style.opacity    = "0";
-      if (ringInner.current) {
-        ringInner.current.style.width        = "64px";
-        ringInner.current.style.height       = "64px";
-        ringInner.current.style.marginLeft   = "-32px";
-        ringInner.current.style.marginTop    = "-32px";
-        ringInner.current.style.borderColor  = "rgba(155,52,32,0.55)";
-        ringInner.current.style.background   = "rgba(155,52,32,0.04)";
-      }
+      const entering = (e.target as HTMLElement).closest(INTERACTIVE);
+      if (!entering) return;
+      const from = (e.relatedTarget as HTMLElement | null)?.closest(INTERACTIVE);
+      if (!from) expand(); // only expand if we weren't already in an interactive el
     };
 
     const onOut = (e: MouseEvent) => {
-      if (!(e.target as HTMLElement).closest("a,button,[data-magnetic]")) return;
-      if (dotRef.current)    dotRef.current.style.opacity    = "1";
-      if (ringInner.current) {
-        ringInner.current.style.width        = "40px";
-        ringInner.current.style.height       = "40px";
-        ringInner.current.style.marginLeft   = "-20px";
-        ringInner.current.style.marginTop    = "-20px";
-        ringInner.current.style.borderColor  = "rgba(107,120,216,0.45)";
-        ringInner.current.style.background   = "transparent";
-      }
+      const leaving = (e.target as HTMLElement).closest(INTERACTIVE);
+      if (!leaving) return;
+      const to = (e.relatedTarget as HTMLElement | null)?.closest(INTERACTIVE);
+      if (!to) contract(); // only contract if we're not moving into another interactive el
     };
 
     const loop = () => {
@@ -72,7 +93,6 @@ export default function Cursor() {
 
   return (
     <>
-      {/* Dot — snaps to cursor exactly, disappears on interactive elements */}
       <div
         ref={dotRef}
         className="fixed top-0 left-0 z-[9999] pointer-events-none"
@@ -82,11 +102,9 @@ export default function Cursor() {
           background: "#fff",
           mixBlendMode: "difference",
           willChange: "transform",
-          transition: "opacity 0.25s ease",
+          transition: "opacity 0.2s ease",
         }}
       />
-
-      {/* Ring — lags behind, expands on hover via inner div with CSS transitions */}
       <div
         ref={ringOuter}
         className="fixed top-0 left-0 z-[9998] pointer-events-none"

@@ -37,11 +37,6 @@ export default function About() {
               style={{ background: "linear-gradient(to top, rgba(155,52,32,0.5) 0%, transparent 60%)" }} />
           </div>
 
-          <div className="absolute -bottom-5 -right-4 lg:-right-8 px-5 py-3 rounded-2xl border backdrop-blur-md"
-            style={{ background: "rgba(155,52,32,0.85)", borderColor: "rgba(107,120,216,0.25)" }}>
-            <p className="text-2xl font-heading font-black text-white leading-none">{a.badge[0]}</p>
-            <p className="text-xs font-semibold tracking-widest uppercase mt-0.5" style={{ color: "#A0AAEB" }}>{a.badge[1]}</p>
-          </div>
         </div>
 
         {/* Text column */}
@@ -75,14 +70,6 @@ export default function About() {
             ))}
           </div>
 
-          <div className="flex items-center gap-10 pt-5 border-t" style={{ borderColor: "rgba(107,120,216,0.1)" }}>
-            {a.stats.map(([num, label]) => (
-              <div key={label}>
-                <p className="font-heading font-black text-2xl text-white">{num}</p>
-                <p className="text-xs font-semibold tracking-widest uppercase mt-0.5" style={{ color: "rgba(107,120,216,0.4)" }}>{label}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </section>

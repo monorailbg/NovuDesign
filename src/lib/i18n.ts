@@ -60,10 +60,8 @@ const en = {
     heading1: "Built by someone who",
     heading2: "obsesses over craft.",
     p1: "NovuDesign was built on a simple belief: great design isn’t just how something looks — it’s how it makes people feel. Every pixel is intentional. Every interaction earns its place.",
-    p2: "With over five years working with startups, agencies, and global brands, we bring the same level of obsessive detail to a landing page as we do to a full brand system.",
+    p2: "We bring the same level of obsessive detail to a landing page as we do to a full brand system — because the quality of the work is the only thing that matters.",
     skills: ["Brand Strategy", "Motion Design", "Frontend Dev", "Typography", "UX Research", "Visual Systems"],
-    stats: [["5+", "Years"], ["80+", "Projects"], ["100%", "Passion"]] as [string, string][],
-    badge: ["80+", "Projects Delivered"] as [string, string],
   },
   testimonials: {
     label: "Social Proof",
@@ -242,10 +240,8 @@ const de: typeof en = {
     heading1: "Erschaffen von jemandem, der",
     heading2: "Perfektion besessen verfolgt.",
     p1: "NovuDesign wurde auf einem einfachen Glauben aufgebaut: Großartiges Design ist nicht nur wie etwas aussieht — es geht darum, wie es Menschen fühlen lässt. Jedes Pixel ist bewusst gesetzt. Jede Interaktion verdient ihren Platz.",
-    p2: "Mit über fünf Jahren Erfahrung mit Startups, Agenturen und globalen Marken bringen wir dasselbe Maß an obsessivem Detail zu einer Landing Page wie zu einem vollständigen Markensystem.",
+    p2: "Wir bringen dasselbe Maß an obsessivem Detail zu einer Landing Page wie zu einem vollständigen Markensystem — weil die Qualität der Arbeit das Einzige ist, was zählt.",
     skills: ["Markenstrategie", "Motion Design", "Frontend-Entwicklung", "Typografie", "UX-Research", "Visuelle Systeme"],
-    stats: [["5+", "Jahre"], ["80+", "Projekte"], ["100%", "Leidenschaft"]] as [string, string][],
-    badge: ["80+", "Projekte Geliefert"] as [string, string],
   },
   testimonials: {
     label: "Kundenstimmen",
