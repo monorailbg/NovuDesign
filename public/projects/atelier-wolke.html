@@ -78,6 +78,23 @@
     overflow: hidden;
   }
 
+  .hero-bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.35;
+    z-index: 0;
+  }
+
+  .hero-bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(12,12,12,0.45) 0%, rgba(12,12,12,0.2) 50%, rgba(12,12,12,0.75) 100%);
+    z-index: 1;
+  }
+
   .hero-bg-line {
     position: absolute;
     top: 0; right: 0;
@@ -87,9 +104,10 @@
     transform: scaleY(0);
     transform-origin: top;
     animation: lineReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+    z-index: 2;
   }
 
-  .hero-bg-line:nth-child(2) {
+  .hero-bg-line:nth-child(3) {
     right: 33%;
     animation-delay: 0.6s;
   }
@@ -100,7 +118,7 @@
 
   .hero-content {
     position: relative;
-    z-index: 2;
+    z-index: 3;
   }
 
   .hero-word-wrap {
@@ -196,6 +214,7 @@
     opacity: 0.3;
     writing-mode: vertical-rl;
     text-orientation: mixed;
+    z-index: 3;
   }
 
   /* ─── MARQUEE BAND ─── */
@@ -443,7 +462,6 @@
 
   .edit-img-1 {
     height: clamp(380px, 55vw, 640px);
-    background: linear-gradient(155deg, #1a1a1a 0%, #2d1f2a 40%, #0f0f0f 100%);
     position: relative;
     overflow: hidden;
   }
@@ -455,11 +473,12 @@
     width: 60%;
     height: 60%;
     background: radial-gradient(ellipse at bottom right, rgba(255,44,85,0.18) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
   }
 
   .edit-img-2 {
     height: clamp(170px, 22vw, 270px);
-    background: linear-gradient(135deg, #111111 0%, #1f1f1f 100%);
     position: relative;
     overflow: hidden;
   }
@@ -471,11 +490,12 @@
     width: 2.5rem; height: 2.5rem;
     border-top: 2px solid var(--accent);
     border-left: 2px solid var(--accent);
+    z-index: 2;
+    pointer-events: none;
   }
 
   .edit-img-3 {
     height: clamp(200px, 25vw, 300px);
-    background: linear-gradient(160deg, #0f0c0d 0%, #1a0f15 50%, #0c0c0c 100%);
     position: relative;
     overflow: hidden;
     border: 1px solid var(--hairline);
@@ -487,8 +507,17 @@
     bottom: 1.5rem; right: 2rem;
     font-family: 'Bebas Neue', sans-serif;
     font-size: 4rem;
-    color: rgba(255,254,249,0.04);
+    color: rgba(255,254,249,0.08);
     letter-spacing: 0.08em;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .edit-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .edit-caption {
@@ -644,6 +673,13 @@
 
 <!-- HERO -->
 <section class="hero">
+  <img
+    class="hero-bg-img"
+    src="https://images.unsplash.com/photo-1560066984-138daaa2adbb?auto=format&fit=crop&w=1200&q=85"
+    alt="Dramatisches Editorial-Foto eines Berliner Friseursalons"
+    loading="eager"
+  />
+  <div class="hero-bg-overlay"></div>
   <div class="hero-bg-line"></div>
   <div class="hero-bg-line"></div>
 
@@ -755,21 +791,39 @@
 
   <div class="edit-grid">
     <div class="edit-item edit-item-1">
-      <div class="edit-img edit-img-1"></div>
+      <div class="edit-img edit-img-1">
+        <img
+          src="https://images.unsplash.com/photo-1522337360801-fa6cf73b7720?auto=format&fit=crop&w=1200&q=85"
+          alt="Dramatisches Editorial-Haarstyling, dunkel"
+          loading="lazy"
+        />
+      </div>
       <div class="edit-caption">
         <span class="edit-caption-label">SS 2025 — Campaign</span>
         <p class="edit-caption-text">Zusammenarbeit mit der Designerin Mia Brandt für ihre Frühjahrskollektion. Strukturierte Hochsteckfrisuren treffen auf rohe Berliner Ästhetik.</p>
       </div>
     </div>
     <div class="edit-item edit-item-2">
-      <div class="edit-img edit-img-2"></div>
+      <div class="edit-img edit-img-2">
+        <img
+          src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=1200&q=85"
+          alt="Nahaufnahme Haar Editorial"
+          loading="lazy"
+        />
+      </div>
       <div class="edit-caption">
         <span class="edit-caption-label">Editorial — Vogue DE</span>
         <p class="edit-caption-text">Glatte Textur trifft auf scharfe Geometrie.</p>
       </div>
     </div>
     <div class="edit-item edit-item-3">
-      <div class="edit-img edit-img-3"></div>
+      <div class="edit-img edit-img-3">
+        <img
+          src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=1200&q=85"
+          alt="Stimmungsvolles Salon-Interieur"
+          loading="lazy"
+        />
+      </div>
       <div class="edit-caption">
         <span class="edit-caption-label">Bridal — Juni 2024</span>
         <p class="edit-caption-text">Romantisches Chaos in aufgesteckter Perfektion.</p>
