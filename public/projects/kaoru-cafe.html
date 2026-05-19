@@ -37,8 +37,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 2.5rem;displa
 .hero{min-height:100dvh;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:0 2.5rem 6rem;}
 .hero-bg{position:absolute;inset:0;background:linear-gradient(160deg,#1A1209 0%,#0E0C0A 60%);z-index:0;}
 .hero-texture{position:absolute;inset:0;background-image:radial-gradient(ellipse 60% 40% at 70% 30%,rgba(61,92,58,.18) 0%,transparent 70%);z-index:1;}
-.hero-kana{position:absolute;top:50%;right:8%;transform:translateY(-50%);font-family:'Shippori Mincho',serif;font-size:clamp(7rem,14vw,16rem);color:rgba(184,115,51,.06);line-height:1;z-index:1;pointer-events:none;writing-mode:vertical-rl;}
-.hero-content{position:relative;z-index:2;max-width:680px;}
+.hero-kana{position:absolute;top:50%;right:8%;transform:translateY(-50%);font-family:'Shippori Mincho',serif;font-size:clamp(7rem,14vw,16rem);color:rgba(184,115,51,.06);line-height:1;z-index:2;pointer-events:none;writing-mode:vertical-rl;}
+.hero-content{position:relative;z-index:3;max-width:680px;}
 .hero-eyebrow{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--copper);margin-bottom:2.5rem;opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
 .hero-eyebrow.vis{opacity:1;transform:translateY(0);}
 .hero-title{font-family:'Shippori Mincho',serif;font-size:clamp(3.5rem,9vw,9rem);line-height:.9;letter-spacing:-.02em;margin-bottom:2rem;}
@@ -53,15 +53,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 2.5rem;displa
 .btn-primary:hover{background:#D4893A;}
 .btn-ghost{font-size:.75rem;letter-spacing:.08em;color:rgba(247,243,236,.5);text-decoration:none;border-bottom:1px solid rgba(247,243,236,.2);padding-bottom:.1rem;transition:color .3s,border-color .3s;}
 .btn-ghost:hover{color:var(--rice);border-color:rgba(247,243,236,.6);}
-.hero-scroll{position:absolute;right:2.5rem;bottom:6rem;z-index:2;writing-mode:vertical-rl;font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(247,243,236,.25);display:flex;align-items:center;gap:.75rem;}
+.hero-scroll{position:absolute;right:2.5rem;bottom:6rem;z-index:3;writing-mode:vertical-rl;font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(247,243,236,.25);display:flex;align-items:center;gap:.75rem;}
 .hero-scroll::after{content:'';display:block;width:1px;height:60px;background:rgba(247,243,236,.15);}
 
 /* PHILOSOPHY */
 .philosophy{padding:8rem 2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;max-width:1400px;margin:0 auto;}
 .philosophy-visual{position:relative;}
-.phil-block-big{width:100%;aspect-ratio:3/4;background:linear-gradient(145deg,var(--matcha) 0%,#2A3D28 100%);position:relative;overflow:hidden;}
-.phil-block-big::before{content:'香';font-family:'Shippori Mincho',serif;position:absolute;bottom:-1rem;right:-1rem;font-size:14rem;color:rgba(255,255,255,.04);line-height:1;}
-.phil-block-small{position:absolute;bottom:-3rem;right:-3rem;width:55%;aspect-ratio:1;background:var(--copper);display:flex;align-items:center;justify-content:center;}
+.phil-block-big{width:100%;aspect-ratio:3/4;position:relative;overflow:hidden;}
+.phil-block-big::before{content:'香';font-family:'Shippori Mincho',serif;position:absolute;bottom:-1rem;right:-1rem;font-size:14rem;color:rgba(255,255,255,.06);line-height:1;z-index:1;pointer-events:none;}
+.phil-block-small{position:absolute;bottom:-3rem;right:-3rem;width:55%;aspect-ratio:1;background:var(--copper);display:flex;align-items:center;justify-content:center;z-index:2;}
 .phil-block-small span{font-family:'Shippori Mincho',serif;font-size:2.5rem;color:var(--ink);}
 .philosophy-text{}
 .section-number{font-size:.65rem;letter-spacing:.2em;color:var(--copper);margin-bottom:1.5rem;display:block;}
@@ -97,12 +97,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 2.5rem;displa
 .origin-card{position:relative;overflow:hidden;cursor:default;}
 .origin-card:nth-child(2){margin-top:4rem;}
 .origin-card:nth-child(3){margin-top:8rem;}
-.origin-img{aspect-ratio:2/3;background:linear-gradient(135deg,#2A3D28 0%,#1A2618 100%);position:relative;overflow:hidden;transition:transform .6s cubic-bezier(.16,1,.3,1);}
-.origin-card:nth-child(1) .origin-img{background:linear-gradient(145deg,#3D2A1A 0%,#1A1007 100%);}
-.origin-card:nth-child(2) .origin-img{background:linear-gradient(145deg,#2A3D28 0%,#0E1A0C 100%);}
-.origin-card:nth-child(3) .origin-img{background:linear-gradient(145deg,#1A1A2A 0%,#0E0C1A 100%);}
+.origin-img{aspect-ratio:2/3;position:relative;overflow:hidden;transition:transform .6s cubic-bezier(.16,1,.3,1);}
 .origin-card:hover .origin-img{transform:scale(1.03);}
-.origin-label{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;background:linear-gradient(to top,rgba(14,12,10,.9) 0%,transparent 60%);}
+.origin-label{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;background:linear-gradient(to top,rgba(14,12,10,.9) 0%,transparent 60%);z-index:1;}
 .origin-country{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--copper);margin-bottom:.5rem;}
 .origin-name{font-family:'Shippori Mincho',serif;font-size:1.5rem;color:var(--rice);}
 .origin-detail{margin-top:1.25rem;}
@@ -120,8 +117,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 2.5rem;displa
 .visit-hours-item{}
 .visit-hours-day{font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--copper);margin-bottom:.4rem;}
 .visit-hours-time{font-size:.85rem;color:rgba(247,243,236,.6);}
-.visit-map{aspect-ratio:4/3;background:linear-gradient(135deg,rgba(61,92,58,.15) 0%,rgba(14,12,10,.8) 100%);border:1px solid rgba(247,243,236,.06);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
-.visit-map::before{content:'Leipzig\AKarli 78';white-space:pre;font-family:'Shippori Mincho',serif;font-size:1.25rem;color:rgba(247,243,236,.2);text-align:center;line-height:1.8;}
+.visit-map{aspect-ratio:4/3;border:1px solid rgba(247,243,236,.06);position:relative;overflow:hidden;}
 
 /* FOOTER */
 footer{padding:3rem 2.5rem;border-top:1px solid rgba(247,243,236,.06);display:flex;justify-content:space-between;align-items:center;}
@@ -176,6 +172,7 @@ footer{padding:3rem 2.5rem;border-top:1px solid rgba(247,243,236,.06);display:fl
 </nav>
 
 <section class="hero" id="top">
+  <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1600&q=80" alt="Coffee pour-over" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.25;z-index:0;">
   <div class="hero-bg"></div>
   <div class="hero-texture"></div>
   <div class="hero-kana">香</div>
@@ -198,7 +195,9 @@ footer{padding:3rem 2.5rem;border-top:1px solid rgba(247,243,236,.06);display:fl
 
 <section class="philosophy">
   <div class="philosophy-visual reveal" id="pv">
-    <div class="phil-block-big"></div>
+    <div class="phil-block-big">
+      <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=85" alt="Moody cafe interior" style="width:100%;height:100%;object-fit:cover;display:block;">
+    </div>
     <div class="phil-block-small"><span>香</span></div>
   </div>
   <div class="philosophy-text">
@@ -311,6 +310,7 @@ footer{padding:3rem 2.5rem;border-top:1px solid rgba(247,243,236,.06);display:fl
     <div class="origins-grid">
       <div class="origin-card reveal">
         <div class="origin-img">
+          <img src="https://images.unsplash.com/photo-1447933601403-0c1d8a46d87b?auto=format&fit=crop&w=1200&q=85" alt="Coffee farm Ethiopia" style="width:100%;height:100%;object-fit:cover;display:block;">
           <div class="origin-label">
             <div class="origin-country">Ethiopia</div>
             <div class="origin-name">Yirgacheffe<br>Konga</div>
@@ -323,6 +323,7 @@ footer{padding:3rem 2.5rem;border-top:1px solid rgba(247,243,236,.06);display:fl
       </div>
       <div class="origin-card reveal d1">
         <div class="origin-img">
+          <img src="https://images.unsplash.com/photo-1511920183353-b8e8fd6b5e8e?auto=format&fit=crop&w=1200&q=85" alt="Coffee farm Colombia" style="width:100%;height:100%;object-fit:cover;display:block;">
           <div class="origin-label">
             <div class="origin-country">Colombia</div>
             <div class="origin-name">Huila<br>El Paraíso</div>
@@ -335,6 +336,7 @@ footer{padding:3rem 2.5rem;border-top:1px solid rgba(247,243,236,.06);display:fl
       </div>
       <div class="origin-card reveal d2">
         <div class="origin-img">
+          <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1200&q=85" alt="Japanese coffee pour" style="width:100%;height:100%;object-fit:cover;display:block;">
           <div class="origin-label">
             <div class="origin-country">Japan</div>
             <div class="origin-name">Kagoshima<br>Kirishima</div>
@@ -371,7 +373,9 @@ footer{padding:3rem 2.5rem;border-top:1px solid rgba(247,243,236,.06);display:fl
         </div>
       </div>
     </div>
-    <div class="visit-map reveal d2"></div>
+    <div class="visit-map reveal d2">
+      <img src="https://images.unsplash.com/photo-1569144157591-c60f3f82f137?auto=format&fit=crop&w=1200&q=85" alt="Leipzig city streets" style="width:100%;height:100%;object-fit:cover;display:block;">
+    </div>
   </div>
 </section>
 
