@@ -249,19 +249,45 @@
     transform: translateY(-2px);
   }
 
-  /* ─── HERO RIGHT: STAT BLOCK ─── */
+  /* ─── HERO RIGHT: PHOTO + STAT BLOCK ─── */
   .hero-right {
-    background: var(--warm);
     height: 100%;
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 5rem 3.5rem 5rem 4rem;
+    justify-content: flex-end;
     position: relative;
     overflow: hidden;
     opacity: 0;
     animation: staggerIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
+  }
+
+  .hero-right-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+
+  .hero-right-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(10,30,60,0.08) 0%,
+      rgba(10,30,60,0.1) 50%,
+      rgba(10,30,60,0.72) 100%
+    );
+    z-index: 1;
+  }
+
+  .hero-right-content {
+    position: relative;
+    z-index: 2;
+    padding: 3rem 3rem 3.5rem 3.5rem;
   }
 
   .hero-right::before {
@@ -271,17 +297,9 @@
     width: 20rem;
     height: 20rem;
     border-radius: 50%;
-    border: 40px solid rgba(0,133,111,0.07);
-  }
-
-  .hero-right::after {
-    content: '';
-    position: absolute;
-    bottom: 3rem; left: -3rem;
-    width: 12rem;
-    height: 12rem;
-    border-radius: 50%;
-    border: 25px solid rgba(0,133,111,0.05);
+    border: 40px solid rgba(0,133,111,0.12);
+    z-index: 2;
+    pointer-events: none;
   }
 
   .stat-badge {
@@ -293,8 +311,8 @@
     border-radius: 100px;
     padding: 0.5rem 1rem 0.5rem 0.6rem;
     width: fit-content;
-    margin-bottom: 2.5rem;
-    box-shadow: 0 2px 12px rgba(10,30,60,0.06);
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 12px rgba(10,30,60,0.12);
   }
 
   .stat-badge-stars {
@@ -316,25 +334,25 @@
   }
 
   .stat-block-main {
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
   }
 
   .stat-number {
     font-family: 'DM Serif Display', serif;
     font-size: clamp(3.5rem, 6vw, 5.5rem);
-    color: var(--navy);
+    color: white;
     line-height: 1;
     margin-bottom: 0.4rem;
   }
 
   .stat-number span {
-    color: var(--teal);
+    color: #4DD9C0;
   }
 
   .stat-label {
     font-size: 0.88rem;
     font-weight: 300;
-    color: var(--text-muted);
+    color: rgba(255,255,255,0.75);
     letter-spacing: 0.02em;
   }
 
@@ -354,31 +372,70 @@
     display: flex;
     justify-content: space-between;
     font-size: 0.78rem;
-    color: var(--text-muted);
+    color: rgba(255,255,255,0.65);
     font-weight: 400;
   }
 
   .stat-bar-label strong {
     font-weight: 500;
-    color: var(--navy);
+    color: white;
   }
 
   .stat-bar-track {
     height: 4px;
-    background: var(--border);
+    background: rgba(255,255,255,0.2);
     border-radius: 100px;
     overflow: hidden;
   }
 
   .stat-bar-fill {
     height: 100%;
-    background: var(--teal);
+    background: #4DD9C0;
     border-radius: 100px;
     width: 0%;
     transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .stat-bar-fill.animated { }
+  /* ─── CLINIC PHOTO STRIP ─── */
+  .clinic-strip {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    height: 360px;
+    overflow: hidden;
+  }
+
+  .clinic-strip-photo {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .clinic-strip-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .clinic-strip-photo:hover img {
+    transform: scale(1.04);
+  }
+
+  .clinic-strip-label {
+    position: absolute;
+    bottom: 1.2rem;
+    left: 1.2rem;
+    background: rgba(10,30,60,0.75);
+    backdrop-filter: blur(6px);
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
+  }
 
   /* ─── SECTION SHARED ─── */
   .section-label {
@@ -424,17 +481,15 @@
   }
 
   .service-featured {
-    background: var(--warm);
     border-radius: 16px;
-    padding: 3rem;
-    border-left: 4px solid var(--teal);
-    position: relative;
     overflow: hidden;
+    position: relative;
     opacity: 0;
     transform: translateY(32px);
     transition:
       opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
       transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    min-height: 480px;
   }
 
   .service-featured.visible {
@@ -442,20 +497,41 @@
     transform: translateY(0);
   }
 
-  .service-featured::after {
-    content: '';
+  .service-featured-photo {
     position: absolute;
-    top: -2rem; right: -2rem;
-    width: 10rem;
-    height: 10rem;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,133,111,0.08) 0%, transparent 70%);
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .service-featured-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0,133,111,0.08) 0%,
+      rgba(10,30,60,0.65) 100%
+    );
+    z-index: 1;
+  }
+
+  .service-featured-content {
+    position: relative;
+    z-index: 2;
+    padding: 3rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 480px;
   }
 
   .featured-stat {
     font-family: 'DM Serif Display', serif;
     font-size: clamp(3rem, 5vw, 4.5rem);
-    color: var(--teal);
+    color: #4DD9C0;
     line-height: 1;
     margin-bottom: 0.3rem;
   }
@@ -463,7 +539,7 @@
   .featured-stat-label {
     font-size: 0.82rem;
     font-weight: 500;
-    color: var(--text-muted);
+    color: rgba(255,255,255,0.65);
     letter-spacing: 0.05em;
     margin-bottom: 1.8rem;
   }
@@ -471,7 +547,7 @@
   .featured-title {
     font-family: 'DM Serif Display', serif;
     font-size: 1.6rem;
-    color: var(--navy);
+    color: white;
     margin-bottom: 0.75rem;
     line-height: 1.25;
   }
@@ -479,7 +555,7 @@
   .featured-desc {
     font-size: 0.92rem;
     font-weight: 300;
-    color: var(--text-body);
+    color: rgba(255,255,255,0.8);
     line-height: 1.7;
     margin-bottom: 1.8rem;
     max-width: 38ch;
@@ -491,7 +567,7 @@
     gap: 0.4rem;
     font-size: 0.88rem;
     font-weight: 500;
-    color: var(--teal);
+    color: #4DD9C0;
     text-decoration: none;
     border-bottom: 1px solid transparent;
     padding-bottom: 0.1em;
@@ -499,7 +575,7 @@
   }
 
   .featured-link:hover {
-    border-color: var(--teal);
+    border-color: #4DD9C0;
     gap: 0.7rem;
   }
 
@@ -570,10 +646,129 @@
     line-height: 1.6;
   }
 
+  /* ─── ABOUT / PHOTO ROW ─── */
+  .about {
+    padding: 7rem 3rem;
+    background: var(--warm);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .about-photo-wrap {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateX(-30px);
+    transition:
+      opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .about-photo-wrap.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .about-photo-wrap img {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .about-photo-badge {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    background: white;
+    border-radius: 12px;
+    padding: 1.2rem 1.5rem;
+    box-shadow: 0 8px 32px rgba(10,30,60,0.14);
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .about-photo-badge-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--teal);
+    line-height: 1;
+  }
+
+  .about-photo-badge-label {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    max-width: 12ch;
+    line-height: 1.4;
+  }
+
+  .about-text {
+    opacity: 0;
+    transform: translateX(24px);
+    transition:
+      opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
+      transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+  }
+
+  .about-text.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .about-text .section-title {
+    margin-bottom: 1.2rem;
+  }
+
+  .about-body {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--text-body);
+    line-height: 1.75;
+    margin-bottom: 2rem;
+  }
+
+  .about-pillars {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .about-pillar {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+
+  .about-pillar-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--teal);
+    flex-shrink: 0;
+    margin-top: 0.35em;
+  }
+
+  .about-pillar-text {
+    font-size: 0.88rem;
+    font-weight: 400;
+    color: var(--text-body);
+    line-height: 1.5;
+  }
+
+  .about-pillar-text strong {
+    color: var(--navy);
+    font-weight: 500;
+  }
+
   /* ─── TEAM ─── */
   .team {
     padding: 7rem 3rem;
-    background: var(--warm);
+    background: var(--white);
   }
 
   .team-header {
@@ -590,7 +785,7 @@
     background: var(--white);
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 2rem 1.6rem 1.6rem;
+    overflow: hidden;
     opacity: 0;
     transform: translateY(28px);
     transition:
@@ -605,7 +800,6 @@
   }
 
   .team-card:hover {
-    transform: translateY(-4px);
     border-color: var(--teal);
   }
 
@@ -613,19 +807,40 @@
     transform: translateY(-4px);
   }
 
-  .team-avatar {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    margin-bottom: 1.2rem;
+  .team-photo {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
     background: var(--warm);
+  }
+
+  .team-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .team-card:hover .team-photo img {
+    transform: scale(1.04);
+  }
+
+  .team-photo-initials {
+    position: absolute;
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'DM Serif Display', serif;
-    font-size: 1.3rem;
+    font-size: 2.5rem;
     color: var(--teal);
-    border: 2px solid var(--border);
+    background: var(--warm);
+  }
+
+  .team-body {
+    padding: 1.4rem 1.5rem 1.6rem;
   }
 
   .team-name {
@@ -664,7 +879,6 @@
     font-size: 8rem;
     line-height: 0.7;
     color: var(--teal);
-    opacity: 0.25;
     display: block;
     margin-bottom: 1.5rem;
     opacity: 0;
@@ -738,9 +952,36 @@
 
   /* ─── CTA BAND ─── */
   .cta-band {
-    background: var(--navy);
-    padding: 6rem 3rem;
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cta-band-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .cta-band-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(10,30,60,0.88) 0%, rgba(0,107,89,0.82) 100%);
+    z-index: 1;
+  }
+
+  .cta-band-inner {
+    position: relative;
+    z-index: 2;
     text-align: center;
+    padding: 6rem 3rem;
   }
 
   .cta-band-eyebrow {
@@ -748,7 +989,7 @@
     font-weight: 500;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.45);
+    color: rgba(255,255,255,0.55);
     margin-bottom: 1rem;
   }
 
@@ -763,7 +1004,7 @@
   .cta-band-sub {
     font-size: 1rem;
     font-weight: 300;
-    color: rgba(255,255,255,0.6);
+    color: rgba(255,255,255,0.7);
     margin-bottom: 2.5rem;
     max-width: 42ch;
     margin-left: auto;
@@ -934,15 +1175,27 @@
 
     .hero-right {
       min-height: 360px;
-      padding: 3rem 2rem;
       margin: 0 -1.5rem;
     }
+
+    .clinic-strip { height: 240px; }
+
+    .about {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      padding: 5rem 1.5rem;
+    }
+
+    .about-photo-wrap img { height: 320px; }
 
     .services { padding: 5rem 1.5rem; }
 
     .services-grid {
       grid-template-columns: 1fr;
     }
+
+    .service-featured { min-height: 380px; }
+    .service-featured-content { min-height: 380px; }
 
     .team { padding: 5rem 1.5rem; }
 
@@ -952,7 +1205,7 @@
 
     .testimonial { padding: 5rem 1.5rem; }
 
-    .cta-band { padding: 5rem 1.5rem; }
+    .cta-band-inner { padding: 5rem 1.5rem; }
 
     footer { padding: 3rem 1.5rem 2rem; }
 
@@ -971,6 +1224,8 @@
   @media (max-width: 480px) {
     .team-grid { grid-template-columns: 1fr; }
     .hero-actions { flex-direction: column; align-items: flex-start; }
+    .clinic-strip { grid-template-columns: 1fr; height: auto; }
+    .clinic-strip-photo { height: 200px; }
   }
 </style>
 </head>
@@ -1012,53 +1267,82 @@
   </div>
 
   <div class="hero-right">
-    <div class="stat-badge">
-      <div class="stat-badge-stars">
-        <div class="stat-badge-star"></div>
-        <div class="stat-badge-star"></div>
-        <div class="stat-badge-star"></div>
-        <div class="stat-badge-star"></div>
-        <div class="stat-badge-star"></div>
+    <img
+      class="hero-right-photo"
+      src="https://images.unsplash.com/photo-1629909613559-1c8d678b3a5c?auto=format&fit=crop&w=1200&q=85"
+      alt="Modern dental clinic interior"
+      loading="eager"
+    />
+    <div class="hero-right-overlay"></div>
+    <div class="hero-right-content">
+      <div class="stat-badge">
+        <div class="stat-badge-stars">
+          <div class="stat-badge-star"></div>
+          <div class="stat-badge-star"></div>
+          <div class="stat-badge-star"></div>
+          <div class="stat-badge-star"></div>
+          <div class="stat-badge-star"></div>
+        </div>
+        <span class="stat-badge-text">4.9 / 5.0 — 340 reviews</span>
       </div>
-      <span class="stat-badge-text">4.9 / 5.0 — 340 reviews</span>
-    </div>
 
-    <div class="stat-block-main">
-      <div class="stat-number">12<span>k+</span></div>
-      <div class="stat-label">Patients treated since 2011</div>
-    </div>
+      <div class="stat-block-main">
+        <div class="stat-number">12<span>k+</span></div>
+        <div class="stat-label">Patients treated since 2011</div>
+      </div>
 
-    <div class="stat-bars">
-      <div class="stat-bar-row">
-        <div class="stat-bar-label">
-          <span>Patient Satisfaction</span>
-          <strong>98%</strong>
+      <div class="stat-bars">
+        <div class="stat-bar-row">
+          <div class="stat-bar-label">
+            <span>Patient Satisfaction</span>
+            <strong>98%</strong>
+          </div>
+          <div class="stat-bar-track">
+            <div class="stat-bar-fill" data-width="98"></div>
+          </div>
         </div>
-        <div class="stat-bar-track">
-          <div class="stat-bar-fill" data-width="98"></div>
+        <div class="stat-bar-row">
+          <div class="stat-bar-label">
+            <span>Would Recommend Us</span>
+            <strong>96%</strong>
+          </div>
+          <div class="stat-bar-track">
+            <div class="stat-bar-fill" data-width="96"></div>
+          </div>
         </div>
-      </div>
-      <div class="stat-bar-row">
-        <div class="stat-bar-label">
-          <span>Would Recommend Us</span>
-          <strong>96%</strong>
-        </div>
-        <div class="stat-bar-track">
-          <div class="stat-bar-fill" data-width="96"></div>
-        </div>
-      </div>
-      <div class="stat-bar-row">
-        <div class="stat-bar-label">
-          <span>Same-Day Appointments</span>
-          <strong>87%</strong>
-        </div>
-        <div class="stat-bar-track">
-          <div class="stat-bar-fill" data-width="87"></div>
+        <div class="stat-bar-row">
+          <div class="stat-bar-label">
+            <span>Same-Day Appointments</span>
+            <strong>87%</strong>
+          </div>
+          <div class="stat-bar-track">
+            <div class="stat-bar-fill" data-width="87"></div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- CLINIC PHOTO STRIP -->
+<div class="clinic-strip">
+  <div class="clinic-strip-photo">
+    <img
+      src="https://images.unsplash.com/photo-1606811841689-23dfddce3e66?auto=format&fit=crop&w=900&q=85"
+      alt="Modern dental treatment room"
+      loading="lazy"
+    />
+    <span class="clinic-strip-label">Treatment Rooms</span>
+  </div>
+  <div class="clinic-strip-photo">
+    <img
+      src="https://images.unsplash.com/photo-1559757148-28ab2d8a5e77?auto=format&fit=crop&w=900&q=85"
+      alt="Clean clinical interior"
+      loading="lazy"
+    />
+    <span class="clinic-strip-label">Our Clinic</span>
+  </div>
+</div>
 
 <!-- SERVICES -->
 <section class="services" id="services">
@@ -1070,13 +1354,22 @@
 
   <div class="services-grid">
     <div class="service-featured">
-      <div class="featured-stat">98%</div>
-      <div class="featured-stat-label">Patient Satisfaction Rate</div>
-      <h3 class="featured-title">Cosmetic & Smile Design</h3>
-      <p class="featured-desc">
-        Our signature approach to cosmetic dentistry combines digital smile previews, porcelain veneers, and professional whitening for results that feel entirely natural — and uniquely yours.
-      </p>
-      <a href="#" class="featured-link">Learn more →</a>
+      <img
+        class="service-featured-photo"
+        src="https://images.unsplash.com/photo-1629909613559-1c8d678b3a5c?auto=format&fit=crop&w=1200&q=85"
+        alt="Dental clinic treatment room"
+        loading="lazy"
+      />
+      <div class="service-featured-overlay"></div>
+      <div class="service-featured-content">
+        <div class="featured-stat">98%</div>
+        <div class="featured-stat-label">Patient Satisfaction Rate</div>
+        <h3 class="featured-title">Cosmetic & Smile Design</h3>
+        <p class="featured-desc">
+          Our signature approach to cosmetic dentistry combines digital smile previews, porcelain veneers, and professional whitening for results that feel entirely natural — and uniquely yours.
+        </p>
+        <a href="#" class="featured-link">Learn more →</a>
+      </div>
     </div>
 
     <div class="services-stack">
@@ -1105,6 +1398,42 @@
   </div>
 </section>
 
+<!-- ABOUT / PHOTO ROW -->
+<section class="about" id="about">
+  <div class="about-photo-wrap">
+    <img
+      src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=1000&q=85"
+      alt="Professional medical team"
+      loading="lazy"
+    />
+    <div class="about-photo-badge">
+      <div class="about-photo-badge-num">15+</div>
+      <div class="about-photo-badge-label">Years of combined expertise</div>
+    </div>
+  </div>
+  <div class="about-text">
+    <div class="section-label">Why Choose Helios</div>
+    <h2 class="section-title">Care built around<br/>you, not a schedule.</h2>
+    <p class="about-body">
+      At Helios Dental, we believe that exceptional dental care starts with genuine listening. Our team takes the time to understand your concerns, your goals, and your comfort level — then builds a treatment plan that fits your life.
+    </p>
+    <div class="about-pillars">
+      <div class="about-pillar">
+        <div class="about-pillar-dot"></div>
+        <p class="about-pillar-text"><strong>Digital precision:</strong> 3D imaging and CAD/CAM technology for restorations that fit perfectly first time.</p>
+      </div>
+      <div class="about-pillar">
+        <div class="about-pillar-dot"></div>
+        <p class="about-pillar-text"><strong>Anxiety-free environment:</strong> Conscious sedation options and a genuinely calming team.</p>
+      </div>
+      <div class="about-pillar">
+        <div class="about-pillar-dot"></div>
+        <p class="about-pillar-text"><strong>Transparent pricing:</strong> No surprises. Itemised estimates before any treatment begins.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- TEAM -->
 <section class="team" id="team">
   <div class="team-header">
@@ -1114,28 +1443,60 @@
 
   <div class="team-grid">
     <div class="team-card">
-      <div class="team-avatar">ES</div>
-      <div class="team-name">Dr. Elena Sommer</div>
-      <div class="team-role">Principal Dentist</div>
-      <p class="team-bio">15 years restoring confidence one smile at a time. Trained at Charité Berlin and NYU College of Dentistry.</p>
+      <div class="team-photo">
+        <img
+          src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=85"
+          alt="Dr. Elena Sommer — Principal Dentist"
+          loading="lazy"
+        />
+      </div>
+      <div class="team-body">
+        <div class="team-name">Dr. Elena Sommer</div>
+        <div class="team-role">Principal Dentist</div>
+        <p class="team-bio">15 years restoring confidence one smile at a time. Trained at Charité Berlin and NYU College of Dentistry.</p>
+      </div>
     </div>
     <div class="team-card">
-      <div class="team-avatar">MK</div>
-      <div class="team-name">Dr. Marcus Klein</div>
-      <div class="team-role">Oral Surgeon</div>
-      <p class="team-bio">Specialist in implantology and complex extractions. Known for his calm, reassuring chair-side manner.</p>
+      <div class="team-photo">
+        <img
+          src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=600&q=85"
+          alt="Dr. Marcus Klein — Oral Surgeon"
+          loading="lazy"
+        />
+      </div>
+      <div class="team-body">
+        <div class="team-name">Dr. Marcus Klein</div>
+        <div class="team-role">Oral Surgeon</div>
+        <p class="team-bio">Specialist in implantology and complex extractions. Known for his calm, reassuring chair-side manner.</p>
+      </div>
     </div>
     <div class="team-card">
-      <div class="team-avatar">PO</div>
-      <div class="team-name">Dr. Priya Ohri</div>
-      <div class="team-role">Orthodontist</div>
-      <p class="team-bio">Certified Invisalign provider with a talent for transforming smiles while keeping treatment barely visible.</p>
+      <div class="team-photo">
+        <img
+          src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=85"
+          alt="Dr. Priya Ohri — Orthodontist"
+          loading="lazy"
+        />
+      </div>
+      <div class="team-body">
+        <div class="team-name">Dr. Priya Ohri</div>
+        <div class="team-role">Orthodontist</div>
+        <p class="team-bio">Certified Invisalign provider with a talent for transforming smiles while keeping treatment barely visible.</p>
+      </div>
     </div>
     <div class="team-card">
-      <div class="team-avatar">LB</div>
-      <div class="team-name">Lena Brandt</div>
-      <div class="team-role">Head Hygienist</div>
-      <p class="team-bio">Your first line of defence against gum disease. Gentle, thorough, and genuinely passionate about prevention.</p>
+      <div class="team-photo">
+        <img
+          src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=600&q=85"
+          alt="Lena Brandt — Head Hygienist"
+          loading="lazy"
+        />
+      </div>
+      <div class="team-body">
+        <div class="team-name">Lena Brandt</div>
+        <div class="team-role">Head Hygienist</div>
+        <p class="team-bio">Your first line of defence against gum disease. Gentle, thorough, and genuinely passionate about prevention.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1155,10 +1516,19 @@
 
 <!-- CTA BAND -->
 <section class="cta-band" id="booking">
-  <div class="cta-band-eyebrow">Take the first step</div>
-  <h2 class="cta-band-title">Ready for your first visit?</h2>
-  <p class="cta-band-sub">New patient appointments available within 48 hours. We'll handle the paperwork — you just bring your smile.</p>
-  <a href="#" class="btn-teal">Book Your Consultation →</a>
+  <img
+    class="cta-band-photo"
+    src="https://images.unsplash.com/photo-1559757148-28ab2d8a5e77?auto=format&fit=crop&w=1600&q=85"
+    alt="Clean medical interior"
+    loading="lazy"
+  />
+  <div class="cta-band-overlay"></div>
+  <div class="cta-band-inner">
+    <div class="cta-band-eyebrow">Take the first step</div>
+    <h2 class="cta-band-title">Ready for your first visit?</h2>
+    <p class="cta-band-sub">New patient appointments available within 48 hours. We'll handle the paperwork — you just bring your smile.</p>
+    <a href="#" class="btn-teal">Book Your Consultation →</a>
+  </div>
 </section>
 
 <!-- FOOTER -->
@@ -1245,6 +1615,22 @@
 
   const servicesSection = document.querySelector('.services');
   if (servicesSection) servicesObserver.observe(servicesSection);
+
+  // ─── IntersectionObserver: about section
+  const aboutObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const photo = document.querySelector('.about-photo-wrap');
+        const text = document.querySelector('.about-text');
+        if (photo) photo.classList.add('visible');
+        setTimeout(() => { if (text) text.classList.add('visible'); }, 150);
+        aboutObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.15 });
+
+  const aboutSection = document.querySelector('.about');
+  if (aboutSection) aboutObserver.observe(aboutSection);
 
   // ─── IntersectionObserver: team cards stagger
   const teamObserver = new IntersectionObserver((entries) => {
